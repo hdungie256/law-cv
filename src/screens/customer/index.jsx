@@ -36,7 +36,7 @@ const CustomerScreen= () =>{
   const handleCreateCustomer = (id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => {
   
         if (fullNameError === ""  && addressError === "" && emailError === ""  && phoneNumberError === ""){
-           axios.post('http://localhost:3001/api/v1/create-customer', {
+           axios.post('http://process.env.REACT_APP_API_URL/api/v1/create-customer', {
             name: fullName,
             address: address,
             email: email,
@@ -64,7 +64,7 @@ const CustomerScreen= () =>{
 
   const [values, setValues] = useState({})
   const getCustomer = async (id) => {
-    const response = await axios.get('http://localhost:3001/api/v1/customers/' + id)
+    const response = await axios.get('http://process.env.REACT_APP_API_URL/api/v1/customers/' + id)
       const data = (response.data.data);
       setValues({
         id: data['_id'],
@@ -76,7 +76,7 @@ const CustomerScreen= () =>{
   }
 
   const handleUpdateCustomer = async (id, name, email, address, phoneNumber) => {
-    const response = await axios.put('http://localhost:3001/api/v1/customers/' + id,{
+    const response = await axios.put('http://process.env.REACT_APP_API_URL/api/v1/customers/' + id,{
       name: name,
       email: email,
       address: address,
@@ -104,7 +104,7 @@ const CustomerScreen= () =>{
   }
 
   const handleDeleteCustomer = async (id) => {
-    const response = await axios.delete('http://localhost:3001/api/v1/customers/' + id)
+    const response = await axios.delete('http://process.env.REACT_APP_API_URL/api/v1/customers/' + id)
       const message = (response.data.message);
       const statusText = (response.data.statusText)
 
