@@ -1,0 +1,159 @@
+@import 'src/assets/scss/colors';
+
+.dialog-box{
+    position: relative;
+}
+
+#nhanhieu-fullname{
+    width: 90%;
+    position: absolute;
+    top: 20%;
+    left:50%;
+    height: 10%;
+    transform: translateX(-50%);
+}
+
+#nhanhieu-nhanhieu{
+    width: 90%;
+    position: absolute;
+    top: 33%;
+    left:50%;
+    height: 10%;
+    transform: translateX(-50%);
+}
+
+#nhanhieu-group{
+    width: 90%;
+    position: absolute;
+    top: 42%;
+    left:5%;
+    height: 10%;
+    width: 20%;
+
+    #nhanhieu-group-label-wrapper1{
+        margin-bottom: 5px;
+
+        #nhanhieu-group-label1{
+            color: $vintageblue;
+            font-size: 15px;
+        }
+    }
+}
+
+#nhanhieu-date{
+    width: 65%;
+    position: absolute;
+    top: 42%;
+    left:60%;
+    height: 10%;
+    transform: translateX(-50%);
+}
+
+#nhanhieu-button-save{
+    height: 50px;
+    width: 12%;
+    position: absolute;
+    bottom: 3%;
+    left: 52%
+}
+
+#nhanhieu-button-cancel{
+    height: 50px;
+    width: 12%;
+    position: absolute;
+    bottom: 3%;
+    right: 52%
+}
+
+// #nhanhieu-date{
+//     width: 66%;
+//     position: absolute;
+//     top: 51.7%;
+//     left: 62%
+    
+// }
+
+#nhanhieu-number{
+    width: 100%;
+    position: absolute;
+    top: 57%;
+    left: 5%;
+    height: 60px;
+
+    #slash-1{
+        position: absolute;
+        top: 50%;
+        left: 22%
+    }
+
+    #slash-2{
+        position: absolute;
+        top: 50%;
+        left: 57%
+    }
+
+    #nhanhieu-number-label{
+        color: $vintageblue;
+        font-size: 15px;
+    }
+
+    #nhanhieu-number-group{
+        width: 20%;
+        position: absolute;
+        margin-top: 5px;
+
+        #nhanhieu-group-label-wrapper{
+            margin-bottom: 5px;
+
+            #nhanhieu-group-label{
+                color: $vintageblue;
+                font-size: 15px;
+            }
+        }
+    }
+
+    #nhanhieu-number-year{
+        width: 30%;
+        position: absolute;
+        left: 25%;
+        margin-top: 5px;
+
+        #nhanhieu-year-label-wrapper{
+            margin-bottom: 5px;
+
+            #nhanhieu-year-label{
+                color: $vintageblue;
+                font-size: 15px;
+            }
+        }
+    }
+
+    #nhanhieu-number-id{
+        width: 30%;
+        position: absolute;
+        right: 10%;
+        margin-top: 5px;
+
+        #nhanhieu-id-label-wrapper{
+            margin-bottom: 5px;
+
+            #nhanhieu-id-label{
+                color: $vintageblue;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+#nhanhieu-so-gcn{
+    width: 100%;
+    position: absolute;
+    top: 73%;
+}
+
+#nhanhieu-gcn-date{
+    width: 40%;
+    position: absolute;
+    top: 73%;
+    left: 55%
+}

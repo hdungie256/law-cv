@@ -1,0 +1,38 @@
+@import 'src/assets/scss/colors';
+
+#customer-screen{
+    height: 100%;
+    width: 84vw;
+    top: 0%;
+    left: 16vw;
+    position: absolute;
+
+    .title{
+        top: 30px;
+        position: absolute;
+        left: 0%;
+        transform: translateX(10%);
+        color: $vintageblue
+    }
+}
+
+.button-add-new{
+    position: absolute;
+    top: 20px;
+    right: 5%;
+    width: 200px;
+    // height: 20px;
+}
+
+#dialog-box{
+    width: 80vw;
+    height: 80vh;
+    position: relative;
+}
+
+#customer-table-wrapper{
+    position: absolute;
+    top: 90px;
+    width: 93%;
+    left: 2%;
+}

@@ -1,0 +1,21 @@
+@import 'src/assets/scss/colors';
+@import 'src/assets/scss/fonts';
+
+#top-nav-wrapper{
+    background-color: $pastelblue;
+    width: 87vw;
+    height: 9%;
+    position: absolute;
+    top: 0%;
+    left: 13vw;
+
+    #search-bar-wrapper{
+        position: absolute;
+        top: 50%;
+        left: 40%;
+        transform: translate(-50%, -50%);
+        width: 40%;
+        height: 50%;
+        border: none;
+    }
+}

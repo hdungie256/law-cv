@@ -1,0 +1,45 @@
+@import 'src/assets/scss/colors';
+@import 'src/assets/scss/fonts';
+
+.btn-nav-wrapper{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .nav-icon{
+        color: $vintageblue;
+        position: absolute;
+        left: 17%;
+    }
+
+    .button-nav{
+        background-color: transparent;
+        border: none;
+        color: #6c7a99;
+        padding-bottom: 15px;
+        padding-top: 15px;
+        padding-left: 50px;
+        text-align: left;
+        text-decoration: none;
+        font-size: 15px;
+        border-radius: 5px;
+        margin: 0 auto;
+        width: 80%;
+        height: 6%;
+    }
+    
+    .button-nav:hover{
+        cursor: pointer;
+    }
+
+    .button-nav.clicked{
+        background-color: $brightblue;
+        color: white;
+        box-shadow: 0 4px 8px rgba(63, 136, 255, 0.5);
+
+        + .nav-icon {
+            color: white;
+        }
+    }
+}

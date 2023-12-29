@@ -1,0 +1,17 @@
+@import 'src/assets/scss/colors';
+@import 'src/assets/scss/fonts';
+
+.card {
+    height: 400px;
+    width: 30vw;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap:20px;
+  }

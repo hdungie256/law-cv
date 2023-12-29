@@ -1,0 +1,21 @@
+@import 'src/assets/scss/colors';
+
+#confirmation-dialog{
+    position: relative;
+}
+
+#confirmation-button-confirm{
+    height: 40px;
+    width: 20%;
+    position: absolute;
+    bottom: 10%;
+    left: 50%
+}
+
+#confirmation-button-cancel{
+    height: 40px;
+    width: 12%;
+    position: absolute;
+    bottom: 10%;
+    right: 54%
+}

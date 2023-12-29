@@ -1,0 +1,98 @@
+@import 'src/assets/scss/colors';
+@import 'src/assets/scss/fonts';
+
+.text-input {
+    position: relative;
+    height: 10px;
+
+    label {
+        color: $vintageblue;
+        font-size: 15px;
+        position: absolute;
+        left: 0%;
+        transform: translateX(-10%);
+        top: 0%;
+        transform: translateY(-40px);
+    }
+
+    .input-wrapper {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .front-icon {
+        color: $lightblue;
+        font-size: 16px;
+        position: absolute;
+        left: 4%;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-top: 6px
+    }    
+
+    .back-icon {
+        color: $lightblue;
+        font-size: 16px;
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-top: 3px;
+    }
+
+    .back-icon:hover{
+        cursor: pointer;
+    }
+
+    input {
+        box-sizing: border-box;
+        color: $black;
+        opacity: 1;
+        font-size: 15px;
+        line-height: 1.5;
+        display: block;
+        background: $white;
+        height: 44px;
+        border-radius: 5px;
+        border: 1px solid $grey;
+        width: 100%;
+        margin:auto;
+        margin-top: 12px;
+        position: absolute;
+        height: 50px;
+    }
+
+    // input:hover{
+    //     border: 2px solid $black;
+    // }
+
+    input:focus{
+        outline: none;
+        border: 1px solid $lightblue;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .error-message{
+        color: red;
+        margin: auto;
+        width: 80%;
+        display: block;
+        font-size: 13px;
+        position: absolute;
+        left: 0%;
+        top: 100%;
+        transform: translateY(30px);
+    }
+
+    input.error{
+        border: 1px solid red;
+    }
+    button.back-icon{
+        background-color: transparent;
+        border: 0px;
+    }
+}

@@ -1,0 +1,35 @@
+@import 'src/assets/scss/colors';
+@import 'src/assets/scss/fonts';
+
+#button-create-wrapper{
+    position: relative;
+}
+
+.button-create{
+    background-color: $purpleblue;
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: right;
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 4px 8px rgb(0,0,0,0.2);
+}
+
+.button-create:hover{
+    // background-color: $grey;
+    cursor: pointer
+}
+
+.button-create-icon{
+    color: white;
+    position: absolute;
+    left: 13%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 13px;
+}

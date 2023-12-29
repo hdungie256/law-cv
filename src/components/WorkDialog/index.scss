@@ -1,0 +1,26 @@
+@import 'src/assets/scss/colors';
+
+#work-dialog-box{
+    position: relative;
+}
+
+#create-dialog-owner{
+    position: absolute;
+    width: 60%;
+    top: 30%;
+}
+
+#create-dialog-type{
+    position: absolute;
+    width: 25%;
+    right: 5%;
+    top: 30%;
+}
+
+#create-dialog-button-next{
+    height: 40px;
+    width: 12%;
+    position: absolute;
+    bottom: 5%;
+    right: 7%
+}

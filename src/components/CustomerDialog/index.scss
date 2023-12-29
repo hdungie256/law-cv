@@ -1,0 +1,57 @@
+@import 'src/assets/scss/colors';
+
+.dialog-box{
+    position: relative;
+}
+
+.customer-fullname{
+    width: 90%;
+    position: absolute;
+    top: 120px;
+    left:50%;
+    height: 10%;
+    transform: translateX(-50%);
+}
+
+.customer-address{
+    width: 90%;
+    position: absolute;
+    top: 220px;
+    left:50%;
+    height: 10%;
+    transform: translateX(-50%);
+}
+
+.customer-email{
+    width: 90%;
+    position: absolute;
+    top: 320px;
+    left:50%;
+    height: 10%;
+    transform: translateX(-50%);
+}
+
+.customer-phonenumber{
+    width: 90%;
+    position: absolute;
+    top: 420px;
+    left:50%;
+    height: 10%;
+    transform: translateX(-50%);
+}
+
+.customer-button-save{
+    height: 40px;
+    width: 12%;
+    position: absolute;
+    top: 470px;
+    left: 52%;
+}
+
+.customer-button-cancel{
+    height: 40px;
+    width: 12%;
+    position: absolute;
+    top: 470px;
+    right: 52%;
+}

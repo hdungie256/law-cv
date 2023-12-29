@@ -1,0 +1,17 @@
+@import 'src/assets/scss/colors';
+
+#dashboard-screen{
+    height: 100%;
+    width: 84vw;
+    top: 0%;
+    left: 16vw;
+    position: absolute;
+    
+        .title{
+            color: $vintageblue;
+            position: absolute;
+            top: 30px;
+            left: 0%;
+            transform: translateX(20%);
+        }
+}

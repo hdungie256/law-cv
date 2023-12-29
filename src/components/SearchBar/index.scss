@@ -1,0 +1,24 @@
+@import 'src/assets/scss/colors';
+@import 'src/assets/scss/fonts';
+
+.search-wrapper{
+    position: relative;
+}
+
+input{
+    width: 100%;
+    height: 100%;
+    border: 2px solid $navy;
+    border-radius: 20px;
+    color: $navy;
+    font-size: 14px;
+    padding: 10px 50px;
+    background-color: transparent;
+}
+
+.front-icon{
+    position: absolute;
+    top: 30%;
+    left: 3%;
+    color: navy;
+}
