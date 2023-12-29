@@ -2,7 +2,7 @@ import './App.css';
 import MainScreen from './screens/main';
 import LogInScreen from './screens/login'
 import {
-  BrowserRouter,
+  HashRouter,
   Routes,
   Route,
 } from "react-router-dom";
@@ -10,7 +10,7 @@ import {
 function App() {
   return (
     <>
-    <BrowserRouter>
+    <HashRouter>
         <Routes>
             <Route
                 exact
@@ -19,11 +19,16 @@ function App() {
             />
             <Route
                 exact
+                path="/login"
+                element={<LogInScreen />}
+            />
+            <Route
+                exact
                 path="/main"
                 element={<MainScreen />}
             />
         </Routes>
-    </BrowserRouter>
+    </HashRouter>
 </>
   );
 }

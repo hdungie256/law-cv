@@ -53,7 +53,7 @@ function LogInScreen() {
       handlePasswordError(password)
 
       if (username !== "" && password !== ""){
-         axios.post('http://localhost:3001/api/v1/login', {
+         axios.post('http://law-svc.onrender.com/api/v1/login', {
           username: username,
           password: password
         })
