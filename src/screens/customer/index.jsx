@@ -122,8 +122,10 @@ const CustomerScreen= () =>{
   }
 
   const customerId = useRef(null)
-  const setCustomerId = (id) => {
+  const customerName = useRef(null)
+  const setCustomerInfo = (id, name) => {
     customerId.current = id
+    customerName.current = name
   }
 
     return(
@@ -158,6 +160,9 @@ const CustomerScreen= () =>{
               isShowing={isShowingConfirm}
               hide={toggleConfirm}
               handleConfirm={() => handleDeleteCustomer(customerId.current)}
+              height={'40px'}
+              type={'khách hàng'}
+              name={customerName.current}
                />
 
             <div id='customer-table-wrapper'>
@@ -165,7 +170,7 @@ const CustomerScreen= () =>{
                 columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại']}
                 rows = {customerList}
                 handleEditButton={ (id) => {getCustomer(id);toggleEdit(id)}}
-                handleDeleteButton={(id) => {toggleConfirm();setCustomerId(id)}}
+                handleDeleteButton={(id, name) => {toggleConfirm();setCustomerInfo(id, name)}}
                 />
               </div>
             <ToastContainer></ToastContainer>

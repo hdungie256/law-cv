@@ -8,10 +8,10 @@ const ConfirmDialog = (props) => {
       <DialogBox id='dialog-confirmation' 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
-
-      height='12%'
+      overFlowY={'hidden'}
+      height={props.height}
       >
-        <p> Xác nhận xoá khách hàng <b> heh </b></p>
+        <p> Xác nhận xoá {props.type} <b> {props.name} </b></p>
         <div id='confirmation-button-confirm'>
           <ButtonSubmit text='Xác nhận' onClick={props.handleConfirm}/>
         </div>
