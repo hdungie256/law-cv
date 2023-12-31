@@ -3,11 +3,12 @@ import ButtonCreate from '../../components/ButtonCreate'
 import Title from '../../components/Title'
 // import Table from '../../components/Table'
 import { useState, useRef, useEffect } from 'react'
-import { ToastContainer } from "react-toastify";
+import { ToastContainer,toast} from "react-toastify";
 import WorkDialog from '../../components/WorkDialog'
 import NhanHieuDialog from '../../components/NhanHieuDialog';
+import axios from 'axios';
 
-const CustomerScreen= () =>{
+const ServiceScreen= () =>{
 
   const type = useRef("")
   const setType = (newType) =>{
@@ -15,8 +16,12 @@ const CustomerScreen= () =>{
   }
 
   const customerName = useRef("")
+  const customerId = useRef("")
   const setCustomerName = (newName) =>{
     customerName.current = newName
+  }
+  const setCustomerId = (newId) => {
+    customerId.current=newId
   }
 
   const [isShowingCreate, setIsShowingCreate] = useState(false);
@@ -24,29 +29,36 @@ const CustomerScreen= () =>{
     setIsShowingCreate(!isShowingCreate);
   };
 
-  const [isShowingNH, setIsShowingNH] = useState(false) 
-  const toggleNH = () => {
-      setIsShowingNH(!isShowingNH)
+  const [isShowingCreateNH, setIsCreateShowingNH] = useState(false) 
+  const toggleCreateNH = () => {
+      setIsCreateShowingNH(!isShowingCreateNH)
   }
 
   const [nameErrorMessage, setNameErrorMessage] = useState("")
   const [typeErrorMessage, setTypeErrorMessage] = useState("")
 
-  const handleNext = (ntype, name) => {
-    if (name===""){
+  const handleNext = (ntype, customer) => {
+    if (customer===""){
       setNameErrorMessage("Chọn chủ đơn")
     }
+    else {
+      setNameErrorMessage("")
+    }
+
     if (ntype===""){
       setTypeErrorMessage("Chọn loại")
-      console.log(type, 'type')
-      console.log(typeErrorMessage, 'typeErrorMessage')
     }
     else{
+      setTypeErrorMessage("")
+    }
+    
+    if (customer !== "" && ntype !== ""){
       toggleCreate();
       setType(ntype)
-      setCustomerName(name)
+      setCustomerName(customer.label)
+      setCustomerId(customer.key)
       if (type.current === 'Nhãn hiệu'){
-        toggleNH()
+        toggleCreateNH()
         setType("")
       }
     }
@@ -84,9 +96,12 @@ const CustomerScreen= () =>{
             />
 
             <NhanHieuDialog
-            isShowing={isShowingNH}
-            hide={toggleNH}
-            customer={customerName.current}
+            isShowing={isShowingCreateNH}
+            hide={toggleCreateNH}
+            customerName={customerName.current}
+            customerId={customerId.current}
+            handleSave={(customerId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
+              {toggleCreateNH(); createNH(customerId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate)}}
             />
 
             <ToastContainer></ToastContainer>
@@ -94,4 +109,39 @@ const CustomerScreen= () =>{
     )
 }
 
-export default CustomerScreen;
+export default ServiceScreen;
+
+const createNH = (customerId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => {
+  
+  const paperSubmitDateF = paperSubmitDate.toLocaleString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+  const gcnDateF = gcnDate.toLocaleString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+  console.log(customerId, NHname, group, paperId, paperSubmitDateF, history, gcnID, gcnDateF)
+
+  axios.post(process.env.REACT_APP_API_URL + 'create-work', {
+    customerId: customerId,
+    name: NHname,
+    type: 'NH',
+    group: group,
+    paperId: paperId,
+    paperSubmitDate: paperSubmitDate,
+    history: history,
+    gcnID: gcnID,
+    gcnDate: gcnDate
+  })
+  .then(async response => {
+    const message = (response.data.message);
+    const statusText = (response.data.statusText)
+
+    if (statusText === "OK"){
+    await toast.success(message, {
+      position: toast.POSITION.TOP_RIGHT,
+    })
+    }
+
+    else{
+      toast.error(message, {
+      position: toast.POSITION.TOP_RIGHT,
+    })}
+  })
+}

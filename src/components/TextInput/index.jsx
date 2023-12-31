@@ -16,7 +16,8 @@ function TextInput(props) {
                 placeholder={props.placeholder}
                 type={props.type}
                 disabled={props.disabled}
-                style = {{padding: props.padding}}
+                style = {{margin:props.margin, padding: props.padding}}
+                key={props.key}
             />
             {
                 props.frontIcon && (

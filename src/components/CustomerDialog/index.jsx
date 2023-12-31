@@ -114,7 +114,7 @@ const CustomerDialog = (props) => {
       hide={() => {props.hide()}} 
       height='400px'
       hr
-      overFlowY='scroll'
+      overflowY='auto'
       >
         <div className='customer-fullname'>
           <TextInput type='text'onChange = {(e) => {handleFullNameChange(e); handleFullNameError(e.target.value)}} value={fullName} errorMessage={fullNameError} padding='0px 10px' label='Họ và tên' placeholder={('Họ và tên')} />

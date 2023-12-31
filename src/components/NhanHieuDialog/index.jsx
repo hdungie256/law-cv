@@ -1,11 +1,15 @@
 import './index.scss'
 import DialogBox from '../DialogBox'
+import DropDown from '../DropDown'
 import TextInput from '../TextInput'
 import ButtonSubmit from '../ButtonSubmit';
 import ButtonCancel from '../ButtonCancel'
 import { useState} from 'react';
 import DatePick from '../DatePicker'
 import { TextField } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from '@mui/material';
+import { useEffect,useRef } from 'react';
 
 const NhanHieuDialog = (props) => {
 
@@ -80,30 +84,117 @@ const NhanHieuDialog = (props) => {
   const handleChangeSoGCN = (e) => {
     setSoGCN(e.target.value);
   };
+
+  const [historyCount, setHistoryCount] = useState(0);
+  const [historyKey, setHistoryKey] = useState(0);
+
+  const addHistory = () => {
+    setHistoryCount(historyCount + 1);
+    setHistoryKey(historyKey + 1)
+
+    setHistoryField((prevHistory) => [
+      ...prevHistory,
+      {
+        key: 'history' + historyKey,
+      },
+    ]);
+    console.log('historyField', historyField)
+  };
+
+  const [historyField, setHistoryField] = useState([]);
+
+  const handleDeleteHistory = (historyKey) => {
+    const updatedHistory = historyField.filter((item) => item.key !== historyKey);
+    setHistoryCount(historyCount - 1);
+    setHistoryField(updatedHistory)
+  }
+
+  const [action, setAction] = useState("")
+  const renderHistory = () => {
+    return historyField.map((item) => (
+      <div className='history-fields' id={item.key} key={item.key}>
+          <div className='history-action'> 
+            <DropDown label='Hành động' 
+            onChange={setAction}
+            value={action}
+            options={ ["Thông báo thiếu sót", "Công văn trả lời thông báo thiếu sót","Quyết định chấp nhận hợp lệ","Thông báo từ chối","Công văn trả lời thông báo từ chối","Thông báo cấp GCN","Quyết định từ chối"]}
+            className='hisotry-action-dropdown'/> 
+          </div>
+          <div className='history-date'> <DatePick label='Ngày'/> </div>
+          <div className='history-delete'> 
+            <IconButton aria-label="delete"  onClick={() => handleDeleteHistory(item.key)}><DeleteIcon /></IconButton>
+          </div>
+      </div>
+    ));
+  };
   
+
+  const resetFields = () => {
+    setNhanHieu("")
+    setNhanHieuError("")
+    setGroup("")
+    setServiceId("")
+    setYear("")
+    setSoGCN("")
+    setHistoryCount(0)
+    setHistoryField([])
+  }
+
+  useEffect(resetFields, [props.isShowing])
+  
+  const [paperSubmitDate, setPaperSubmitDate] = useState("MM/DD/YYYY")
+  const [gcnDate, setGcnDate] = useState("MM/DD/YYYY")
+
+  const paperId = '4-'+ year + '-' + serviceId
+  const history = useRef([])
+
+  const getHistory = () => {
+
+    const historyActions = Array.from(document.getElementsByClassName('history-action'))
+    .map((element) => {
+      return element.querySelectorAll('input')[0].value;
+    })
+  
+    const historyDates = Array.from(document.getElementsByClassName('history-date'))
+    .map((element) => {
+      return element.querySelectorAll('input')[0].value
+    })
+
+    for (let i=0; i<historyActions.length; i++){
+    history.current[i] = {
+      "action" : historyActions[i],
+      "date" : historyDates[i]
+    }
+    }
+
+    console.log(history.current)
+  }
 
   return (
       <DialogBox className='dialog-box' 
       title={'Tạo đơn nhãn hiệu'} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
-      height='75%'
+      height='500px'
+      overflowY={'auto'}
       hr
+      handleSave={props.handleSave}
       >
         <div id='nhanhieu-fullname'>
-          <TextInput disabled value={props.customer} errorMessage="" type='text' padding='0px 10px' label='Chủ đơn' placeholder={('Chủ đơn')} />
+          <TextInput disabled value={props.customerName} errorMessage="" type='text' padding='0px 10px' label='Chủ đơn *' placeholder={('Chủ đơn')} />
         </div>
+
+        <p id="thong-tin-nh"><b style={{color:'#1095e6', fontSize: '17px'}}> Thông tin nhãn hiệu </b></p>
         <div id='nhanhieu-nhanhieu'>
-          <TextInput type='text' padding='0px 10px' errorMessage = {nhanhieuEror} onChange={(e) => {handleChangeNhanHieu(e);handleChangeNhanHieuError(e.target.value)}} value={nhanhieu} label='Nhãn hiệu' placeholder={('Nhãn hiệu')} />
+          <TextInput type='text' padding='0px 10px' errorMessage = {nhanhieuEror} onChange={(e) => {handleChangeNhanHieu(e);handleChangeNhanHieuError(e.target.value)}} value={nhanhieu} label='Nhãn hiệu *' placeholder={('Nhãn hiệu')} />
         </div>
         <div id='nhanhieu-group'>
             <div id='nhanhieu-group-label-wrapper1' style={{'margin-bottom': '7px'}}> <label id='nhanhieu-group-label1'> <b> Nhóm sản phẩm</b></label> </div>
             <TextField type="number" onChange={(e) => handleChangeGroup(e)} value={group}/>
         </div>
         <div id='nhanhieu-date'>
-          <DatePick label='Ngày nộp đơn'/>
+          <DatePick onChange={(value) => setPaperSubmitDate(value)} value={paperSubmitDate} label='Ngày nộp đơn'/>
         </div>
-
         <div id='nhanhieu-number'>
           <label id='nhanhieu-number-label'> <b> Số đơn</b></label>
           <div id='nhanhieu-number-group'>
@@ -121,23 +212,30 @@ const NhanHieuDialog = (props) => {
             <TextField placeholder='Số đơn' type="number" onChange={(e) => handleChangeServiceId(e)} value={serviceId}/>
           </div>
         </div>
-
-        <div id='nhanhieu-so-gcn'>
-            <div style={{'margin-bottom': '7px'}}> 
-              <label style={{color: '#6c7a99'}}> <b> Số Giấy chứng nhận</b></label> 
-            </div>
-            <TextField style={{width: '48%'}}type='text' onChange={(e) => {handleChangeSoGCN(e)}} value={soGCN} placeholder={('Số GCN')} />
+        <div  id='btn-add-history'> 
+          <ButtonSubmit onClick={addHistory} text='Thêm lịch sử'/> 
         </div>
+        {renderHistory()}
 
-        <div id='nhanhieu-gcn-date'>
-          <DatePick label='Ngày cấp GCN'/>
-        </div>
+        <div id='gcn-block' style={{top: `${470}px`}}>
+          <p id="thong-tin-gcn"><b style={{color:'#1095e6', fontSize : '17px'}}> Thông tin GCN (nếu có) </b></p>
+          <div id='nhanhieu-so-gcn'>
+              <div style={{'margin-bottom': '7px'}}> 
+                <label style={{color: '#6c7a99'}}> <b> Số Giấy chứng nhận</b></label> 
+              </div>
+              <TextField style={{width: '48%'}}type='text' onChange={(e) => {handleChangeSoGCN(e)}} value={soGCN} placeholder={('Số GCN')} />
+          </div>
 
-        <div id='nhanhieu-button-save'>
-          <ButtonSubmit text='Lưu' />
-        </div>
-        <div id='nhanhieu-button-cancel'>
-          <ButtonCancel text='Huỷ' onClick={() => {props.hide()}}/>
+          <div id='nhanhieu-gcn-date'>
+            <DatePick label='Ngày cấp GCN' onChange={(value) => setGcnDate(value)} value={gcnDate}/>
+          </div>
+
+          <div id='nhanhieu-button-save'>
+            <ButtonSubmit text='Lưu' onClick={async () => {await getHistory(); props.handleSave(props.customerId, nhanhieu, group, paperId, paperSubmitDate, history, soGCN, gcnDate)}}/>
+          </div>
+          <div id='nhanhieu-button-cancel'>
+            <ButtonCancel text='Huỷ' onClick={() => {props.hide()}}/>
+          </div>
         </div>
       </DialogBox>
   );

@@ -5,6 +5,13 @@ import { useState } from 'react';
 
 function DropDown(props) {
 
+  // const useStyles = makeStyles({
+  //   class: props.className
+  //   ,
+  // });
+
+  // const classes = useStyles();
+
   const [value, setValue] = useState("");
   const [inputValue, setInputValue] = useState('');
   return (
@@ -15,9 +22,11 @@ function DropDown(props) {
             disablePortal
             options={props.options}
             onChange={(e, newValue) => {setValue(newValue);props.onChange(newValue)}}
-            sx={{ width: props.width }}
+            sx={{ className: props.className, width: props.width }}
             renderInput={(params) => <TextField {...params} 
-            onInputhange={(e, newInputValue) => {setInputValue(newInputValue);props.onChange(newInputValue)}}/>}
+            onInputhange={(e, newInputValue) => {setInputValue(newInputValue);props.onChange(newInputValue)}}
+            className={props.className}
+            />}
             />
         </div>
         {props.errorMessage && <p className='error-message'>{props.errorMessage}</p>}

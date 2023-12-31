@@ -10,7 +10,7 @@ const DatePick = (props) => {
             <div id='input-wrapper'>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['div']}>
-                        <DatePicker slotProps={{ textField: { fullWidth: true, margin: '0px'} }} 
+                        <DatePicker onChange={props.onChange} slotProps={{ textField: { fullWidth: true, margin: '0px'} }} 
                         />
                     </DemoContainer>
                 </LocalizationProvider>

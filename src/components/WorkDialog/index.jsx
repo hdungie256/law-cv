@@ -12,16 +12,21 @@ const WorkDialog = (props) => {
         type.current = newType
     }
 
+    const customerId = useRef("")
     const customerName = useRef("")
-    const setCustomerName = (newName) =>{
+    const setCustomer = (newName,newId) =>{
         customerName.current = newName
+        customerId.current =newId
     }
   
     const customersL = useRef([])
     useEffect(() => {
         const fetchData = async () => {
             const customers = await getAllCustomers();
-            customersL.current = customers.map((row) => row.name)
+            customersL.current = customers.map((row) => ({
+                key: row.id, 
+                label: row.name,
+              }));
         }
 
         if (!props.isShowing) {
@@ -29,7 +34,7 @@ const WorkDialog = (props) => {
         };
 
         setType("")
-        setCustomerName("")
+        setCustomer("")
 
     }, [props.isShowing])
 
@@ -40,13 +45,13 @@ const WorkDialog = (props) => {
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='100px'
-      overFlowY={'visible'}
+      overflowY='visible'
       >
         <div  id='create-dialog-owner'>
             <DropDown
             label='Chủ đơn'
             options={customersL.current}
-            onChange={setCustomerName}
+            onChange={setCustomer}
             errorMessage={props.nameErrorMessage}
             >
             </DropDown>
@@ -61,7 +66,7 @@ const WorkDialog = (props) => {
             </DropDown>
         </div>
         <div id='create-dialog-button-next'>
-          <ButtonSubmit text='Tiếp' onClick={() => {props.handleNext(type.current, customerName.current)}}/>
+          <ButtonSubmit text='Tiếp' onClick={() => {props.handleNext(type.current, customerName.current, customerId.current)}}/>
         </div>
 
     </DialogBox>
