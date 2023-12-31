@@ -142,8 +142,11 @@ const NhanHieuDialog = (props) => {
 
   useEffect(resetFields, [props.isShowing])
   
-  const [paperSubmitDate, setPaperSubmitDate] = useState("MM/DD/YYYY")
-  const [gcnDate, setGcnDate] = useState("MM/DD/YYYY")
+  const [paperSubmitDate, setPaperSubmitDate] = useState(null)
+  const [gcnDate, setGcnDate] = useState(null)
+
+  // const [paperSubmitDateError, setPaperSubmitDateError] = useState("")
+  // const [gcnDateError, setGcnDateError] = useState("")
 
   const paperId = '4-'+ year + '-' + serviceId
   const history = useRef([])
@@ -194,6 +197,7 @@ const NhanHieuDialog = (props) => {
         </div>
         <div id='nhanhieu-date'>
           <DatePick onChange={(value) => setPaperSubmitDate(value)} value={paperSubmitDate} label='Ngày nộp đơn'/>
+          {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
         </div>
         <div id='nhanhieu-number'>
           <label id='nhanhieu-number-label'> <b> Số đơn</b></label>
@@ -228,10 +232,11 @@ const NhanHieuDialog = (props) => {
 
           <div id='nhanhieu-gcn-date'>
             <DatePick label='Ngày cấp GCN' onChange={(value) => setGcnDate(value)} value={gcnDate}/>
+            {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
           </div>
 
           <div id='nhanhieu-button-save'>
-            <ButtonSubmit text='Lưu' onClick={async () => {await getHistory(); props.handleSave(props.type, props.customerId, nhanhieu, group, paperId, paperSubmitDate, history, soGCN, gcnDate)}}/>
+            <ButtonSubmit text='Lưu' onClick={async () => {await getHistory(); props.handleSave(props.type, props.customerId, nhanhieu, group, paperId, paperSubmitDate, history.current, soGCN, gcnDate)}}/>
           </div>
           <div id='nhanhieu-button-cancel'>
             <ButtonCancel text='Huỷ' onClick={() => {props.hide()}}/>

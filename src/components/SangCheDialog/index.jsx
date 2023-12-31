@@ -104,8 +104,8 @@ const SangCheDialog = (props) => {
 
   useEffect(resetFields, [props.isShowing])
   
-  const [paperSubmitDate, setPaperSubmitDate] = useState("MM/DD/YYYY")
-  const [gcnDate, setGcnDate] = useState("MM/DD/YYYY")
+  const [paperSubmitDate, setPaperSubmitDate] = useState(null)
+  const [gcnDate, setGcnDate] = useState(null)
 
   const paperId = '4-'+ year + '-' + serviceId
   const history = useRef([])
@@ -152,6 +152,7 @@ const SangCheDialog = (props) => {
         </div>
         <div id='sangche-date'>
           <DatePick onChange={(value) => setPaperSubmitDate(value)} value={paperSubmitDate} label='Ngày nộp đơn'/>
+          {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
         </div>
         <div id='sangche-number'>
           <label id='sangche-number-label'> <b> Số đơn</b></label>
@@ -183,10 +184,11 @@ const SangCheDialog = (props) => {
 
           <div id='sangche-gcn-date'>
             <DatePick label='Ngày cấp GCN' onChange={(value) => setGcnDate(value)} value={gcnDate}/>
+            {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
           </div>
 
           <div id='sangche-button-save'>
-            <ButtonSubmit text='Lưu' onClick={async () => {await getHistory(); props.handleSave(props.type, props.customerId, nhanhieu, "", paperId, paperSubmitDate, history, soGCN, gcnDate)}}/>
+            <ButtonSubmit text='Lưu' onClick={async () => {await getHistory(); props.handleSave(props.type, props.customerId, nhanhieu, "", paperId, paperSubmitDate, history.current, soGCN, gcnDate)}}/>
           </div>
           <div id='sangche-button-cancel'>
             <ButtonCancel text='Huỷ' onClick={() => {props.hide()}}/>

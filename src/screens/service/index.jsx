@@ -159,7 +159,7 @@ const ServiceScreen= () =>{
             customerName={customerName.current}
             customerId={customerId.current}
             handleSave={(type, customerId, SCname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {toggleCreateSangChe(); createWork(type="GPHI", customerId, SCname, group="", paperId, paperSubmitDate, history, gcnID, gcnDate)}}
+              {toggleCreateGPHI(); createWork(type="GPHI", customerId, SCname, group="", paperId, paperSubmitDate, history, gcnID, gcnDate)}}
             />
 
             <ToastContainer></ToastContainer>
