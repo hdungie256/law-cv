@@ -11,37 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { useEffect,useRef } from 'react';
 
-const NhanHieuDialog = (props) => {
-
-  // const resetFields = () => {
-  //   setFullName("");
-  //   setFullNameError("");
-  //   setAddress("");
-  //   setAddressError("");
-  //   setEmail("");
-  //   setEmailError("");
-  //   setPhoneNumber("");
-  //   setPhoneNumberError("");
-  // };
-  
-  // const setInitial = (values) => {
-  //   setFullName(values.name);
-  //   setAddress(values.address);
-  //   setEmail(values.email);
-  //   setPhoneNumber(values.phoneNumber);
-  // };
-  
-  // useEffect(() => {
-  //   if (!props.isShowing) {
-  //     resetFields();
-  //   }
-  // }, [props.isShowing]);
-
-  // useEffect(() => {
-  //   if (props.values) {
-  //     setInitial(props.values);
-  //   }
-  // }, [props.values]);
+const KDCNDialog = (props) => {
 
   const [nhanhieu, setNhanHieu] = useState("")
   const [nhanhieuEror, setNhanHieuError] = useState("")
@@ -52,7 +22,7 @@ const NhanHieuDialog = (props) => {
 
   const handleChangeNhanHieuError = (currentNhanHieu) => {
     if (currentNhanHieu.length < 1){
-      setNhanHieuError('Nhập tên nhãn hiệu.');}
+      setNhanHieuError(' ');}
     else{
       setNhanHieuError("")
     }
@@ -60,9 +30,7 @@ const NhanHieuDialog = (props) => {
 
   const [group, setGroup] = useState("")
   const handleChangeGroup = (e) => {
-    if (e.target.value.toString() <= 45){
       setGroup(e.target.value);
-    }
   };
   
 
@@ -172,7 +140,7 @@ const NhanHieuDialog = (props) => {
 
   return (
       <DialogBox className='dialog-box' 
-      title={'Tạo đơn nhãn hiệu'} 
+      title={'Tạo đơn KDCN'} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='500px'
@@ -180,34 +148,34 @@ const NhanHieuDialog = (props) => {
       hr
       handleSave={props.handleSave}
       >
-        <div id='nhanhieu-fullname'>
+        <div id='kdcn-fullname'>
           <TextInput disabled value={props.customerName} errorMessage="" type='text' padding='0px 10px' label='Chủ đơn *' placeholder={('Chủ đơn')} />
         </div>
 
-        <p id="thong-tin-nh"><b style={{color:'#1095e6', fontSize: '17px'}}> Thông tin nhãn hiệu </b></p>
-        <div id='nhanhieu-nhanhieu'>
-          <TextInput type='text' padding='0px 10px' errorMessage = {nhanhieuEror} onChange={(e) => {handleChangeNhanHieu(e);handleChangeNhanHieuError(e.target.value)}} value={nhanhieu} label='Tên nhãn hiệu *' placeholder={('Tên nhãn hiệu')} />
+        <p id="thong-tin-kdcn"><b style={{color:'#1095e6', fontSize: '17px'}}> Thông tin KDCN    </b></p>
+        <div id='kdcn-kdcn'>
+          <TextInput type='text' padding='0px 10px' errorMessage = {nhanhieuEror} onChange={(e) => {handleChangeNhanHieu(e);handleChangeNhanHieuError(e.target.value)}} value={nhanhieu} label='Tên KDCN *' placeholder={('Tên KDCN')} />
         </div>
-        <div id='nhanhieu-group'>
-            <div id='nhanhieu-group-label-wrapper1' style={{'margin-bottom': '7px'}}> <label id='nhanhieu-group-label1'> <b> Nhóm sản phẩm</b></label> </div>
-            <TextField type="number" onChange={(e) => handleChangeGroup(e)} value={group}/>
+        <div id='kdcn-group'>
+            <div id='kdcn-group-label-wrapper1' style={{'margin-bottom': '7px'}}> <label id='kdcn-group-label1'> <b> Phân loại</b></label> </div>
+            <TextField placeholder='Phân loại' type="text" onChange={(e) => handleChangeGroup(e)} value={group}/>
         </div>
-        <div id='nhanhieu-date'>
+        <div id='kdcn-date'>
           <DatePick onChange={(value) => setPaperSubmitDate(value)} value={paperSubmitDate} label='Ngày nộp đơn'/>
         </div>
-        <div id='nhanhieu-number'>
-          <label id='nhanhieu-number-label'> <b> Số đơn</b></label>
-          <div id='nhanhieu-number-group'>
+        <div id='kdcn-number'>
+          <label id='kdcn-number-label'> <b> Số đơn</b></label>
+          <div id='kdcn-number-group'>
             {/* <div id='nhanhieu-group-label-wrapper'> <label id='nhanhieu-group-label'> <b> Nhóm sản phẩm</b></label> </div> */}
-            <TextField placeholder='Nhóm sản phẩm' type="number" disabled value={4}/>
+            <TextField placeholder='Nhóm sản phẩm' type="number" disabled value={3}/>
           </div>
           <p id='slash-1'> - </p>
-          <div id='nhanhieu-number-year'>
+          <div id='kdcn-number-year'>
             {/* <div id='nhanhieu-year-label-wrapper'> <label id='nhanhieu-year-label'> <b> Năm</b></label> </div> */}
             <TextField placeholder='Năm' type="number" onChange={(e) => handleChangeYear(e)} value={year}/>
           </div>
           <p id='slash-2'> - </p>
-          <div id='nhanhieu-number-id'>
+          <div id='kdcn-number-id'>
             {/* <div id='nhanhieu-id-label-wrapper'> <label id='nhanhieu-id-label'> <b> Số đơn</b></label> </div> */}
             <TextField placeholder='Số đơn' type="number" onChange={(e) => handleChangeServiceId(e)} value={serviceId}/>
           </div>
@@ -217,23 +185,23 @@ const NhanHieuDialog = (props) => {
         </div>
         {renderHistory()}
 
-        <div id='gcn-block' style={{top: `${470}px`}}>
-          <p id="thong-tin-gcn"><b style={{color:'#1095e6', fontSize : '17px'}}> Thông tin GCN (nếu có) </b></p>
-          <div id='nhanhieu-so-gcn'>
+        <div id='kdcn-gcn-block' style={{top: `${470}px`}}>
+          <p id="kdcn-thong-tin-gcn"><b style={{color:'#1095e6', fontSize : '17px'}}> Thông tin GCN (nếu có) </b></p>
+          <div id='kdcn-so-gcn'>
               <div style={{'margin-bottom': '7px'}}> 
                 <label style={{color: '#6c7a99'}}> <b> Số Giấy chứng nhận</b></label> 
               </div>
               <TextField style={{width: '48%'}}type='text' onChange={(e) => {handleChangeSoGCN(e)}} value={soGCN} placeholder={('Số GCN')} />
           </div>
 
-          <div id='nhanhieu-gcn-date'>
+          <div id='kdcn-gcn-date'>
             <DatePick label='Ngày cấp GCN' onChange={(value) => setGcnDate(value)} value={gcnDate}/>
           </div>
 
-          <div id='nhanhieu-button-save'>
+          <div id='kdcn-button-save'>
             <ButtonSubmit text='Lưu' onClick={async () => {await getHistory(); props.handleSave(props.type, props.customerId, nhanhieu, group, paperId, paperSubmitDate, history, soGCN, gcnDate)}}/>
           </div>
-          <div id='nhanhieu-button-cancel'>
+          <div id='kdcn-button-cancel'>
             <ButtonCancel text='Huỷ' onClick={() => {props.hide()}}/>
           </div>
         </div>
@@ -241,4 +209,4 @@ const NhanHieuDialog = (props) => {
   );
 };
 
-export default NhanHieuDialog;
+export default KDCNDialog;

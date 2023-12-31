@@ -3,10 +3,13 @@ import ButtonCreate from '../../components/ButtonCreate'
 import Title from '../../components/Title'
 // import Table from '../../components/Table'
 import { useState, useRef, useEffect } from 'react'
-import { ToastContainer,toast} from "react-toastify";
+import { ToastContainer} from "react-toastify";
 import WorkDialog from '../../components/WorkDialog'
 import NhanHieuDialog from '../../components/NhanHieuDialog';
-import axios from 'axios';
+import KDCNDialog from '../../components/KDCNDialog';
+import SangCheDialog from '../../components/SangCheDialog';
+import createWork from '../../apis/work/createWork';
+import GPHIDialog from '../../components/GPHIDialog';
 
 const ServiceScreen= () =>{
 
@@ -34,6 +37,21 @@ const ServiceScreen= () =>{
       setIsCreateShowingNH(!isShowingCreateNH)
   }
 
+  const [isShowingCreateKDCN, setIsCreateShowingKDCN] = useState(false) 
+  const toggleCreateKDCN = () => {
+    setIsCreateShowingKDCN(!isShowingCreateKDCN)
+  }
+
+  const [isShowingCreateSangChe, setIsCreateShowingSangChe] = useState(false) 
+  const toggleCreateSangChe = () => {
+    setIsCreateShowingSangChe(!isShowingCreateSangChe)
+  }
+
+  const [isShowingCreateGPHI, setIsCreateShowingGPHI] = useState(false) 
+  const toggleCreateGPHI = () => {
+    setIsCreateShowingGPHI(!isShowingCreateGPHI)
+  }
+
   const [nameErrorMessage, setNameErrorMessage] = useState("")
   const [typeErrorMessage, setTypeErrorMessage] = useState("")
 
@@ -57,8 +75,21 @@ const ServiceScreen= () =>{
       setType(ntype)
       setCustomerName(customer.label)
       setCustomerId(customer.key)
+
       if (type.current === 'Nhãn hiệu'){
         toggleCreateNH()
+        setType("")
+      }
+      else if (type.current === "KDCN"){
+        toggleCreateKDCN()
+        setType("")
+      }
+      else if (type.current === "Sáng chế"){
+        toggleCreateSangChe()
+        setType("")
+      }
+      else if (type.current === "GPHI"){
+        toggleCreateGPHI()
         setType("")
       }
     }
@@ -100,8 +131,35 @@ const ServiceScreen= () =>{
             hide={toggleCreateNH}
             customerName={customerName.current}
             customerId={customerId.current}
-            handleSave={(customerId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {toggleCreateNH(); createNH(customerId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate)}}
+            handleSave={(type, customerId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
+              {toggleCreateNH(); createWork(type="Nhãn hiệu", customerId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate)}}
+            />
+
+            <KDCNDialog
+            isShowing={isShowingCreateKDCN}
+            hide={toggleCreateKDCN}
+            customerName={customerName.current}
+            customerId={customerId.current}
+            handleSave={(type, customerId, KDCNname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
+              {toggleCreateKDCN(); createWork(type="KDCN", customerId, KDCNname, group, paperId, paperSubmitDate, history, gcnID, gcnDate)}}
+            />
+
+            <SangCheDialog
+            isShowing={isShowingCreateSangChe}
+            hide={toggleCreateSangChe}
+            customerName={customerName.current}
+            customerId={customerId.current}
+            handleSave={(type, customerId, SCname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
+              {toggleCreateSangChe(); createWork(type="Sáng chế", customerId, SCname, group="", paperId, paperSubmitDate, history, gcnID, gcnDate)}}
+            />
+
+            <GPHIDialog
+            isShowing={isShowingCreateGPHI}
+            hide={toggleCreateGPHI}
+            customerName={customerName.current}
+            customerId={customerId.current}
+            handleSave={(type, customerId, SCname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
+              {toggleCreateSangChe(); createWork(type="GPHI", customerId, SCname, group="", paperId, paperSubmitDate, history, gcnID, gcnDate)}}
             />
 
             <ToastContainer></ToastContainer>
@@ -110,38 +168,3 @@ const ServiceScreen= () =>{
 }
 
 export default ServiceScreen;
-
-const createNH = (customerId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => {
-  
-  const paperSubmitDateF = paperSubmitDate.toLocaleString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' });
-  const gcnDateF = gcnDate.toLocaleString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' });
-
-  console.log(customerId, NHname, group, paperId, paperSubmitDateF, history, gcnID, gcnDateF)
-
-  axios.post(process.env.REACT_APP_API_URL + 'create-work', {
-    customerId: customerId,
-    name: NHname,
-    type: 'NH',
-    group: group,
-    paperId: paperId,
-    paperSubmitDate: paperSubmitDate,
-    history: history,
-    gcnID: gcnID,
-    gcnDate: gcnDate
-  })
-  .then(async response => {
-    const message = (response.data.message);
-    const statusText = (response.data.statusText)
-
-    if (statusText === "OK"){
-    await toast.success(message, {
-      position: toast.POSITION.TOP_RIGHT,
-    })
-    }
-
-    else{
-      toast.error(message, {
-      position: toast.POSITION.TOP_RIGHT,
-    })}
-  })
-}

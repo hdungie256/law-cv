@@ -1,0 +1,193 @@
+@import 'src/assets/scss/colors';
+
+.dialog-box{
+    position: relative;
+}
+
+#sangche-fullname{
+    width: 90%;
+    position: absolute;
+    top: 120px;
+    left:50%;
+    height: 50px;
+    transform: translateX(-50%);
+}
+
+#thong-tin-sc{
+    position: absolute;
+    top: 150px;
+}
+
+#sangche-sangche{
+    width: 90%;
+    position: absolute;
+    top: 240px;
+    left:50%;
+    height: 50px;
+    transform: translateX(-50%);
+}
+
+#sangche-date{
+    width: 90%;
+    position: absolute;
+    top: 290px;
+    right:5%;
+    height: 50px;
+    // transform: translateX(-50%);
+}
+
+#sangche-number{
+    width: 100%;
+    position: absolute;
+    top: 390px;
+    left: 5%;
+    height: 50px;
+
+    #slash-1{
+        position: absolute;
+        top: 50%;
+        left: 22%
+    }
+
+    #slash-2{
+        position: absolute;
+        top: 50%;
+        left: 57%
+    }
+
+    #sangche-number-label{
+        color: $vintageblue;
+        font-size: 15px;
+    }
+
+    #sangche-number-group{
+        width: 20%;
+        position: absolute;
+        margin-top: 5px;
+
+        #sangche-group-label-wrapper{
+            margin-bottom: 5px;
+
+            #sangche-group-label{
+                color: $vintageblue;
+                font-size: 15px;
+            }
+        }
+    }
+
+    #sangche-number-year{
+        width: 30%;
+        position: absolute;
+        left: 25%;
+        margin-top: 5px;
+
+        #sangche-year-label-wrapper{
+            margin-bottom: 5px;
+
+            #sangche-year-label{
+                color: $vintageblue;
+                font-size: 15px;
+            }
+        }
+    }
+
+    #sangche-number-id{
+        width: 30%;
+        position: absolute;
+        right: 10%;
+        margin-top: 5px;
+
+        #sangche-id-label-wrapper{
+            margin-bottom: 5px;
+
+            #sangche-id-label{
+                color: $vintageblue;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+#sangche-btn-add-history{
+    position: absolute;
+    top: 490px;
+    width: 20%;
+    height: 40px;
+    right: 50%;
+    transform: translateX(50%)
+}
+
+.history-fields{
+    position: relative;
+    width: 100%;
+    height: 100px;
+    top: 470px;
+}
+
+.history-action{
+    position: absolute;
+    top: 10px;
+    width: 45%;
+}
+
+.history-date{
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%)
+}
+
+.history-date{
+    position: absolute;
+    width: 40%; 
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%)
+}
+
+.history-delete{
+    position: absolute;
+    right: 0%;
+    top: 60%;
+    transform: translateY(-50%)
+}
+
+#sangche-gcn-block{
+    position: relative;
+    width: 100%;
+    height: 220px;
+}
+
+#sangche-so-gcn{
+    width: 100%;
+    position: absolute;
+    top: 50px;
+}
+
+#sangche-gcn-date{
+    width: 40%;
+    position: absolute;
+    top: 50px;
+    left: 55%
+}
+
+#sangche-thong-tin-gcn{
+    position: absolute;
+    top: 0px;
+}
+
+#sangche-button-save{
+    height: 50px;
+    width: 12%;
+    position: absolute;
+    bottom: 3%;
+    left: 52%
+}
+
+#sangche-button-cancel{
+    height: 50px;
+    width: 12%;
+    position: absolute;
+    bottom: 3%;
+    right: 52%
+}
