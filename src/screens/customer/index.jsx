@@ -3,11 +3,14 @@ import ButtonCreate from '../../components/ButtonCreate'
 import Title from '../../components/Title'
 import { useState, useEffect, useRef } from 'react'
 import CustomerDialog from '../../components/CustomerDialog'
-import axios from 'axios'
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Table from '../../components/Table'
 import getAllCustomers from '../../apis/customer/getAllCustomers'
 import ConfirmDialog from '../../components/ConfirmDialog'
+import getCustomer from '../../apis/customer/getCustomer'
+import deleteCustomer from '../../apis/customer/deleteCustomer'
+import createCustomer from '../../apis/customer/createCustomer'
+import updateCustomer from '../../apis/customer/updateCustomer'
 
 const CustomerScreen= () =>{
   const [customerList,setCustomerList] = useState([])
@@ -33,92 +36,23 @@ const CustomerScreen= () =>{
       setIsShowingEdit(!isShowingEdit);
     };
 
-  const handleCreateCustomer = (id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => {
-  
-        if (fullNameError === ""  && addressError === "" && emailError === ""  && phoneNumberError === ""){
-           axios.post(process.env.REACT_APP_API_URL + 'create-customer', {
-            name: fullName,
-            address: address,
-            email: email,
-            phoneNumber: phoneNumber
-          })
-          .then(async response => {
-            const message = (response.data.message);
-            const statusText = (response.data.statusText)
-  
-            if (statusText === "OK"){
-            await toast.success(message, {
-              position: toast.POSITION.TOP_RIGHT,
-            })
-            setResetFields(true)
-            setIsShowingCreate(!isShowingCreate)
-            fetchData()
-          }
-            else{
-              toast.error(message, {
-              position: toast.POSITION.TOP_RIGHT,
-            })}
-          setResetFields(false)
-          })
-    }} 
-
   const [values, setValues] = useState({})
-  const getCustomer = async (id) => {
-    const response = await axios.get(process.env.REACT_APP_API_URL + 'customers/' + id)
-      const data = (response.data.data);
-      setValues({
-        id: data['_id'],
-        name: data['name'],
-        address: data['address'],
-        email: data['email'],
-        phoneNumber: data['phoneNumber']
-    })
-  }
-
-  const handleUpdateCustomer = async (id, name, email, address, phoneNumber) => {
-    const response = await axios.put(process.env.REACT_APP_API_URL + 'customers/' + id,{
-      name: name,
-      email: email,
-      address: address,
-      phoneNumber: phoneNumber
-    })
-      const message = (response.data.message);
-      const statusText = (response.data.statusText)
-
-      if (statusText === "OK"){
-        await toast.success(message, {
-            position: toast.POSITION.TOP_RIGHT,
-          })
-        toggleEdit()
-        fetchData()
-        }
-      else{
-        toast.error(message, {
-        position: toast.POSITION.TOP_RIGHT,
-      })}
+  const viewCustomerInfo = async (id) => {
+    const response = await getCustomer(id)
+      if (response){
+        setValues({
+          id: response['_id'],
+          name: response['name'],
+          address: response['address'],
+          email: response['email'],
+          phoneNumber: response['phoneNumber']
+      })
+    }
   }
 
   const [isShowingConfirm, setIsShowingConfirm] = useState(false)
   const toggleConfirm = () => {
     setIsShowingConfirm(!isShowingConfirm)
-  }
-
-  const handleDeleteCustomer = async (id) => {
-    const response = await axios.delete(process.env.REACT_APP_API_URL + 'customers/' + id)
-      const message = (response.data.message);
-      const statusText = (response.data.statusText)
-
-      if (statusText === "OK"){
-        toast.success(message, {
-        position: toast.POSITION.TOP_RIGHT,
-        })
-      toggleConfirm()
-      fetchData()
-      }
-      else{
-        toast.error(message, {
-        position: toast.POSITION.TOP_RIGHT,
-      })}
   }
 
   const customerId = useRef(null)
@@ -141,8 +75,13 @@ const CustomerScreen= () =>{
               id='customer-dialog-create'
               title='Tạo khách hàng mới'
               handleSave={
-              (id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => 
-              handleCreateCustomer(null,fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)} 
+              async (id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => {
+              const res = await createCustomer(null,fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
+              if (res) {
+                toggleCreate()
+                fetchData()
+              }  
+            }} 
               isShowing={isShowingCreate} 
               hide={toggleCreate}/>
 
@@ -150,8 +89,14 @@ const CustomerScreen= () =>{
               id='customer-dialog-edit'
               title='Chỉnh sửa thông tin khách hàng'
               handleSave={
-              (id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => 
-              handleUpdateCustomer(id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)} 
+              async (id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => 
+              {
+                const res = await updateCustomer(id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
+                if (res){
+                  toggleEdit();
+                  fetchData();
+                }
+              }} 
               isShowing={isShowingEdit} 
               values={values}
               hide={toggleEdit}/>
@@ -159,8 +104,14 @@ const CustomerScreen= () =>{
             <ConfirmDialog
               isShowing={isShowingConfirm}
               hide={toggleConfirm}
-              handleConfirm={() => handleDeleteCustomer(customerId.current)}
-              height={'40px'}
+              handleConfirm={async () => {
+                const res = await deleteCustomer(customerId.current);
+                if (res){
+                  toggleConfirm();
+                  fetchData()
+                }
+              }}
+              height={'60px'}
               type={'khách hàng'}
               name={customerName.current}
                />
@@ -169,7 +120,7 @@ const CustomerScreen= () =>{
               <Table 
                 columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại']}
                 rows = {customerList}
-                handleEditButton={ (id) => {getCustomer(id);toggleEdit(id)}}
+                handleEditButton={ (id) => {viewCustomerInfo(id);toggleEdit(id)}}
                 handleDeleteButton={(id, name) => {toggleConfirm();setCustomerInfo(id, name)}}
                 />
               </div>

@@ -5,11 +5,11 @@ import Card from '../../components/Card';
 import Title from '../../components/Title';
 import ButtonSubmit from '../../components/ButtonSubmit';
 import { faUser,faKey, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
 import React from 'react';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import logIn from '../../apis/account/logIn';
 
 function LogInScreen() {
   let navigate = useNavigate();
@@ -48,31 +48,15 @@ function LogInScreen() {
       setShowPassword(!showPassword);
     }
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
       handleUsernameError(username)
       handlePasswordError(password)
 
-      if (username !== "" && password !== ""){
-        axios.post(process.env.REACT_APP_API_URL + 'login', {
-          username: username,
-          password: password
-        })
-        .then(async response => {
-          const message = (response.data.message);
-          const statusText = (response.data.statusText)
-
-          if (statusText === "OK"){
-          await toast.success(message, {
-            position: toast.POSITION.TOP_RIGHT,
-          })
-          navigate('../main');
-        }
-          else{
-            toast.error(message, {
-            position: toast.POSITION.TOP_RIGHT,
-          })}
-        })
-    }}
+      const res = await logIn(username, password)
+      if (res){
+        navigate('../main')
+      }
+    }
 
     return (
       <div id='log-in-screen'>
