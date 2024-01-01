@@ -13,36 +13,6 @@ import { useEffect,useRef } from 'react';
 
 const NhanHieuDialog = (props) => {
 
-  // const resetFields = () => {
-  //   setFullName("");
-  //   setFullNameError("");
-  //   setAddress("");
-  //   setAddressError("");
-  //   setEmail("");
-  //   setEmailError("");
-  //   setPhoneNumber("");
-  //   setPhoneNumberError("");
-  // };
-  
-  // const setInitial = (values) => {
-  //   setFullName(values.name);
-  //   setAddress(values.address);
-  //   setEmail(values.email);
-  //   setPhoneNumber(values.phoneNumber);
-  // };
-  
-  // useEffect(() => {
-  //   if (!props.isShowing) {
-  //     resetFields();
-  //   }
-  // }, [props.isShowing]);
-
-  // useEffect(() => {
-  //   if (props.values) {
-  //     setInitial(props.values);
-  //   }
-  // }, [props.values]);
-
   const [nhanhieu, setNhanHieu] = useState("")
   const [nhanhieuEror, setNhanHieuError] = useState("")
 
@@ -183,8 +153,12 @@ const NhanHieuDialog = (props) => {
       hr
       handleSave={props.handleSave}
       >
-        <div id='nhanhieu-fullname'>
-          <TextInput disabled value={props.customerName} errorMessage="" type='text' padding='0px 10px' label='Chủ đơn *' placeholder={('Chủ đơn')} />
+        <p id="nhanhieu-thong-tin-kh"><b style={{color:'#1095e6', fontSize: '17px'}}> Thông tin khách hàng </b></p>
+        <div id="nhanhieu-customer-info" style={{ backgroundColor: '#dfe8f5',width:'100%', height:'150px', borderRadius: '5px',padding: '5px',paddingLeft: '20px' }}>
+          <p> <b> Tên khách hàng: </b> {props.customer.name}</p>
+          <p> <b> Địa chỉ: </b> {props.customer.address}</p>
+          <p> <b> Số điện thoại: </b> {props.customer.phoneNumber}</p>
+          <p> <b> Tên chủ đơn: </b> {props.customer.email}</p>
         </div>
 
         <p id="thong-tin-nh"><b style={{color:'#1095e6', fontSize: '17px'}}> Thông tin nhãn hiệu </b></p>
@@ -216,12 +190,12 @@ const NhanHieuDialog = (props) => {
             <TextField placeholder='Số đơn' type="number" onChange={(e) => handleChangeServiceId(e)} value={serviceId}/>
           </div>
         </div>
-        <div  id='btn-add-history'> 
+        <div  id='nhanhieu-btn-add-history'> 
           <ButtonSubmit onClick={addHistory} text='Thêm lịch sử'/> 
         </div>
         {renderHistory()}
 
-        <div id='gcn-block' style={{top: `${470}px`}}>
+        <div id='gcn-block' style={{top: `${420}px`}}>
           <p id="thong-tin-gcn"><b style={{color:'#1095e6', fontSize : '17px'}}> Thông tin GCN (nếu có) </b></p>
           <div id='nhanhieu-so-gcn'>
               <div style={{'margin-bottom': '7px'}}> 

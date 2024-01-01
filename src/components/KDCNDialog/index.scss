@@ -4,24 +4,15 @@
     position: relative;
 }
 
-#kdcn-fullname{
-    width: 90%;
-    position: absolute;
-    top: 120px;
-    left:50%;
-    height: 50px;
-    transform: translateX(-50%);
-}
-
 #thong-tin-kdcn{
     position: absolute;
-    top: 150px;
+    top: 290px;
 }
 
 #kdcn-kdcn{
     width: 90%;
     position: absolute;
-    top: 240px;
+    top: 380px;
     left:50%;
     height: 50px;
     transform: translateX(-50%);
@@ -30,7 +21,7 @@
 #kdcn-group{
     // width: 90%;
     position: absolute;
-    top: 290px;
+    top: 430px;
     left:5%;
     height: 50px;
     width: 100%;
@@ -48,7 +39,7 @@
 #kdcn-date{
     width: 55%;
     position: absolute;
-    top: 290px;
+    top: 430px;
     right:5%;
     height: 120px;
     // transform: translateX(-50%);
@@ -57,7 +48,7 @@
 #kdcn-number{
     width: 100%;
     position: absolute;
-    top: 390px;
+    top: 530px;
     left: 5%;
     height: 50px;
 
@@ -128,7 +119,7 @@
 
 #btn-add-history{
     position: absolute;
-    top: 490px;
+    top: 630px;
     width: 20%;
     height: 40px;
     right: 50%;
@@ -139,7 +130,7 @@
     position: relative;
     width: 100%;
     height: 100px;
-    top: 470px;
+    top: 610px;
 }
 
 .history-action{

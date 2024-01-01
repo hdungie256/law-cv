@@ -11,6 +11,7 @@ import SangCheDialog from '../../components/SangCheDialog';
 import createWork from '../../apis/work/createWork';
 import GPHIDialog from '../../components/GPHIDialog';
 import getAllWork from '../../apis/work/getAllWork'
+import getCustomer from '../../apis/customer/getCustomer'
 
 const ServiceScreen= () =>{
 
@@ -27,14 +28,7 @@ const ServiceScreen= () =>{
       type.current = newType
   }
 
-  const customerName = useRef("")
   const customerId = useRef("")
-  const setCustomerName = (newName) =>{
-    customerName.current = newName
-  }
-  const setCustomerId = (newId) => {
-    customerId.current=newId
-  }
 
   const [isShowingCreate, setIsShowingCreate] = useState(false);
   const toggleCreate = () => {
@@ -63,10 +57,12 @@ const ServiceScreen= () =>{
 
   const [nameErrorMessage, setNameErrorMessage] = useState("")
   const [typeErrorMessage, setTypeErrorMessage] = useState("")
+  const thisCustomer = useRef({name:"", address:"", email:"", phoneNumber:""})
 
-  const handleNext = (ntype, customer) => {
+  const handleNext = async (ntype, customer) => {
     if (customer===""){
       setNameErrorMessage("Chọn chủ đơn")
+      return false
     }
     else {
       setNameErrorMessage("")
@@ -74,6 +70,7 @@ const ServiceScreen= () =>{
 
     if (ntype===""){
       setTypeErrorMessage("Chọn loại")
+      return false
     }
     else{
       setTypeErrorMessage("")
@@ -82,9 +79,12 @@ const ServiceScreen= () =>{
     if (customer !== "" && ntype !== ""){
       toggleCreate();
       setType(ntype)
-      setCustomerName(customer.label)
-      setCustomerId(customer.key)
 
+      const cus = await getCustomer(customer.key)
+      thisCustomer.current = cus
+      customerId.current = customer.key
+
+      console.log(customerId.current)
       if (type.current === 'Nhãn hiệu'){
         toggleCreateNH()
         setType("")
@@ -138,10 +138,10 @@ const ServiceScreen= () =>{
             <NhanHieuDialog
             isShowing={isShowingCreateNH}
             hide={toggleCreateNH}
-            customerName={customerName.current}
+            customer={thisCustomer.current}
             customerId={customerId.current}
-            handleSave={async (type, customerId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {const res = await createWork(type="Nhãn hiệu", customerId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate);
+            handleSave={async (type, cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
+              {const res = await createWork(type="Nhãn hiệu", cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate);
               if (res) {
                 toggleCreateNH();
                 fetchData();
@@ -152,34 +152,40 @@ const ServiceScreen= () =>{
             <KDCNDialog
             isShowing={isShowingCreateKDCN}
             hide={toggleCreateKDCN}
-            customerName={customerName.current}
+            customer={thisCustomer.current}
             customerId={customerId.current}
             handleSave={async (type, customerId, KDCNname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {createWork(type="KDCN", customerId, KDCNname, group, paperId, paperSubmitDate, history, gcnID, gcnDate);
-              toggleCreateKDCN(); 
-              fetchData()}}
+              {const res = await createWork(type="KDCN", customerId, KDCNname, group, paperId, paperSubmitDate, history, gcnID, gcnDate);
+              if (res){
+                toggleCreateKDCN(); 
+                fetchData()}}
+              }
             />
 
             <SangCheDialog
             isShowing={isShowingCreateSangChe}
             hide={toggleCreateSangChe}
-            customerName={customerName.current}
+            customer={thisCustomer.current}
             customerId={customerId.current}
             handleSave={async (type, customerId, SCname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {await createWork(type="Sáng chế", customerId, SCname, group="", paperId, paperSubmitDate, history, gcnID, gcnDate);
-              toggleCreateSangChe();
-              fetchData()}}
+              {const res = await createWork(type="Sáng chế", customerId, SCname, group="", paperId, paperSubmitDate, history, gcnID, gcnDate);
+              if (res){
+                toggleCreateSangChe();
+                fetchData()}}
+              }
             />
 
             <GPHIDialog
             isShowing={isShowingCreateGPHI}
             hide={toggleCreateGPHI}
-            customerName={customerName.current}
+            customer={thisCustomer.current}
             customerId={customerId.current}
             handleSave={async (type, customerId, SCname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {await createWork(type="GPHI", customerId, SCname, group="", paperId, paperSubmitDate, history, gcnID, gcnDate);
-              toggleCreateGPHI(); 
-              fetchData()}}
+              {const res = await createWork(type="GPHI", customerId, SCname, group="", paperId, paperSubmitDate, history, gcnID, gcnDate);
+              if (res){
+                toggleCreateGPHI(); 
+                fetchData()}}
+              }
             />
 
             <ToastContainer></ToastContainer>

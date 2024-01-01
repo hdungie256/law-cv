@@ -141,8 +141,12 @@ const GPHIDialog = (props) => {
       hr
       handleSave={props.handleSave}
       >
-        <div id='gphi-fullname'>
-          <TextInput disabled value={props.customerName} errorMessage="" type='text' padding='0px 10px' label='Chủ đơn *' placeholder={('Chủ đơn')} />
+        <p id="gphi-thong-tin-kh"><b style={{color:'#1095e6', fontSize: '17px'}}> Thông tin khách hàng </b></p>
+        <div id="gphi-customer-info" style={{ backgroundColor: '#dfe8f5',width:'100%', height:'150px', borderRadius: '5px',padding: '5px',paddingLeft: '20px' }}>
+          <p> <b> Tên khách hàng: </b> {props.customer.name}</p>
+          <p> <b> Địa chỉ: </b> {props.customer.address}</p>
+          <p> <b> Số điện thoại: </b> {props.customer.phoneNumber}</p>
+          <p> <b> Tên chủ đơn: </b> {props.customer.email}</p>
         </div>
 
         <p id="thong-tin-gphi"><b style={{color:'#1095e6', fontSize: '17px'}}> Thông tin GPHI</b></p>
@@ -172,7 +176,7 @@ const GPHIDialog = (props) => {
         </div>
         {renderHistory()}
 
-        <div id='gphi-gcn-block' style={{top: `${470}px`}}>
+        <div id='gphi-gcn-block' style={{top: `${420}px`}}>
           <p id="gphi-thong-tin-gcn"><b style={{color:'#1095e6', fontSize : '17px'}}> Thông tin GCN (nếu có) </b></p>
           <div id='gphi-so-gcn'>
               <div style={{'margin-bottom': '7px'}}> 

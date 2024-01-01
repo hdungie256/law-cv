@@ -146,8 +146,12 @@ const KDCNDialog = (props) => {
       hr
       handleSave={props.handleSave}
       >
-        <div id='kdcn-fullname'>
-          <TextInput disabled value={props.customerName} errorMessage="" type='text' padding='0px 10px' label='Chủ đơn *' placeholder={('Chủ đơn')} />
+        <p id="kdcn-thong-tin-kh"><b style={{color:'#1095e6', fontSize: '17px'}}> Thông tin khách hàng </b></p>
+        <div id="kdcn-customer-info" style={{ backgroundColor: '#dfe8f5',width:'100%', height:'150px', borderRadius: '5px',padding: '5px',paddingLeft: '20px' }}>
+          <p> <b> Tên khách hàng: </b> {props.customer.name}</p>
+          <p> <b> Địa chỉ: </b> {props.customer.address}</p>
+          <p> <b> Số điện thoại: </b> {props.customer.phoneNumber}</p>
+          <p> <b> Tên chủ đơn: </b> {props.customer.email}</p>
         </div>
 
         <p id="thong-tin-kdcn"><b style={{color:'#1095e6', fontSize: '17px'}}> Thông tin KDCN    </b></p>
@@ -184,7 +188,7 @@ const KDCNDialog = (props) => {
         </div>
         {renderHistory()}
 
-        <div id='kdcn-gcn-block' style={{top: `${470}px`}}>
+        <div id='kdcn-gcn-block' style={{top: `${420}px`}}>
           <p id="kdcn-thong-tin-gcn"><b style={{color:'#1095e6', fontSize : '17px'}}> Thông tin GCN (nếu có) </b></p>
           <div id='kdcn-so-gcn'>
               <div style={{'margin-bottom': '7px'}}> 

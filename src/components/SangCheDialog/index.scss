@@ -4,24 +4,15 @@
     position: relative;
 }
 
-#sangche-fullname{
-    width: 90%;
-    position: absolute;
-    top: 120px;
-    left:50%;
-    height: 50px;
-    transform: translateX(-50%);
-}
-
 #thong-tin-sc{
     position: absolute;
-    top: 150px;
+    top: 290px;
 }
 
 #sangche-sangche{
     width: 90%;
     position: absolute;
-    top: 240px;
+    top: 380px;
     left:50%;
     height: 50px;
     transform: translateX(-50%);
@@ -30,7 +21,7 @@
 #sangche-date{
     width: 90%;
     position: absolute;
-    top: 290px;
+    top: 430px;
     right:5%;
     height: 120px;
     // transform: translateX(-50%);
@@ -39,7 +30,7 @@
 #sangche-number{
     width: 100%;
     position: absolute;
-    top: 390px;
+    top: 530px;
     left: 5%;
     height: 50px;
 
@@ -110,7 +101,7 @@
 
 #sangche-btn-add-history{
     position: absolute;
-    top: 490px;
+    top: 630px;
     width: 20%;
     height: 40px;
     right: 50%;
