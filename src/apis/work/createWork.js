@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {toast} from "react-toastify";
 
-const createWork = (type, customerId, workName, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => {
+const createWork = async (type, customerId, workName, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => {
   
   let paperSubmitDateF = null;
   if (paperSubmitDate) {
@@ -15,7 +15,7 @@ const createWork = (type, customerId, workName, group, paperId, paperSubmitDate,
 
     const historyF = history.filter(item => item.action !== "");
   
-    axios.post(process.env.REACT_APP_API_URL + 'create-work', {
+    const response = await axios.post(process.env.REACT_APP_API_URL + 'create-work', {
       customerId: customerId,
       name: workName,
       type: type,
@@ -25,22 +25,22 @@ const createWork = (type, customerId, workName, group, paperId, paperSubmitDate,
       history: historyF,
       gcnID: gcnID,
       gcnDate: gcnDateF
-    })
-    .then(async response => {
-      const message = (response.data.message);
-      const statusText = (response.data.statusText)
-  
-      if (statusText === "OK"){
-      await toast.success(message, {
+    });
+
+    const message = response.data.message;
+    const statusText = response.data.statusText;
+
+    if (statusText === "OK") {
+      toast.success(message, {
         position: toast.POSITION.TOP_RIGHT,
-      })
-      }
-  
-      else{
-        toast.error(message, {
+      });
+      return true
+    } else {
+      toast.error(message, {
         position: toast.POSITION.TOP_RIGHT,
-      })}
-    })
+      });
+      return false
+    }
   }
 
   export default createWork;

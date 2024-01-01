@@ -236,7 +236,9 @@ const NhanHieuDialog = (props) => {
           </div>
 
           <div id='nhanhieu-button-save'>
-            <ButtonSubmit text='Lưu' onClick={async () => {await getHistory(); props.handleSave(props.type, props.customerId, nhanhieu, group, paperId, paperSubmitDate, history.current, soGCN, gcnDate)}}/>
+            <ButtonSubmit text='Lưu' onClick={async () => { 
+              getHistory(); 
+              props.handleSave(props.type, props.customerId, nhanhieu, group, paperId, paperSubmitDate, history.current, soGCN, gcnDate)}}/>
           </div>
           <div id='nhanhieu-button-cancel'>
             <ButtonCancel text='Huỷ' onClick={() => {props.hide()}}/>

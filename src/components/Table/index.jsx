@@ -42,15 +42,15 @@ const CusomizedTable = (props) => {
   return (
     <>
     <TableContainer style={{ maxHeight: 630 }}>
-      <Table sx={{ maxWdith: 1000}} aria-label="customized table">
+      <Table sx={{ maxWdith: 1000}} aria-label="customized table" options={{rowStyle: {height: 30}}}>
         <TableHead>
           <TableRow>
             {props.columnName.map((name) => (<StyledTableCell><b>{name}</b></StyledTableCell>))}
-            <StyledTableCell sx={{width: 80}}align='center'><b>Action</b></StyledTableCell>
+            <StyledTableCell sx={{width: 80}}align='center'></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.rows.slice(pg * 8, pg * 8 + 8).map((row) => (
+          {props.rows.slice(pg * 6, pg * 6 + 6).map((row) => (
             <StyledTableRow key={row.id}>
               {Object.values(row).slice(1).map((cell, index) => <StyledTableCell key={index} component="th" scope="row">{cell}</StyledTableCell>)}
               <StyledTableCell>
@@ -63,10 +63,10 @@ const CusomizedTable = (props) => {
       </Table>
     </TableContainer>
     <TablePagination 
-      rowsPerPageOptions={[8]} 
+      rowsPerPageOptions={[6]} 
       component="div"
       count={props.rows.length} 
-      rowsPerPage={8} 
+      rowsPerPage={6} 
       page={pg} 
       onPageChange={handleChangePage} 
     /> 
