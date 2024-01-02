@@ -9,7 +9,7 @@ import axios from 'axios';
     };
   
     workName = truncateString(workName, 20);
-    customerName  = truncateString(customerName, 20);
+    customerName  = truncateString(customerName, 50);
     paperId = paperId.length > 4 ? paperId : 'Không có'
     return {
         id, customerName, type, workName, paperId

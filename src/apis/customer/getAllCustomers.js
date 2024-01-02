@@ -8,7 +8,7 @@ function createRow(id, name, address, email, phoneNumber) {
     return str;
   };
 
-  name = truncateString(name, 30);
+  name = truncateString(name, 50);
   address = truncateString(address, 20);
   email = truncateString(email, 20);
   phoneNumber = truncateString(phoneNumber, 20);

@@ -1,5 +1,6 @@
 import './index.scss'
 import ButtonCreate from '../../components/ButtonCreate'
+import ConfirmDialog from '../../components/ConfirmDialog';
 import Title from '../../components/Title'
 import Table from '../../components/Table'
 import { useState, useRef, useEffect } from 'react'
@@ -12,6 +13,8 @@ import createWork from '../../apis/work/createWork';
 import GPHIDialog from '../../components/GPHIDialog';
 import getAllWork from '../../apis/work/getAllWork'
 import getCustomer from '../../apis/customer/getCustomer'
+import getWork from '../../apis/work/getWork'
+import deleteWork from '../../apis/work/deleteWork'
 
 const ServiceScreen= () =>{
 
@@ -55,6 +58,11 @@ const ServiceScreen= () =>{
     setIsCreateShowingGPHI(!isShowingCreateGPHI)
   }
 
+  const [isShowingConfirm, setIsShowingConfirm] = useState(false)
+  const toggleConfirm = () => {
+    setIsShowingConfirm(!isShowingConfirm)
+  }
+
   const [nameErrorMessage, setNameErrorMessage] = useState("")
   const [typeErrorMessage, setTypeErrorMessage] = useState("")
   const thisCustomer = useRef({name:"", address:"", email:"", phoneNumber:""})
@@ -84,7 +92,6 @@ const ServiceScreen= () =>{
       thisCustomer.current = cus
       customerId.current = customer.key
 
-      console.log(customerId.current)
       if (type.current === 'Nhãn hiệu'){
         toggleCreateNH()
         setType("")
@@ -109,6 +116,8 @@ const ServiceScreen= () =>{
     setTypeErrorMessage("")
   }, [isShowingCreate])
 
+  const thisWork = useRef({})
+
     return(
         <div id='service-screen'>
             <div id='title-wrapper'>
@@ -122,7 +131,11 @@ const ServiceScreen= () =>{
                 columnName={['Chủ đơn', 'Loại', 'Tên', 'Số đơn']}
                 rows = {workList}
                 // handleEditButton={ (id) => {getCustomer(id);toggleEdit(id)}}
-                // handleDeleteButton={(id) => {toggleConfirm();setCustomerId(id)}}
+                handleDeleteButton={async (wid,wname) => {
+                  const w = await getWork(wid)
+                  thisWork.current = w
+                  toggleConfirm();
+                }}
                 />
             </div>
             <WorkDialog
@@ -187,6 +200,21 @@ const ServiceScreen= () =>{
                 fetchData()}}
               }
             />
+
+            <ConfirmDialog
+              isShowing={isShowingConfirm}
+              hide={toggleConfirm}
+              handleConfirm={async () => {
+                const res = await deleteWork(thisWork.current._id);
+                if (res){
+                  toggleConfirm();
+                  fetchData()
+                }
+              }}
+              height={'60px'}
+              type={'đơn hàng'}
+              name={`${thisWork.current.name} (${thisWork.current.customerName})`}
+              />
 
             <ToastContainer></ToastContainer>
         </div>
