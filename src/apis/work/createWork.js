@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {toast} from "react-toastify";
 
-const createWork = async (type, customerId, workName, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => {
+const createWork = async (id, type, customerId, workName, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => {
   
   let paperSubmitDateF = null;
   if (paperSubmitDate) {
@@ -13,7 +13,9 @@ const createWork = async (type, customerId, workName, group, paperId, paperSubmi
     gcnDateF = gcnDate.toLocaleString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' });
   }
 
-    const historyF = history.filter(item => item.action !== "");
+  if (history){
+    history = history.filter(item => item.action !== "");
+  }
   
     const response = await axios.post(process.env.REACT_APP_API_URL + 'create-work', {
       customerId: customerId,
@@ -22,7 +24,7 @@ const createWork = async (type, customerId, workName, group, paperId, paperSubmi
       group: group,
       paperId: paperId,
       paperSubmitDate: paperSubmitDateF,
-      history: historyF,
+      history: history,
       gcnID: gcnID,
       gcnDate: gcnDateF
     });

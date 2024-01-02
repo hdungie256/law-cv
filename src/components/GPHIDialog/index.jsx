@@ -10,6 +10,7 @@ import { TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { useEffect,useRef } from 'react';
+import dayjs from 'dayjs';
 
 const GPHIDialog = (props) => {
 
@@ -127,13 +128,28 @@ const GPHIDialog = (props) => {
       "date" : historyDates[i]
     }
     }
-
-    console.log(history.current)
   }
+
+  const setInitial = (values) => {
+    setNhanHieu(values.name)
+    setPaperSubmitDate(dayjs(values.paperSubmitDate))
+    if (values.paperId.length > 4){
+      setYear(values.paperId.split("-")[1])
+      setServiceId(values.paperId.split("-")[2])
+    }
+    setSoGCN(values.gcnId)
+    setGcnDate(dayjs(values.gcnDate))
+  }
+
+  useEffect(() => {
+    if (props.workValues) {
+      setInitial(props.workValues);
+    }
+  }, [props.workValues]);
 
   return (
       <DialogBox className='dialog-box' 
-      title={'Tạo đơn GPHI'} 
+      title={props.title} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='500px'
@@ -191,7 +207,7 @@ const GPHIDialog = (props) => {
           </div>
 
           <div id='gphi-button-save'>
-            <ButtonSubmit text='Lưu' onClick={async () => {await getHistory(); props.handleSave(props.type, props.customerId, nhanhieu, "", paperId, paperSubmitDate, history.current, soGCN, gcnDate)}}/>
+            <ButtonSubmit text='Lưu' onClick={async () => {await getHistory(); props.handleSave(props.workId, props.type, props.customerId, nhanhieu, "", paperId, paperSubmitDate, history.current, soGCN, gcnDate)}}/>
           </div>
           <div id='gphi-button-cancel'>
             <ButtonCancel text='Huỷ' onClick={() => {props.hide()}}/>

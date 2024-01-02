@@ -10,6 +10,7 @@ import { TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { useEffect,useRef } from 'react';
+import dayjs from 'dayjs';
 
 const NhanHieuDialog = (props) => {
 
@@ -68,7 +69,6 @@ const NhanHieuDialog = (props) => {
         key: 'history' + historyKey,
       },
     ]);
-    console.log('historyField', historyField)
   };
 
   const [historyField, setHistoryField] = useState([]);
@@ -115,9 +115,6 @@ const NhanHieuDialog = (props) => {
   const [paperSubmitDate, setPaperSubmitDate] = useState(null)
   const [gcnDate, setGcnDate] = useState(null)
 
-  // const [paperSubmitDateError, setPaperSubmitDateError] = useState("")
-  // const [gcnDateError, setGcnDateError] = useState("")
-
   const paperId = '4-'+ year + '-' + serviceId
   const history = useRef([])
 
@@ -139,13 +136,30 @@ const NhanHieuDialog = (props) => {
       "date" : historyDates[i]
     }
     }
-
-    console.log(history.current)
   }
+
+  const setInitial = (values) => {
+    setNhanHieu(values.name)
+    setGroup(values.group)
+    setPaperSubmitDate(dayjs(values.paperSubmitDate))
+    console.log('values', values)
+    if (values.paperId.length > 4){
+      setYear(values.paperId.split("-")[1])
+      setServiceId(values.paperId.split("-")[2])
+    }
+    setSoGCN(values.gcnId)
+    setGcnDate(dayjs(values.gcnDate))
+  }
+
+  useEffect(() => {
+    if (props.workValues) {
+      setInitial(props.workValues);
+    }
+  }, [props.workValues]);
 
   return (
       <DialogBox className='dialog-box' 
-      title={'Tạo đơn nhãn hiệu'} 
+      title={props.title} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='500px'
@@ -170,7 +184,7 @@ const NhanHieuDialog = (props) => {
             <TextField type="number" onChange={(e) => handleChangeGroup(e)} value={group}/>
         </div>
         <div id='nhanhieu-date'>
-          <DatePick onChange={(value) => setPaperSubmitDate(value)} value={paperSubmitDate} label='Ngày nộp đơn'/>
+          <DatePick onChange={(value) => {setPaperSubmitDate(value); console.log(paperSubmitDate)}} value={paperSubmitDate} label='Ngày nộp đơn'/>
           {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
         </div>
         <div id='nhanhieu-number'>
@@ -212,7 +226,7 @@ const NhanHieuDialog = (props) => {
           <div id='nhanhieu-button-save'>
             <ButtonSubmit text='Lưu' onClick={async () => { 
               getHistory(); 
-              props.handleSave(props.type, props.customerId, nhanhieu, group, paperId, paperSubmitDate, history.current, soGCN, gcnDate)}}/>
+              props.handleSave(props.workId, props.type, props.customerId, nhanhieu, group, paperId, paperSubmitDate, history.current, soGCN, gcnDate)}}/>
           </div>
           <div id='nhanhieu-button-cancel'>
             <ButtonCancel text='Huỷ' onClick={() => {props.hide()}}/>

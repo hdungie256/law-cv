@@ -11,7 +11,7 @@ const ConfirmDialog = (props) => {
       overFlowY={'hidden'}
       height={props.height}
       >
-        <p> Xác nhận xoá {props.type} <b> {props.name} </b></p>
+        <p style={{lineHeight: '2.5'}}> Xác nhận xoá {props.type} <b> {props.name} </b></p>
         <div id='confirmation-button-confirm'>
           <ButtonSubmit text='Xác nhận' onClick={props.handleConfirm}/>
         </div>
