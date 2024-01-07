@@ -86,11 +86,15 @@ const NhanHieuDialog = (props) => {
           <div className='history-action'> 
             <DropDown label='Hành động' 
             onChange={setAction}
-            value={action}
+            value={Object.keys(item).length>2 ? item.action : action}
             options={ ["Thông báo thiếu sót", "Công văn trả lời thông báo thiếu sót","Quyết định chấp nhận hợp lệ","Thông báo từ chối","Công văn trả lời thông báo từ chối","Thông báo cấp GCN","Quyết định từ chối"]}
             className='hisotry-action-dropdown'/> 
           </div>
-          <div className='history-date'> <DatePick label='Ngày'/> </div>
+          <div className='history-date'> 
+            <DatePick
+            value={Object.keys(item).length > 2 ? dayjs(item.date) : undefined}
+            label='Ngày'/> 
+          </div>
           <div className='history-delete'> 
             <IconButton aria-label="delete"  onClick={() => handleDeleteHistory(item.key)}><DeleteIcon /></IconButton>
           </div>
@@ -138,17 +142,18 @@ const NhanHieuDialog = (props) => {
     }
   }
 
-  const setInitial = (values) => {
+  const setInitial = async (values) => {
     setNhanHieu(values.name)
     setGroup(values.group)
     setPaperSubmitDate(dayjs(values.paperSubmitDate))
-    console.log('values', values)
     if (values.paperId.length > 4){
       setYear(values.paperId.split("-")[1])
       setServiceId(values.paperId.split("-")[2])
     }
     setSoGCN(values.gcnId)
     setGcnDate(dayjs(values.gcnDate))
+    setHistoryField(values.history)
+    renderHistory()
   }
 
   useEffect(() => {
@@ -184,7 +189,7 @@ const NhanHieuDialog = (props) => {
             <TextField type="number" onChange={(e) => handleChangeGroup(e)} value={group}/>
         </div>
         <div id='nhanhieu-date'>
-          <DatePick onChange={(value) => {setPaperSubmitDate(value); setYear(value.year()); console.log('y',year); console.log('this',paperSubmitDate)}} value={paperSubmitDate} label='Ngày nộp đơn'/>
+          <DatePick onChange={(value) => {setPaperSubmitDate(value); setYear(value.year());}} value={paperSubmitDate} label='Ngày nộp đơn'/>
           {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
         </div>
         <div id='nhanhieu-number'>

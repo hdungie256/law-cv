@@ -21,11 +21,13 @@ function DropDown(props) {
             <Autocomplete
             disablePortal
             options={props.options}
+            value={props.value}
             onChange={(e, newValue) => {setValue(newValue);props.onChange(newValue)}}
             sx={{ className: props.className, width: props.width }}
             renderInput={(params) => <TextField {...params} 
             onInputhange={(e, newInputValue) => {setInputValue(newInputValue);props.onChange(newInputValue)}}
             className={props.className}
+            inputValue={inputValue}
             />}
             />
         </div>

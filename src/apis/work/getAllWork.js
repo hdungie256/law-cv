@@ -1,4 +1,5 @@
 import axios from 'axios';
+import dayjs from 'dayjs';
 
   function createRow(id, customerName, type, workName, paperId, paperSubmitDate) {
     const truncateString = (str, maxLength) => {
@@ -11,14 +12,7 @@ import axios from 'axios';
     workName = truncateString(workName, 20);
     customerName  = truncateString(customerName, 50);
     paperId = paperId.length > 4 ? paperId : 'Không có'
-
-    const parsedDate = new Date(paperSubmitDate);
-
-    const day = (parsedDate.getUTCDate() + 1).toString().padStart(2, '0');
-    const month = (parsedDate.getUTCMonth()+1).toString().padStart(2, '0'); // Months are zero-based
-    const year = parsedDate.getUTCFullYear();
-
-    const formattedDate = `${day}/${month}/${year}`;
+    const formattedDate = dayjs(paperSubmitDate).format('DD/MM/YYYY');
     return {
         id, customerName, type, workName, paperId, formattedDate
     };
