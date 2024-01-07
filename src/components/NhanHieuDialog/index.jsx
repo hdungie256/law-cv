@@ -184,7 +184,7 @@ const NhanHieuDialog = (props) => {
             <TextField type="number" onChange={(e) => handleChangeGroup(e)} value={group}/>
         </div>
         <div id='nhanhieu-date'>
-          <DatePick onChange={(value) => {setPaperSubmitDate(value); console.log(paperSubmitDate)}} value={paperSubmitDate} label='Ngày nộp đơn'/>
+          <DatePick onChange={(value) => {setPaperSubmitDate(value); setYear(value.year()); console.log('y',year); console.log('this',paperSubmitDate)}} value={paperSubmitDate} label='Ngày nộp đơn'/>
           {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
         </div>
         <div id='nhanhieu-number'>
@@ -196,7 +196,7 @@ const NhanHieuDialog = (props) => {
           <p id='slash-1'> - </p>
           <div id='nhanhieu-number-year'>
             {/* <div id='nhanhieu-year-label-wrapper'> <label id='nhanhieu-year-label'> <b> Năm</b></label> </div> */}
-            <TextField placeholder='Năm' type="number" onChange={(e) => handleChangeYear(e)} value={year}/>
+            <TextField placeholder='Năm' disabled={true} type="number" onChange={(e) => handleChangeYear(e)} value={year}/>
           </div>
           <p id='slash-2'> - </p>
           <div id='nhanhieu-number-id'>

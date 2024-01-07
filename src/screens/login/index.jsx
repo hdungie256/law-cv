@@ -60,6 +60,7 @@ function LogInScreen() {
 
     return (
       <div id='log-in-screen'>
+        <div id='log-in-card-wrapper'>
         <Card>
             <Title className='title' title='Đăng nhập'/>
             <div id='username-field' className={`${usernameError} field`}>
@@ -73,6 +74,7 @@ function LogInScreen() {
             </div>
             <ToastContainer></ToastContainer>
         </Card>
+        </div>
       </div>
     );
   }

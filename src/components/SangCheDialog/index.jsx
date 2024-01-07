@@ -171,7 +171,7 @@ const SangCheDialog = (props) => {
           <TextInput type='text' padding='0px 10px' errorMessage = {nhanhieuEror} onChange={(e) => {handleChangeNhanHieu(e);handleChangeNhanHieuError(e.target.value)}} value={nhanhieu} label='Tên sáng chế *' placeholder={('Tên sáng chế')} />
         </div>
         <div id='sangche-date'>
-          <DatePick onChange={(value) => setPaperSubmitDate(value)} value={paperSubmitDate} label='Ngày nộp đơn'/>
+          <DatePick onChange={(value) => {setPaperSubmitDate(value); setYear(value.year())}} value={paperSubmitDate} label='Ngày nộp đơn'/>
           {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
         </div>
         <div id='sangche-number'>
@@ -181,7 +181,7 @@ const SangCheDialog = (props) => {
           </div>
           <p id='slash-1'> - </p>
           <div id='sangche-number-year'>
-            <TextField placeholder='Năm' type="number" onChange={(e) => handleChangeYear(e)} value={year}/>
+            <TextField placeholder='Năm' type="number" disabled={true} onChange={(e) => handleChangeYear(e)} value={year}/>
           </div>
           <p id='slash-2'> - </p>
           <div id='sangche-number-id'>

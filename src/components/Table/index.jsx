@@ -32,6 +32,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const CusomizedTable = (props) => {
+  const [vh, setVh] = React.useState(Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0))
+  const [numRowsPerPage, setNumRowsPerPage] = React.useState(Math.floor((vh-100-56)/73 -1))
   
   const [pg, setpg] = React.useState(0); 
 
@@ -50,7 +52,7 @@ const CusomizedTable = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.rows.slice(pg * 6, pg * 6 + 6).map((row) => (
+          {props.rows.slice(pg * numRowsPerPage, pg * numRowsPerPage + numRowsPerPage).map((row) => (
             <StyledTableRow key={row.id}>
               {Object.values(row).slice(1).map((cell, index) => <StyledTableCell key={index} component="th" scope="row">{cell}</StyledTableCell>)}
               <StyledTableCell>
@@ -63,10 +65,10 @@ const CusomizedTable = (props) => {
       </Table>
     </TableContainer>
     <TablePagination 
-      rowsPerPageOptions={[6]} 
+      rowsPerPageOptions={[numRowsPerPage]} 
       component="div"
       count={props.rows.length} 
-      rowsPerPage={6} 
+      rowsPerPage={numRowsPerPage} 
       page={pg} 
       onPageChange={handleChangePage} 
     /> 

@@ -183,7 +183,7 @@ const KDCNDialog = (props) => {
             <TextField placeholder='Phân loại' type="text" onChange={(e) => handleChangeGroup(e)} value={group}/>
         </div>
         <div id='kdcn-date'>
-          <DatePick onChange={(value) => setPaperSubmitDate(value)} value={paperSubmitDate} label='Ngày nộp đơn'/>
+          <DatePick onChange={(value) => {setPaperSubmitDate(value); setYear(value.year())}} value={paperSubmitDate} label='Ngày nộp đơn'/>
           {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
         </div>
         <div id='kdcn-number'>
@@ -195,7 +195,7 @@ const KDCNDialog = (props) => {
           <p id='slash-1'> - </p>
           <div id='kdcn-number-year'>
             {/* <div id='nhanhieu-year-label-wrapper'> <label id='nhanhieu-year-label'> <b> Năm</b></label> </div> */}
-            <TextField placeholder='Năm' type="number" onChange={(e) => handleChangeYear(e)} value={year}/>
+            <TextField placeholder='Năm' type="number" disabled={true} onChange={(e) => handleChangeYear(e)} value={year}/>
           </div>
           <p id='slash-2'> - </p>
           <div id='kdcn-number-id'>

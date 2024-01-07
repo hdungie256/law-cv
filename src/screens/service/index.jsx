@@ -163,7 +163,7 @@ const ServiceScreen= () =>{
             </div>
             <div id='work-table-wrapper'>
               <Table 
-                columnName={['Chủ đơn', 'Loại', 'Tên', 'Số đơn']}
+                columnName={['Chủ đơn', 'Loại', 'Tên', 'Số đơn','Ngày nộp đơn']}
                 rows = {workList}
                 handleEditButton={ async (id) => {
                   const w = await getWork(id);
