@@ -50,16 +50,16 @@ const SangCheDialog = (props) => {
   };
 
   const [historyCount, setHistoryCount] = useState(0);
-  const [historyKey, setHistoryKey] = useState(0);
+  const historyKey = useRef(0)
 
   const addHistory = () => {
     setHistoryCount(historyCount + 1);
-    setHistoryKey(historyKey + 1)
+    historyKey.current = historyKey.current + 1
 
     setHistoryField((prevHistory) => [
       ...prevHistory,
       {
-        key: 'history' + historyKey,
+        key: 'history' + historyKey.current,
       },
     ]);
     console.log('historyField', historyField)
@@ -79,12 +79,12 @@ const SangCheDialog = (props) => {
       <div className='history-fields' id={item.key} key={item.key}>
           <div className='history-action'> 
             <DropDown label='Hành động' 
+            initial={item.action}
             onChange={setAction}
-            value={action}
             options={ ["Thông báo thiếu sót", "Công văn trả lời thông báo thiếu sót","Quyết định chấp nhận hợp lệ","Thông báo từ chối","Công văn trả lời thông báo từ chối","Thông báo cấp GCN","Quyết định từ chối"]}
             className='hisotry-action-dropdown'/> 
           </div>
-          <div className='history-date'> <DatePick label='Ngày'/> </div>
+          <div className='history-date'> <DatePick initial={item.date} label='Ngày'/> </div>
           <div className='history-delete'> 
             <IconButton aria-label="delete"  onClick={() => handleDeleteHistory(item.key)}><DeleteIcon /></IconButton>
           </div>
@@ -101,6 +101,8 @@ const SangCheDialog = (props) => {
     setSoGCN("")
     setHistoryCount(0)
     setHistoryField([])
+    historyKey.current = 0
+    history.current = []
   }
 
   useEffect(resetFields, [props.isShowing])
@@ -140,6 +142,14 @@ const SangCheDialog = (props) => {
     }
     setSoGCN(values.gcnId)
     setGcnDate(dayjs(values.gcnDate))
+    const c = []
+    for (let i = 0; i < values.history.length; i++) {
+      const mergedObject = { key: 'history' + i, ...values.history[i] };
+      c.push(mergedObject);
+    }
+    setHistoryField(c);
+    historyKey.current = values.history.length
+    renderHistory();
   }
 
   useEffect(() => {

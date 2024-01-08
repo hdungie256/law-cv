@@ -62,7 +62,6 @@ const NhanHieuDialog = (props) => {
   const addHistory = () => {
     setHistoryCount(historyCount + 1);
     historyKey.current = historyKey.current + 1
-    console.log('key', historyKey)
 
     setHistoryField((prevHistory) => [
       ...prevHistory,
