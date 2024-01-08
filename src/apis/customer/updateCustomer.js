@@ -1,9 +1,10 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 
-const updateCustomer = async (id, name, address, email, phoneNumber) => {
+const updateCustomer = async (id, name, shortName, address, email, phoneNumber) => {
     const response = await axios.put(process.env.REACT_APP_API_URL + 'customers/' + id,{
       name: name,
+      shortName: shortName,
       address: address,
       email: email,
       phoneNumber: phoneNumber

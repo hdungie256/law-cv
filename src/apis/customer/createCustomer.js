@@ -1,11 +1,12 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 
-const createCustomer = async (id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => {
+const createCustomer = async (id, fullName, shortName, address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => {
   
     if (fullNameError === ""  && addressError === "" && emailError === ""  && phoneNumberError === ""){
         const response = await axios.post(process.env.REACT_APP_API_URL + 'create-customer', {
         name: fullName,
+        shortName, shortName,
         address: address,
         email: email,
         phoneNumber: phoneNumber

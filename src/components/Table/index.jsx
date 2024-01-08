@@ -43,7 +43,7 @@ const CusomizedTable = (props) => {
 
   return (
     <>
-    <TableContainer style={{ maxHeight: 630 }}>
+    <TableContainer>
       <Table sx={{ maxWdith: 1000}} aria-label="customized table" options={{rowStyle: {height: 30}}}>
         <TableHead>
           <TableRow>

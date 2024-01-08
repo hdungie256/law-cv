@@ -21,7 +21,7 @@ const getAllCustomers = async () => {
   try {
     const response = await axios.get(process.env.REACT_APP_API_URL + "/customers");
     const data = response.data.list;
-    const rows = data.map((dataRow) => createRow(dataRow['_id'], dataRow['name'],dataRow['address'], dataRow['email'], dataRow['phoneNumber']));
+    const rows = data.map((dataRow) => createRow(dataRow['_id'], dataRow.shortName ? dataRow['shortName'] : dataRow.name,dataRow['address'], dataRow['email'], dataRow['phoneNumber']));
     return rows;
 
   } catch (error) {

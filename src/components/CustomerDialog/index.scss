@@ -13,7 +13,7 @@
     transform: translateX(-50%);
 }
 
-.customer-address{
+.customer-shortname{
     width: 90%;
     position: absolute;
     top: 220px;
@@ -22,7 +22,7 @@
     transform: translateX(-50%);
 }
 
-.customer-email{
+.customer-address{
     width: 90%;
     position: absolute;
     top: 320px;
@@ -31,10 +31,19 @@
     transform: translateX(-50%);
 }
 
-.customer-phonenumber{
+.customer-email{
     width: 90%;
     position: absolute;
     top: 420px;
+    left:50%;
+    height: 10%;
+    transform: translateX(-50%);
+}
+
+.customer-phonenumber{
+    width: 90%;
+    position: absolute;
+    top: 520px;
     left:50%;
     height: 10%;
     transform: translateX(-50%);
@@ -44,7 +53,7 @@
     height: 40px;
     width: 12%;
     position: absolute;
-    top: 470px;
+    top: 570px;
     left: 52%;
 }
 
@@ -52,6 +61,6 @@
     height: 40px;
     width: 12%;
     position: absolute;
-    top: 470px;
+    top: 570px;
     right: 52%;
 }

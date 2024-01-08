@@ -43,6 +43,7 @@ const CustomerScreen= () =>{
         setValues({
           id: response['_id'],
           name: response['name'],
+          shortName: response['shortName'],
           address: response['address'],
           email: response['email'],
           phoneNumber: response['phoneNumber']
@@ -75,8 +76,8 @@ const CustomerScreen= () =>{
               id='customer-dialog-create'
               title='Tạo khách hàng mới'
               handleSave={
-              async (id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => {
-              const res = await createCustomer(null,fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
+              async (id, fullName,shortName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => {
+              const res = await createCustomer(null,fullName,shortName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
               if (res) {
                 toggleCreate()
                 fetchData()
@@ -89,9 +90,9 @@ const CustomerScreen= () =>{
               id='customer-dialog-edit'
               title='Chỉnh sửa thông tin khách hàng'
               handleSave={
-              async (id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => 
+              async (id, fullName, shortName, address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => 
               {
-                const res = await updateCustomer(id, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
+                const res = await updateCustomer(id, fullName, shortName, address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
                 if (res){
                   toggleEdit();
                   fetchData();

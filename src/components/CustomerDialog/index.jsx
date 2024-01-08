@@ -63,6 +63,7 @@ const CustomerDialog = (props) => {
   };
 
   const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [shortName, setShortName] = useState("")
   const handlePhoneNumberError = (currentPhoneNumber) =>{
     const phoneNumberRegex = /^\d{10,11}$/
     if (currentPhoneNumber.length<1){
@@ -85,10 +86,12 @@ const CustomerDialog = (props) => {
     setEmailError("");
     setPhoneNumber("");
     setPhoneNumberError("");
+    setShortName("")
   };
   
   const setInitial = (values) => {
     setFullName(values.name);
+    setShortName(values.shortName)
     setAddress(values.address);
     setEmail(values.email);
     setPhoneNumber(values.phoneNumber);
@@ -117,7 +120,10 @@ const CustomerDialog = (props) => {
       overflowY='auto'
       >
         <div className='customer-fullname'>
-          <TextInput type='text'onChange = {(e) => {handleFullNameChange(e); handleFullNameError(e.target.value)}} value={fullName} errorMessage={fullNameError} padding='0px 10px' label='Họ và tên' placeholder={('Họ và tên')} />
+          <TextInput type='text'onChange = {(e) => {handleFullNameChange(e); handleFullNameError(e.target.value)}} value={fullName} errorMessage={fullNameError} padding='0px 10px' label='Tên khách hàng' placeholder={('Tên khách hàng')} />
+        </div>
+        <div className='customer-shortname'>
+          <TextInput type='text' errorMessage="" onChange = {(e) => {setShortName(e.target.value)}} value={shortName} padding='0px 10px' label='Tên rút gọn/Tên gợi nhớ' placeholder={('Tên rút gọn/Tên gợi nhớ')} />
         </div>
         <div className='customer-address'>
           <TextInput type='text'onChange = {(e) => {handleAddressChange(e); handleAddressError(e.target.value)}} value={address} errorMessage={addressError} padding='0px 10px' label='Địa chỉ' placeholder={('Địa chỉ')} />
@@ -130,7 +136,7 @@ const CustomerDialog = (props) => {
         </div>
         <div className='customer-button-save'>
           <ButtonSubmit text='Lưu' onClick=
-          {() => {props.handleSave(props.values ? props.values.id : null, fullName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError);}}/>
+          {() => {props.handleSave(props.values ? props.values.id : null, fullName,shortName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError);}}/>
         </div>
         <div className='customer-button-cancel'>
           <ButtonCancel className='customer-button' text='Huỷ' onClick={() => {props.hide()}}/>
