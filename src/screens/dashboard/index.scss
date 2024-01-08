@@ -6,37 +6,12 @@
     top: 0%;
     left: 16vw;
     position: absolute;
-    
-        .title{
-            color: $vintageblue;
-            position: absolute;
-            top: 30px;
-            left: 0%;
-            transform: translateX(20%);
-        }
 }
 
 #dashboard-tab-wrapper{
     position:absolute;
-    top: 80px;
+    top: 0px;
     left: 20px;
     width: 95%;
-    height: calc(100vh - 80px)
-}
-
-.deadline-card-wrapper{
-    position: absolute;
-    height: 230px;
-    width: 400px
-}
-
-.deadline-card-field{
-    position: absolute;
-    left: 17px;
-    color: $vintageblue
-}
-
-.deadline-card-value{
-    position: absolute;
-    left: 150px;
+    height: 100vh
 }

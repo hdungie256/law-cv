@@ -1,0 +1,26 @@
+@import 'src/assets/scss/colors';
+.MuiGrid-grid-md-4{
+    justify-content: center;
+    align-items: center;
+    position: relative;
+ }
+ 
+ .deadline-card-wrapper{
+     position: absolute;
+     height: 220px;
+     width: 23vw;
+     right: 50%;
+     transform: translateX(50%);
+ 
+ }
+ 
+ .deadline-card-field{
+     position: absolute;
+     left: 17px;
+     color: $vintageblue
+ }
+ 
+ .deadline-card-value{
+     position: absolute;
+     left: 150px;
+ }
