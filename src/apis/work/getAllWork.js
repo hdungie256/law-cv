@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
     workName = truncateString(workName, 20);
     customerName  = truncateString(customerName, 50);
     paperId = paperId.length > 4 ? paperId : 'Không có'
-    const formattedDate = dayjs(paperSubmitDate).format('DD/MM/YYYY');
+    const formattedDate = paperSubmitDate ? dayjs(paperSubmitDate).format('DD/MM/YYYY') : 'Không có'
     return {
         id, customerName, type, workName, paperId, formattedDate
     };
