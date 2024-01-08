@@ -1,19 +1,18 @@
 import './index.scss';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function DropDown(props) {
 
-  // const useStyles = makeStyles({
-  //   class: props.className
-  //   ,
-  // });
-
-  // const classes = useStyles();
-
   const [value, setValue] = useState("");
   const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    if (props.initial){
+      setValue(props.initial)
+    }}, [props.initial])
+  
   return (
     <div className='drop-down'>
         {props.label && <label className='label'> <b>{props.label}</b> </label>}
@@ -21,7 +20,7 @@ function DropDown(props) {
             <Autocomplete
             disablePortal
             options={props.options}
-            value={props.value}
+            value={value}
             onChange={(e, newValue) => {setValue(newValue);props.onChange(newValue)}}
             sx={{ className: props.className, width: props.width }}
             renderInput={(params) => <TextField {...params} 
