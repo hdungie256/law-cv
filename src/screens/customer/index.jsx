@@ -11,14 +11,18 @@ import getCustomer from '../../apis/customer/getCustomer'
 import deleteCustomer from '../../apis/customer/deleteCustomer'
 import createCustomer from '../../apis/customer/createCustomer'
 import updateCustomer from '../../apis/customer/updateCustomer'
+import { CircularProgress } from '@mui/material'
+import Fade from '@mui/material/Fade';
+import Box from '@mui/material/Box'
 
-const CustomerScreen= () =>{
+const CustomerScreen= (props) =>{
   const [customerList,setCustomerList] = useState([])
   const [resetFields,setResetFields] = useState(false)
 
   const fetchData = async () => {
     const customers = await getAllCustomers();
     setCustomerList(customers);
+    setIsLoading(false)
   };
   useEffect(() => {
     fetchData(); 
@@ -63,70 +67,79 @@ const CustomerScreen= () =>{
     customerName.current = name
   }
 
+  const [isLoading, setIsLoading] = useState(true)
+
     return(
-        <div id='customer-screen'>
+        <div id='customer-screen'>{
+          isLoading ?   (<Box sx={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                          <CircularProgress />
+                        </Box>) : (
+          <Fade in={!isLoading} timeout={100}>
+          <div>
+              <Title id='customer-title' title='Quản lý khách hàng'/>
 
-            <Title id='customer-title' title='Quản lý khách hàng'/>
-
-            <div className='button-add-new'>
-                <ButtonCreate onClick={toggleCreate} text='Thêm khách hàng'/>
-            </div>
-
-            <CustomerDialog 
-              id='customer-dialog-create'
-              title='Tạo khách hàng mới'
-              handleSave={
-              async (id, fullName,shortName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => {
-              const res = await createCustomer(null,fullName,shortName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
-              if (res) {
-                toggleCreate()
-                fetchData()
-              }  
-            }} 
-              isShowing={isShowingCreate} 
-              hide={toggleCreate}/>
-
-            <CustomerDialog 
-              id='customer-dialog-edit'
-              title='Chỉnh sửa thông tin khách hàng'
-              handleSave={
-              async (id, fullName, shortName, address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => 
-              {
-                const res = await updateCustomer(id, fullName, shortName, address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
-                if (res){
-                  toggleEdit();
-                  fetchData();
-                }
-              }} 
-              isShowing={isShowingEdit} 
-              values={values}
-              hide={toggleEdit}/>
-
-            <ConfirmDialog
-              isShowing={isShowingConfirm}
-              hide={toggleConfirm}
-              handleConfirm={async () => {
-                const res = await deleteCustomer(customerId.current);
-                if (res){
-                  toggleConfirm();
-                  fetchData()
-                }
-              }}
-              height={'60px'}
-              type={'khách hàng'}
-              name={customerName.current}
-               />
-
-            <div id='customer-table-wrapper'>
-              <Table 
-                columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại']}
-                rows = {customerList}
-                handleEditButton={ (id) => {viewCustomerInfo(id);toggleEdit(id)}}
-                handleDeleteButton={(id, name) => {toggleConfirm();setCustomerInfo(id, name)}}
-                />
+              <div className='button-add-new'>
+                  <ButtonCreate onClick={toggleCreate} text='Thêm khách hàng'/>
               </div>
-            <ToastContainer></ToastContainer>
-        </div>
+
+              <CustomerDialog 
+                id='customer-dialog-create'
+                title='Tạo khách hàng mới'
+                handleSave={
+                async (id, fullName,shortName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => {
+                const res = await createCustomer(null,fullName,shortName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
+                if (res) {
+                  toggleCreate()
+                  fetchData()
+                }  
+              }} 
+                isShowing={isShowingCreate} 
+                hide={toggleCreate}/>
+
+              <CustomerDialog 
+                id='customer-dialog-edit'
+                title='Chỉnh sửa thông tin khách hàng'
+                handleSave={
+                async (id, fullName, shortName, address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => 
+                {
+                  const res = await updateCustomer(id, fullName, shortName, address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
+                  if (res){
+                    toggleEdit();
+                    fetchData();
+                  }
+                }} 
+                isShowing={isShowingEdit} 
+                values={values}
+                hide={toggleEdit}/>
+
+              <ConfirmDialog
+                isShowing={isShowingConfirm}
+                hide={toggleConfirm}
+                handleConfirm={async () => {
+                  const res = await deleteCustomer(customerId.current);
+                  if (res){
+                    toggleConfirm();
+                    fetchData()
+                  }
+                }}
+                height={'60px'}
+                type={'khách hàng'}
+                name={customerName.current}
+                />
+
+              <div id='customer-table-wrapper'>
+                <Table 
+                  columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại']}
+                  rows = {customerList}
+                  handleEditButton={ (id) => {viewCustomerInfo(id);toggleEdit(id)}}
+                  handleDeleteButton={(id, name) => {toggleConfirm();setCustomerInfo(id, name)}}
+                  />
+                </div>
+              <ToastContainer></ToastContainer>
+              </div>
+            </Fade>
+          )}
+          </div>
     )
 }
 

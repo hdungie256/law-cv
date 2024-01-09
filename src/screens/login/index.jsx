@@ -52,11 +52,18 @@ function LogInScreen() {
       handleUsernameError(username)
       handlePasswordError(password)
 
+      if (usernameError || passwordError) {
+        return;
+      }
+
+      setIsButtonDisabled(true)
       const res = await logIn(username, password)
       if (res){
         navigate('../main')
       }
     }
+
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     return (
       <div id='log-in-screen'>
@@ -70,7 +77,7 @@ function LogInScreen() {
               <TextInput padding='0px 40px' handleBackIconOnClick={handleShowPassword} type={showPassword ? 'text' : 'password'} onChange = {(e) => {handlePasswordChange(e); handlePasswordError(e.target.value)}} errorMessage={passwordError} frontIcon={faKey} backIcon={showPassword ? faEye : faEyeSlash} placeholder={('Mật khẩu')} />
             </div>
             <div id='button-wrapper'>
-              <ButtonSubmit text='Đăng nhập' onClick={handleLogin}/>
+              <ButtonSubmit text='Đăng nhập' onClick={handleLogin} disabled={isButtonDisabled}/>
             </div>
             <ToastContainer></ToastContainer>
         </Card>

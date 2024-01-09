@@ -36,7 +36,7 @@ const DashBoardScreen= () =>{
                     </Tabs>
 
                     <TabPanel value='1'> 
-                        <DeadlineTab/>
+                        <DeadlineTab in={tab==='1' ? true : false}/>
                     </TabPanel>
 
                     <TabPanel value='2'> Kết quả</TabPanel>

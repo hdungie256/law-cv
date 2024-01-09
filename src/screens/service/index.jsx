@@ -16,6 +16,9 @@ import getCustomer from '../../apis/customer/getCustomer'
 import getWork from '../../apis/work/getWork'
 import deleteWork from '../../apis/work/deleteWork'
 import updateWork from '../../apis/work/updateWork'
+import { CircularProgress } from '@mui/material'
+import Fade from '@mui/material/Fade';
+import Box from '@mui/material/Box'
 
 const ServiceScreen= () =>{
 
@@ -23,6 +26,7 @@ const ServiceScreen= () =>{
   const fetchData = async () => {
     const works = await getAllWork();
     setWorkList(works);
+    setIsLoading(false)
   };
 
   useEffect(() => {fetchData()}, [])
@@ -87,6 +91,8 @@ const ServiceScreen= () =>{
   const [nameErrorMessage, setNameErrorMessage] = useState("")
   const [typeErrorMessage, setTypeErrorMessage] = useState("")
   const thisCustomer = useRef({name:"", address:"", email:"", phoneNumber:""})
+
+  const [isLoading,setIsLoading] = useState(true)
 
   const handleNext = async (ntype, customer) => {
     if (customer===""){
@@ -155,6 +161,11 @@ const ServiceScreen= () =>{
 
     return(
         <div id='service-screen'>
+          {isLoading ?   (<Box sx={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                          <CircularProgress />
+                        </Box>) : (
+          <Fade in={!isLoading} timeout={100}>
+            <div>
             <div id='title-wrapper'>
                 <Title className='title' title='Quản lý công việc'/>
             </div>
@@ -356,6 +367,9 @@ const ServiceScreen= () =>{
               />
 
             <ToastContainer></ToastContainer>
+            </div>
+            </Fade>
+                        )}
         </div>
     )
 }

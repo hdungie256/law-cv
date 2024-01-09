@@ -2,7 +2,7 @@ import Card from '../../components/Card';
 import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
 import {Pagination} from "@mui/material"
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { createTheme } from '@mui/material/styles';
 import './index.scss'
 import dayjs from 'dayjs';
@@ -17,24 +17,24 @@ const DeadlineTab = (props) => {
     const renderCard = (list) => {
         list = list.sort((a, b) => a.due - b.due)
         return list.slice((page-1) * cardPerPage, (page-1) * cardPerPage + cardPerPage).map((item) => (
-            <Grid item md={4} style={{ height: '260px' }}>
-            <div class='deadline-card-wrapper'>
-            <Card>
-                <p style={{fontSize: '18px', color:theme.palette.purpleblue, top:'5px', position:'absolute'}}><b> {item.name} </b></p>
-                <hr style={{borderWidth:'0.5', background:'#dfe8f5', width: '90%', position:'absolute', top:'30px'}}></hr>
-                <p className='deadline-card-field' style={{top:'65px'}}>Loại đơn:</p>
-                <p className='deadline-card-value' style={{top:'65px'}}> {item.type}</p>
-                <p className='deadline-card-field' style={{top:'100px'}}>Việc cần làm: </p>
-                <div className='deadline-card-value' style={{top:'106px'}}>
-                    <Chip  style={{ backgroundColor: item.action.includes("từ chối") ? theme.palette.greyblue : theme.palette.green, color:'black' }} color='primary' label={item.action}></Chip>
+                <Grid item md={4} style={{ height: '260px' }}>
+                <div class='deadline-card-wrapper'>
+                <Card>
+                    <p style={{fontSize: '18px', color:theme.palette.purpleblue, top:'5px', position:'absolute'}}><b> {item.name} </b></p>
+                    <hr style={{borderWidth:'0.5', background:'#dfe8f5', width: '90%', position:'absolute', top:'30px'}}></hr>
+                    <p className='deadline-card-field' style={{top:'65px'}}>Loại đơn:</p>
+                    <p className='deadline-card-value' style={{top:'65px'}}> {item.type}</p>
+                    <p className='deadline-card-field' style={{top:'100px'}}>Việc cần làm: </p>
+                    <div className='deadline-card-value' style={{top:'106px'}}>
+                        <Chip  style={{ backgroundColor: item.action.includes("từ chối") ? theme.palette.greyblue : theme.palette.green, color:'black' }} color='primary' label={item.action}></Chip>
+                    </div>
+                    <p className='deadline-card-field' style={{top:'135px'}}>Deadline: </p>
+                    <p className='deadline-card-value' style={{top:'135px'}}> {dayjs(item.deadline).format('DD/MM/YYYY')}</p>
+                    <p className='deadline-card-field' style={{top:'170px'}}>Còn:</p>
+                    <p className='deadline-card-value' style={{top:'170px',color: item.due > 60 ? 'green' : (item.due > 30 ? 'orange' : 'red')}}> <b>{item.due} ngày</b></p>
+                </Card>
                 </div>
-                <p className='deadline-card-field' style={{top:'135px'}}>Deadline: </p>
-                <p className='deadline-card-value' style={{top:'135px'}}> {dayjs(item.deadline).format('DD/MM/YYYY')}</p>
-                <p className='deadline-card-field' style={{top:'170px'}}>Còn:</p>
-                <p className='deadline-card-value' style={{top:'170px',color: item.due > 60 ? 'green' : (item.due > 30 ? 'orange' : 'red')}}> <b>{item.due} ngày</b></p>
-            </Card>
-            </div>
-            </Grid>
+                </Grid>
         ))
     }
 

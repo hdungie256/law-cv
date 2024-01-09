@@ -9,7 +9,7 @@ function MainScreen() {
 
   const handleSubScreenChange = (newSubScreen) => {
     setSubScreen(newSubScreen);
-  }
+  };
   return (
     <div>
         <LeftNavBar onSubScreenChange={handleSubScreenChange}/>
