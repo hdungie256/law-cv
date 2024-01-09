@@ -128,7 +128,8 @@ const KDCNDialog = (props) => {
   
     const historyDates = Array.from(document.getElementsByClassName('history-date'))
     .map((element) => {
-      return element.querySelectorAll('input')[0].value
+      const dparts = element.querySelectorAll('input')[0].value.split("/")
+      return dparts[1] + '/' + dparts[0] + '/' + dparts[2]
     })
 
     for (let i=0; i<historyActions.length; i++){
@@ -192,7 +193,7 @@ const KDCNDialog = (props) => {
             <TextField placeholder='Phân loại' type="text" onChange={(e) => handleChangeGroup(e)} value={group}/>
         </div>
         <div id='kdcn-date'>
-          <DatePick onChange={(value) => {setPaperSubmitDate(value); setYear(value.year())}} value={paperSubmitDate} label='Ngày nộp đơn'/>
+          <DatePick initial={paperSubmitDate} onChange={(value) => {setPaperSubmitDate(value); setYear(value.year())}} value={paperSubmitDate} label='Ngày nộp đơn'/>
           {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
         </div>
         <div id='kdcn-number'>
@@ -227,7 +228,7 @@ const KDCNDialog = (props) => {
           </div>
 
           <div id='kdcn-gcn-date'>
-            <DatePick label='Ngày cấp GCN' onChange={(value) => setGcnDate(value)} value={gcnDate}/>
+            <DatePick initial={gcnDate} label='Ngày cấp GCN' onChange={(value) => setGcnDate(value)} value={gcnDate}/>
             {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
           </div>
 

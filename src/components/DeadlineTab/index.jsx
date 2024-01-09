@@ -6,16 +6,29 @@ import { useState } from 'react';
 import { createTheme } from '@mui/material/styles';
 import './index.scss'
 import dayjs from 'dayjs';
+import { useEffect } from 'react';
+import getWorkForReplyTab from '../../apis/work/getWorkForReplyTab';
 
 const DeadlineTab = (props) => {
+    const [deadlineList,setDeadlineList] = useState([])
 
     const [page, setPage] = useState(1); 
     const handleChange = (event, value) => { 
         setPage(value); 
     }; 
 
+    const fetchData = async() => {
+        const list = await getWorkForReplyTab()
+        setDeadlineList(list)
+    }
+
+    useEffect(() => {
+        if(props.appear){
+            fetchData()
+    }},[props.appear])
+
     const renderCard = (list) => {
-        list = list.sort((a, b) => a.due - b.due)
+        console.log('listinput', list)
         return list.slice((page-1) * cardPerPage, (page-1) * cardPerPage + cardPerPage).map((item) => (
                 <Grid item md={4} style={{ height: '260px' }}>
                 <div class='deadline-card-wrapper'>
@@ -60,45 +73,3 @@ const theme = createTheme({
 });
 
 const cardPerPage = window.innerHeight < 700 ? 6 : 9;
-
-const dlList = [
-    {name: 'Company 1',
-    type: 'Nhãn hiệu',
-    action: 'Trả lời thông báo thiếu sót',
-    deadline: '2024-03-02T17:00:00.000+00:00',
-    due: 0},
-    {name: 'Company 2',
-    type: 'KDCN',
-    action: 'Trả lời thông báo từ chối',
-    deadline: '2024-03-02T17:00:00.000+00:00',
-    due: 31},
-    {name: 'Company 3',
-    type: 'Sáng chế',
-    action: 'Trả lời thông báo từ chối',
-    deadline: '2024-01-25T17:00:00.000+00:00',
-    due: 15},
-    {name: 'Company 4',
-    type: 'GPHI',
-    action: 'Trả lời thông báo thiếu sót',
-    deadline: '2024-04-02T17:00:00.000+00:00',
-    due: 180},
-    {name: 'Company 5',
-    type: 'Nhãn hiệu',
-    action: 'Trả lời thông báo từ chối',
-    deadline: '2024-05-02T17:00:00.000+00:00',
-    due: 31},
-    {name: 'Company 6',
-    type: 'KDCN',
-    action: 'Trả lời thông báo thiếu sót',
-    deadline: '2024-08-02T17:00:00.000+00:00',
-    due: 15},
-    {name: 'Company 7',
-    type: 'GPHI',
-    action: 'Trả lời thông báo từ chối',
-    deadline: '2024-09-02T17:00:00.000+00:00',
-    due: 5}]
-
-const deadlineList = dlList.map(item => ({
-    ...item,
-    due:  Math.floor(dayjs(item.deadline).diff(dayjs())/ (1000 * 60 * 60 * 24))
-    }));

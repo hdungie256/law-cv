@@ -1,16 +1,17 @@
 import axios from 'axios';
 import {toast} from "react-toastify";
+import dayjs from 'dayjs';
 
 const createWork = async (id, type, customerId, workName, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => {
   
   let paperSubmitDateF = null;
   if (paperSubmitDate) {
-      paperSubmitDateF = paperSubmitDate.toLocaleString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      paperSubmitDateF = paperSubmitDate.format('MM/DD/YYYY')
   }
 
   let gcnDateF = null;
   if (gcnDate){
-    gcnDateF = gcnDate.toLocaleString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    gcnDateF = gcnDate.format('MM/DD/YYYY')
   }
 
   if (history){

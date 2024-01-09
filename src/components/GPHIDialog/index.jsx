@@ -121,7 +121,8 @@ const GPHIDialog = (props) => {
   
     const historyDates = Array.from(document.getElementsByClassName('history-date'))
     .map((element) => {
-      return element.querySelectorAll('input')[0].value
+      const dparts = element.querySelectorAll('input')[0].value.split("/")
+      return dparts[1] + '/' + dparts[0] + '/' + dparts[2]
     })
 
     for (let i=0; i<historyActions.length; i++){
@@ -134,13 +135,13 @@ const GPHIDialog = (props) => {
 
   const setInitial = (values) => {
     setNhanHieu(values.name)
-    setPaperSubmitDate(dayjs(values.paperSubmitDate))
+    setPaperSubmitDate(dayjs(values.paperSubmitDate).format('DD/MM/YYYY'))
     if (values.paperId.length > 4){
       setYear(values.paperId.split("-")[1])
       setServiceId(values.paperId.split("-")[2])
     }
     setSoGCN(values.gcnId)
-    setGcnDate(dayjs(values.gcnDate))
+    setGcnDate((values.gcnDate))
     const c = []
     for (let i = 0; i < values.history.length; i++) {
       const mergedObject = { key: 'history' + i, ...values.history[i] };
@@ -180,7 +181,7 @@ const GPHIDialog = (props) => {
           <TextInput type='text' padding='0px 10px' errorMessage = {nhanhieuEror} onChange={(e) => {handleChangeNhanHieu(e);handleChangeNhanHieuError(e.target.value)}} value={nhanhieu} label='Tên GPHI *' placeholder={('Tên GPHI')} />
         </div>
         <div id='gphi-date'>
-          <DatePick onChange={(value) => {setPaperSubmitDate(value);setYear(value.year())}} value={paperSubmitDate} label='Ngày nộp đơn'/>
+          <DatePick initial={paperSubmitDate} onChange={(value) => {setPaperSubmitDate(value);setYear(value.year())}} value={paperSubmitDate} label='Ngày nộp đơn'/>
           {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
         </div>
         <div id='gphi-number'>
@@ -212,7 +213,7 @@ const GPHIDialog = (props) => {
           </div>
 
           <div id='gphi-gcn-date'>
-            <DatePick label='Ngày cấp GCN' onChange={(value) => setGcnDate(value)} value={gcnDate}/>
+            <DatePick initial={gcnDate} label='Ngày cấp GCN' onChange={(value) => setGcnDate(value)} value={gcnDate}/>
             {/* <p style={{color: 'red', position: 'absolute', bottom: '0px'}}> Ngày không hợp lệ</p> */}
           </div>
 

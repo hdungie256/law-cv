@@ -2,6 +2,20 @@ import axios from "axios";
 import {toast} from "react-toastify";
 
 const updateWork = async (id, type, customerId, name, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => {
+  if (paperSubmitDate.format('DD/MM/YYYY') !== "Invalid Date") {
+    paperSubmitDate = paperSubmitDate.format('MM/DD/YYYY')
+  }
+  else{
+    paperSubmitDate = null
+  }
+
+  if (gcnDate.format('DD/MM/YYYY') !== 'Invalid Date'){
+    gcnDate = gcnDate.format('MM/DD/YYYY')
+  }
+  else{
+    gcnDate = null
+  }
+
     const response = await axios.put(process.env.REACT_APP_API_URL + 'work/' + id,{
       type: type,
       customerId: customerId,

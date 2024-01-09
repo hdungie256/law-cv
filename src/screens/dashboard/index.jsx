@@ -9,6 +9,8 @@ import { createTheme } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
 import RuleIcon from '@mui/icons-material/Rule';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import { useTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@emotion/react';
 
 const DashBoardScreen= () =>{
     const [tab, setTab] = useState('1')
@@ -16,15 +18,18 @@ const DashBoardScreen= () =>{
         setTab(newValue);
       };
 
+      const theme = useTheme();
+
     return(
         <div id='dashboard-screen'>
                 <div id='dashboard-tab-wrapper'>
+                <ThemeProvider theme={theme}>
                 <TabContext value={tab}>
                     <Tabs
                         value={tab}
                         onChange={handleChangeTab}
-                        textColor={theme.palette.vintageblue}
-                        indicatorColor={theme.palette.vintageblue}
+                        textColor={"primary"}
+                        indicatorColor={"secondary"}
                         sx={{ "& .MuiTabs-indicator": { backgroundColor: "#6c7a99" }, 
                         "& .MuiTab-textColorInherit": { color: "#6c7a99" },
                         height: "60px",
@@ -36,21 +41,36 @@ const DashBoardScreen= () =>{
                     </Tabs>
 
                     <TabPanel value='1'> 
-                        <DeadlineTab in={tab==='1' ? true : false}/>
+                        <DeadlineTab appear={tab==='1' ? true : false}/>
                     </TabPanel>
 
                     <TabPanel value='2'> Kết quả</TabPanel>
                 </TabContext>
+                </ThemeProvider>
             </div>
         </div>
     )
 }
 export default DashBoardScreen;
 
+// const theme = createTheme({
+//     palette: {
+//       vintageblue: '#6c7a99',
+//       greyblue: '#dfe8f5',
+//       purpleblue:'#418bff',
+//   }
+// });
+
 const theme = createTheme({
     palette: {
-      vintageblue: '#6c7a99',
-      greyblue: '#dfe8f5',
-      purpleblue:'#418bff',
-  }
-});
+      primary: {
+        main: '#6c7a99', // vintageblue
+      },
+      secondary: {
+        main: '#418bff', // purpleblue
+      },
+      background: {
+        default: '#dfe8f5', // greyblue
+      },
+    },
+  });
