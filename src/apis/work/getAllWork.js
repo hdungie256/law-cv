@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 
-  function createRow(id, customerName, type, workName, paperId, paperSubmitDate) {
+  function createRow(id, customerName, type, workName, paperId, paperSubmitDate, gcnId, gcnDate) {
     const truncateString = (str, maxLength) => {
       if (str.length > maxLength) {
         return str.substring(0, maxLength) + "...";
@@ -10,11 +10,12 @@ import dayjs from 'dayjs';
     };
   
     workName = truncateString(workName, 20);
-    customerName  = truncateString(customerName, 50);
+    customerName  = truncateString(customerName, 20);
     paperId = paperId.length > 4 ? paperId : 'Không có'
     const formattedDate = paperSubmitDate ? dayjs(paperSubmitDate).format('DD/MM/YYYY') : 'Không có'
+    const formattedGcnDate = gcnDate ? dayjs(gcnDate).format('DD/MM/YYYY') : 'Không có'
     return {
-        id, customerName, type, workName, paperId, formattedDate
+        id, customerName, type, workName, paperId, formattedDate, gcnId, formattedGcnDate
     };
   } 
 
@@ -22,7 +23,12 @@ const getAllWork = async () => {
   try {
     const response = await axios.get(process.env.REACT_APP_API_URL + "/work");
     const data = response.data.list;
-    const rows = data.map((dataRow) => createRow(dataRow['_id'], dataRow.customerShortName ? dataRow['customerShortName'] : dataRow.customerName,dataRow['type'], dataRow['name'], dataRow['paperId'], dataRow['paperSubmitDate']));
+    const rows = data.map((dataRow) => createRow(dataRow['_id'], 
+                                      dataRow.customerShortName ? dataRow['customerShortName'] : dataRow.customerName,dataRow['type'], 
+                                      dataRow['name'], dataRow['paperId'], 
+                                      dataRow['paperSubmitDate'],
+                                      dataRow['gcnId'],
+                                      dataRow['gcnDate']));
     return rows
 
   } catch (error) {
