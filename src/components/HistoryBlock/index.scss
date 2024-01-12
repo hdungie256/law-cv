@@ -1,0 +1,36 @@
+
+#nhanhieu-btn-add-history{
+    width: 20%;
+    height: 40px;
+    margin: 20px
+}
+
+#btn-add-history-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-history-fields{
+    width: 100%;
+    height: 100px;
+}
+
+.form-history-action{
+    top: 10px;
+    width: 90%;
+}
+
+.form-history-date{
+    width: 100%; 
+    top: 10px;
+}
+
+.form-history-delete{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}

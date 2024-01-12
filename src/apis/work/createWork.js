@@ -2,20 +2,22 @@ import axios from 'axios';
 import {toast} from "react-toastify";
 import dayjs from 'dayjs';
 
-const createWork = async (id, type, customerId, workName, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => {
-  
-  let paperSubmitDateF = null;
-  if (paperSubmitDate) {
-      paperSubmitDateF = paperSubmitDate.format('MM/DD/YYYY')
+const createWork = async (id, type, customerId, workName, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate,gcnHistory) => {
+
+  if (formHistory){
+    formHistory = formHistory.filter(item => item.action !== "");
   }
 
-  let gcnDateF = null;
-  if (gcnDate){
-    gcnDateF = gcnDate.format('MM/DD/YYYY')
+  if (gcnHistory){
+    gcnHistory = gcnHistory.filter(item => item.action !== "");
   }
 
-  if (history){
-    history = history.filter(item => item.action !== "");
+  if (paperSubmitDate === 'undefined//undefined'){
+    paperSubmitDate = null
+  }
+
+  if (gcnDate === 'undefined//undefined'){
+    gcnDate = null
   }
   
     const response = await axios.post(process.env.REACT_APP_API_URL + 'create-work', {
@@ -24,10 +26,11 @@ const createWork = async (id, type, customerId, workName, group, paperId, paperS
       type: type,
       group: group,
       paperId: paperId,
-      paperSubmitDate: paperSubmitDateF,
-      history: history,
-      gcnID: gcnID,
-      gcnDate: gcnDateF
+      paperSubmitDate: paperSubmitDate,
+      formHistory: formHistory,
+      gcnId: gcnID,
+      gcnDate: gcnDate,
+      gcnHistory: gcnHistory,
     });
 
     const message = response.data.message;

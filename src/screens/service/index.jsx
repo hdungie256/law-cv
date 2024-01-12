@@ -6,11 +6,8 @@ import Table from '../../components/Table'
 import { useState, useRef, useEffect } from 'react'
 import { ToastContainer} from "react-toastify";
 import WorkDialog from '../../components/WorkDialog'
-import NhanHieuDialog from '../../components/NhanHieuDialog';
-import KDCNDialog from '../../components/KDCNDialog';
-import SangCheDialog from '../../components/SangCheDialog';
+import ServiceDialog from '../../components/ServiceDialog';
 import createWork from '../../apis/work/createWork';
-import GPHIDialog from '../../components/GPHIDialog';
 import getAllWork from '../../apis/work/getAllWork'
 import getCustomer from '../../apis/customer/getCustomer'
 import getWork from '../../apis/work/getWork'
@@ -174,7 +171,7 @@ const ServiceScreen= () =>{
             </div>
             <div id='work-table-wrapper'>
               <Table 
-                columnName={['Chủ đơn', 'Loại', 'Tên', 'Số đơn','Ngày nộp đơn', 'Số GCN', 'Ngày cấp GCN']}
+                columnName={['Chủ đơn', 'Loại', 'Tên', 'Số đơn','Ngày nộp đơn', 'Số VBBH', 'Ngày cấp VBBH']}
                 rows = {workList}
                 handleEditButton={ async (id) => {
                   const w = await getWork(id);
@@ -215,7 +212,8 @@ const ServiceScreen= () =>{
             typeErrorMessage={typeErrorMessage}
             />
 
-            <NhanHieuDialog
+            <ServiceDialog
+            type='Nhãn hiệu'
             id='dialog-nhanhieu-create'
             title='Tạo đơn nhãn hiệu'
             isShowing={isShowingCreateNH}
@@ -223,8 +221,8 @@ const ServiceScreen= () =>{
             customer={thisCustomer.current}
             customerId={customerId.current}
             workId={null}
-            handleSave={async (id,type, cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {const res = await createWork(id,type="Nhãn hiệu", cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate);
+            handleSave={async (id,type, cusId, NHname, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory) => 
+              {const res = await createWork(id,type="Nhãn hiệu", cusId, NHname, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory);
               if (res) {
                 toggleCreateNH();
                 fetchData();
@@ -232,7 +230,8 @@ const ServiceScreen= () =>{
               }}
             />
 
-            <NhanHieuDialog
+            <ServiceDialog
+            type='Nhãn hiệu'
             id='dialog-nhanhieu-edit'
             title='Chỉnh sửa đơn nhãn hiệu'
             isShowing={isShowingEditNH}
@@ -241,8 +240,8 @@ const ServiceScreen= () =>{
             customerId={thisWork.current.customerId}
             workValues={thisWork.current}
             workId={thisWork.current._id}
-            handleSave={async (id,type, cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {const res = await updateWork(id, type="Nhãn hiệu", cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate);
+            handleSave={async (id,type, cusId, NHname, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory) => 
+              {const res = await updateWork(id, type="Nhãn hiệu", cusId, NHname, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate,gcnHistory);
               if (res) {
                 toggleEditNH();
                 fetchData();
@@ -250,7 +249,8 @@ const ServiceScreen= () =>{
               }}
             />
 
-            <KDCNDialog
+            <ServiceDialog
+            type='KDCN'
             id='dialog-kdcn-create'
             title='Tạo đơn KDCN'
             isShowing={isShowingCreateKDCN}
@@ -258,15 +258,16 @@ const ServiceScreen= () =>{
             customer={thisCustomer.current}
             customerId={customerId.current}
             workId={thisWork.current._id}
-            handleSave={async (id, type, customerId, KDCNname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {const res = await createWork(id, type="KDCN", customerId, KDCNname, group, paperId, paperSubmitDate, history, gcnID, gcnDate);
+            handleSave={async (id,type, cusId, name, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory) => 
+              {const res = await createWork(id, type="KDCN", cusId, name, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate,gcnHistory);
               if (res){
                 toggleCreateKDCN(); 
                 fetchData()}}
               }
             />
 
-            <KDCNDialog
+            <ServiceDialog
+            type='KDCN'
             id='dialog-kdcn-edit'
             title='Chỉnh sửa đơn KDCN'
             isShowing={isShowingEditKDCN}
@@ -275,8 +276,8 @@ const ServiceScreen= () =>{
             customerId={thisWork.current.customerId}
             workValues={thisWork.current}
             workId={thisWork.current._id}
-            handleSave={async (id,type, cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {const res = await updateWork(id, type="KDCN", cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate);
+            handleSave={async (id,type, cusId, name, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory) => 
+              {const res = await updateWork(id, type="KDCN",cusId, name, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate,gcnHistory);
               if (res) {
                 toggleEditKDCN();
                 fetchData();
@@ -284,7 +285,8 @@ const ServiceScreen= () =>{
               }}
             />
 
-            <SangCheDialog
+            <ServiceDialog
+            type='Sáng chế'
             id='dialog-sc-create'
             title='Tạo đơn sáng chế'
             isShowing={isShowingCreateSangChe}
@@ -292,15 +294,16 @@ const ServiceScreen= () =>{
             customer={thisCustomer.current}
             customerId={customerId.current}
             workId={thisWork.current._id}
-            handleSave={async (id, type, customerId, SCname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {const res = await createWork(id, type="Sáng chế", customerId, SCname, group="", paperId, paperSubmitDate, history, gcnID, gcnDate);
+            handleSave={async (id,type, cusId, name, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory) => 
+              {const res = await createWork(id, type="Sáng chế", cusId, name, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate,gcnHistory);
               if (res){
                 toggleCreateSangChe();
                 fetchData()}}
               }
             />
 
-          <SangCheDialog
+          <ServiceDialog
+            type='Sáng chế'
             id='dialog-sc-edit'
             title='Chỉnh sửa đơn sáng chế'
             isShowing={isShowingEditSC}
@@ -309,8 +312,8 @@ const ServiceScreen= () =>{
             customerId={thisWork.current.customerId}
             workValues={thisWork.current}
             workId={thisWork.current._id}
-            handleSave={async (id,type, cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {const res = await updateWork(id, type="Sáng chế", cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate);
+            handleSave={async (id,type, cusId, name, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory) => 
+              {const res = await updateWork(id, type="Sáng chế", cusId, name, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate,gcnHistory);
               if (res) {
                 toggleEditSC();
                 fetchData();
@@ -318,22 +321,24 @@ const ServiceScreen= () =>{
               }}
             />
 
-            <GPHIDialog
+            <ServiceDialog
+            type='GPHI'
             id='dialog-gphi-create'
             title='Tạo đơn GPHI'
             isShowing={isShowingCreateGPHI}
             hide={toggleCreateGPHI}
             customer={thisCustomer.current}
             customerId={customerId.current}
-            handleSave={async (type, customerId, SCname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-              {const res = await createWork(type="GPHI", customerId, SCname, group="", paperId, paperSubmitDate, history, gcnID, gcnDate);
+            handleSave={async (id,type, cusId, name, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory) => 
+              {const res = await createWork(id, type="GPHI", cusId, name, group="", paperId, paperSubmitDate, formHistory, gcnID, gcnDate,gcnHistory);
               if (res){
                 toggleCreateGPHI(); 
                 fetchData()}}
               }
             />
 
-            <GPHIDialog
+            <ServiceDialog
+              type='GPHI'
               id='dialog-gphi-edit'
               title='Chỉnh sửa đơn GPHI'
               isShowing={isShowingEditGPHI}
@@ -342,8 +347,8 @@ const ServiceScreen= () =>{
               customerId={thisWork.current.customerId}
               workValues={thisWork.current}
               workId={thisWork.current._id}
-              handleSave={async (id,type, cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => 
-                {const res = await updateWork(id, type="gphi", cusId, NHname, group, paperId, paperSubmitDate, history, gcnID, gcnDate);
+              handleSave={async (id,type, cusId, name, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory) => 
+                {const res = await updateWork(id, type="GPHI", cusId, name, group="", paperId, paperSubmitDate, formHistory, gcnID, gcnDate,gcnHistory);
                 if (res) {
                   toggleEditGPHI();
                   fetchData();

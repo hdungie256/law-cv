@@ -1,0 +1,38 @@
+@import 'src/assets/scss/colors';
+
+#dialog-form-number-date{
+    width: 100%;
+    margin-top: 20px
+}
+
+#slash-1{
+    top: 50%;
+    left: 22%;
+    text-align: center;
+}
+
+#slash-2{
+    top: 50%;
+    left: 57%;
+    text-align: center;
+}
+
+#dialog-form-number-label{
+    color: $vintageblue;
+    font-size: 15px;
+}
+
+#dialog-form-number-group{
+    width: 100%;
+    margin-top: 5px;
+}
+
+#dialog-form-number-year{
+    width: 100%;
+    margin-top: 5px;
+}
+
+#dialog-form-number-id{
+    width: 100%;
+    margin-top: 5px;
+}

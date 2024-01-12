@@ -1,18 +1,12 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 
-const updateWork = async (id, type, customerId, name, group, paperId, paperSubmitDate, history, gcnID, gcnDate) => {
-  if (paperSubmitDate.format('DD/MM/YYYY') !== "Invalid Date") {
-    paperSubmitDate = paperSubmitDate.format('MM/DD/YYYY')
-  }
-  else{
+const updateWork = async (id, type, customerId, name, group, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, gcnHistory) => {
+  if (paperSubmitDate === 'undefined//undefined'){
     paperSubmitDate = null
   }
 
-  if (gcnDate.format('DD/MM/YYYY') !== 'Invalid Date'){
-    gcnDate = gcnDate.format('MM/DD/YYYY')
-  }
-  else{
+  if (gcnDate === 'undefined//undefined'){
     gcnDate = null
   }
 
@@ -23,9 +17,10 @@ const updateWork = async (id, type, customerId, name, group, paperId, paperSubmi
       group: group,
       paperId: paperId,
       paperSubmitDate: paperSubmitDate,
-      history: history,
-      gcnID: gcnID,
-      gcnDate: gcnDate
+      formHistory: formHistory,
+      gcnId: gcnId,
+      gcnDate: gcnDate,
+      gcnHistory: gcnHistory,
     })
     const message = (response.data.message);
     const statusText = (response.data.statusText)

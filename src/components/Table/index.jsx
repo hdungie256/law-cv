@@ -55,7 +55,7 @@ const CusomizedTable = (props) => {
           {props.rows.slice(pg * numRowsPerPage, pg * numRowsPerPage + numRowsPerPage).map((row) => (
             <StyledTableRow key={row.id}>
               {Object.values(row).slice(1).map((cell, index) => <StyledTableCell key={index} component="th" scope="row">{cell}</StyledTableCell>)}
-              <StyledTableCell>
+              <StyledTableCell sx={{ minWidth: 200}}>
               <IconButton aria-label="edit" onClick={() => props.handleEditButton(row.id)}><ModeEditIcon /></IconButton>
               <IconButton aria-label="delete" onClick={() => props.handleDeleteButton(row.id, row.name)}><DeleteIcon /></IconButton>
               </StyledTableCell>

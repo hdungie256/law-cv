@@ -38,11 +38,8 @@
   }
   
   .modal-header {
-    height: 50px;
+    height: 30px;
     width: 100%;
-    position: absolute;
-    top: 0%;
-    left: 0%;
     border-radius: 8px 8px 0px 0px;
     .modal-title{
       color: $purpleblue;
@@ -50,9 +47,6 @@
   }
 
   .modal-title{
-    position: absolute;
-    left: 5%;
-    top: 20px;
     color: $vintageblue;
     font-size: 25px;
 
@@ -64,8 +58,7 @@
   
   .modal-close-button {
     position: absolute;
-    top: 50%;
-    transform: translateY(-10%);
+    top: 30px;
     right: 5%;
     font-size: 25px;
     font-weight: 700;
@@ -93,7 +86,6 @@
   }
 
   hr{
-    margin-top: 28px;
     width: 100%;
     border: 0.5px solid grey;
   }

@@ -1,8 +1,8 @@
 import axios from "axios";
 import dayjs from "dayjs";
 
-const getWorkForReplyTab = async () => {
-    const cards = []
+const getWorkForTabs= async () => {
+    const replyCards = []
     const allWork = (await axios.get(process.env.REACT_APP_API_URL + 'work')).data.list
     for (let i=0; i<allWork.length; i++){
         const sortedHistory = allWork[i].history.sort((a, b) => b.date - a.date)
@@ -16,22 +16,21 @@ const getWorkForReplyTab = async () => {
             if (latestAction==="Thông báo thiếu sót"){
                 const name = allWork[i].customerShortName ? allWork[i].customerShortName : allWork[i].customerName
                 const card = createCardInfo( allWork[i]._id, name,allWork[i].type, "Trả lời thông báo thiếu sót", latestDate,dateDiff)
-                cards.push(card)
+                replyCards.push(card)
             }
 
             else if (latestAction==="Thông báo từ chối"){
                 const name = allWork[i].customerShortName ? allWork[i].customerShortName : allWork[i].customerName
                 const card = createCardInfo( allWork[i]._id, name, allWork[i].type, "Trả lời thông báo từ chối",latestDate, dateDiff)
-                cards.push(card)
+                replyCards.push(card)
             }
         }
     }
-    const sortedCards = cards.sort((a, b) => a.due - b.due)
-    console.log('sortedcards', sortedCards)
+    const sortedCards = replyCards.sort((a, b) => a.due - b.due)
     return sortedCards
 }
 
-export default getWorkForReplyTab
+export default getWorkForTabs
 
 const createCardInfo = (workId,name,type,action,deadline,due) => {
     return {workId,name,type,action,deadline,due}

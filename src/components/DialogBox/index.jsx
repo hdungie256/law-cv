@@ -11,7 +11,7 @@ const DialogBox = ({ hr, isShowing, hide, title, children, height, overflowY }) 
     <React.Fragment>
       <div className="modal-overlay" />
       <div className="modal-wrapper" aria-modal aria-hidden tabIndex={-1} role="dialog">
-        <div className="modal" style={{ height : height, overflowY : overflowY, overflowX:'hidden', paddingBottom:'90px' }}>
+        <div className="modal" style={{ height : height, overflowY : overflowY, overflowX:'hidden'}}>
           <div className="modal-header">
             <div className='modal-title'><p><b>{title}</b></p></div>
             <button type="button" className="modal-close-button" data-dismiss="modal" aria-label="Close" onClick={hide}>

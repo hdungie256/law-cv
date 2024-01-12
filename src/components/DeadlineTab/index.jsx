@@ -7,28 +7,15 @@ import { createTheme } from '@mui/material/styles';
 import './index.scss'
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
-import getWorkForReplyTab from '../../apis/work/getWorkForReplyTab';
 
 const DeadlineTab = (props) => {
-    const [deadlineList,setDeadlineList] = useState([])
 
     const [page, setPage] = useState(1); 
     const handleChange = (event, value) => { 
         setPage(value); 
     }; 
 
-    const fetchData = async() => {
-        const list = await getWorkForReplyTab()
-        setDeadlineList(list)
-    }
-
-    useEffect(() => {
-        if(props.appear){
-            fetchData()
-    }},[props.appear])
-
     const renderCard = (list) => {
-        console.log('listinput', list)
         return list.slice((page-1) * cardPerPage, (page-1) * cardPerPage + cardPerPage).map((item) => (
                 <Grid item md={4} style={{ height: '260px' }}>
                 <div class='deadline-card-wrapper'>
@@ -54,9 +41,9 @@ const DeadlineTab = (props) => {
     return(
     <div id='deadline-tab-wrapper'>
         <Grid justifyContent={"center"} alignItems={"center"} container columns={{xs:12, md:12}} spacing={1}>
-            {renderCard(deadlineList)}
+            {renderCard(props.deadlineList)}
         </Grid>
-        <Pagination style={{position:'absolute', bottom: '20px', right:'20px'}} count={Math.ceil(deadlineList.length/cardPerPage)} page={page} onChange={handleChange} /> 
+        <Pagination style={{position:'absolute', bottom: '20px', right:'20px'}} count={Math.ceil(props.deadlineList.length/cardPerPage)} page={page} onChange={handleChange} /> 
     </div>
     )
 }

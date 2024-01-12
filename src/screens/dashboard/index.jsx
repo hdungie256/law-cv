@@ -5,20 +5,32 @@ import { useState } from 'react';
 import { TabContext, TabPanel } from '@mui/lab';
 import * as React from 'react';
 import DeadlineTab from '../../components/DeadlineTab';
-import { createTheme } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
 import RuleIcon from '@mui/icons-material/Rule';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { useTheme } from '@mui/material/styles';
+import { useEffect } from 'react';
 import { ThemeProvider } from '@emotion/react';
+import getWorkForTabs from '../../apis/work/getWorkForTabs';
 
 const DashBoardScreen= () =>{
+    const [deadlineList,setDeadlineList] = useState([])
+
+    const fetchData = async() => {
+      const list = await getWorkForTabs()
+      setDeadlineList(list)
+    }
+
     const [tab, setTab] = useState('1')
     const handleChangeTab = (event, newValue) => {
         setTab(newValue);
       };
 
       const theme = useTheme();
+
+    useEffect(()=>{
+      fetchData()
+    }, [])
 
     return(
         <div id='dashboard-screen'>
@@ -41,7 +53,7 @@ const DashBoardScreen= () =>{
                     </Tabs>
 
                     <TabPanel value='1'> 
-                        <DeadlineTab appear={tab==='1' ? true : false}/>
+                        <DeadlineTab deadlineList={deadlineList} appear={tab==='1' ? true : false}/>
                     </TabPanel>
 
                     <TabPanel value='2'> Kết quả</TabPanel>
@@ -60,17 +72,3 @@ export default DashBoardScreen;
 //       purpleblue:'#418bff',
 //   }
 // });
-
-const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#6c7a99', // vintageblue
-      },
-      secondary: {
-        main: '#418bff', // purpleblue
-      },
-      background: {
-        default: '#dfe8f5', // greyblue
-      },
-    },
-  });
