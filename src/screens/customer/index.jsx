@@ -9,15 +9,14 @@ import getAllCustomers from '../../apis/customer/getAllCustomers'
 import ConfirmDialog from '../../components/ConfirmDialog'
 import getCustomer from '../../apis/customer/getCustomer'
 import deleteCustomer from '../../apis/customer/deleteCustomer'
-import createCustomer from '../../apis/customer/createCustomer'
-import updateCustomer from '../../apis/customer/updateCustomer'
 import { CircularProgress } from '@mui/material'
 import Fade from '@mui/material/Fade';
-import Box from '@mui/material/Box'
+import Box from '@mui/material/Box';
 
 const CustomerScreen= (props) =>{
+  const [dialogStatus, setDialogStatus] = useState("")
+
   const [customerList,setCustomerList] = useState([])
-  const [resetFields,setResetFields] = useState(false)
 
   const fetchData = async () => {
     const customers = await getAllCustomers();
@@ -28,29 +27,27 @@ const CustomerScreen= (props) =>{
     fetchData(); 
   }, []); 
 
-  const [isShowingCreate, setIsShowingCreate] = useState(false);
-  const [isShowingEdit, setIsShowingEdit] = useState(false);
+  const [isShowingCustomerDialog, setIsShowingCustomerDialog] = useState(false);
 
-  const toggleCreate= () => {
-      setIsShowingCreate(!isShowingCreate);
-      setResetFields(!resetFields);
+  const toggleCustomerDialog= () => {
+    setIsShowingCustomerDialog(!isShowingCustomerDialog);
     };
 
-  const toggleEdit= () => {
-      setIsShowingEdit(!isShowingEdit);
-    };
-
-  const [values, setValues] = useState({})
+  const initial = useRef({})
   const viewCustomerInfo = async (id) => {
     const response = await getCustomer(id)
       if (response){
-        setValues({
+        initial.current = ({
           id: response['_id'],
-          name: response['name'],
-          shortName: response['shortName'],
-          address: response['address'],
-          email: response['email'],
-          phoneNumber: response['phoneNumber']
+          customerName: response['customerName'],
+          customerShortName: response['customerShortName'],
+          customerAddress: response['customerAddress'],
+          customerEmail: response['customerEmail'],
+          customerPhoneNumber: response['customerPhoneNumber'],
+          curatorName: response['curatorName'],
+          curatorTitle: response['curatorTitle'],
+          curatorPhoneNumber: response['curatorPhoneNumber'],
+          curatorEmail: response['curatorEmail'],
       })
     }
   }
@@ -79,38 +76,21 @@ const CustomerScreen= (props) =>{
               <Title id='customer-title' title='Quản lý khách hàng'/>
 
               <div className='button-add-new'>
-                  <ButtonCreate onClick={toggleCreate} text='Thêm khách hàng'/>
+                  <ButtonCreate onClick={() => {setDialogStatus("create");initial.current={};toggleCustomerDialog()}} text='Thêm khách hàng'/>
               </div>
 
               <CustomerDialog 
                 id='customer-dialog-create'
-                title='Tạo khách hàng mới'
-                handleSave={
-                async (id, fullName,shortName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => {
-                const res = await createCustomer(null,fullName,shortName,address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
-                if (res) {
-                  toggleCreate()
-                  fetchData()
-                }  
-              }} 
-                isShowing={isShowingCreate} 
-                hide={toggleCreate}/>
-
-              <CustomerDialog 
-                id='customer-dialog-edit'
-                title='Chỉnh sửa thông tin khách hàng'
-                handleSave={
-                async (id, fullName, shortName, address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError) => 
-                {
-                  const res = await updateCustomer(id, fullName, shortName, address,email,phoneNumber,fullNameError,addressError,emailError,phoneNumberError)
-                  if (res){
-                    toggleEdit();
-                    fetchData();
+                status={dialogStatus}
+                initial={initial.current}
+                afterSave={(res) => {
+                  if (res) {
+                    toggleCustomerDialog()
+                    fetchData()
                   }
-                }} 
-                isShowing={isShowingEdit} 
-                values={values}
-                hide={toggleEdit}/>
+                }}
+                isShowing={isShowingCustomerDialog} 
+                hide={toggleCustomerDialog}/>
 
               <ConfirmDialog
                 isShowing={isShowingConfirm}
@@ -131,7 +111,7 @@ const CustomerScreen= (props) =>{
                 <Table 
                   columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại']}
                   rows = {customerList}
-                  handleEditButton={ (id) => {viewCustomerInfo(id);toggleEdit(id)}}
+                  handleEditButton={ async (id) => {setDialogStatus("edit");await viewCustomerInfo(id);toggleCustomerDialog(id)}}
                   handleDeleteButton={(id, name) => {toggleConfirm();setCustomerInfo(id, name)}}
                   />
                 </div>

@@ -21,9 +21,12 @@ const getAllCustomers = async () => {
   try {
     const response = await axios.get(process.env.REACT_APP_API_URL + "/customers");
     const data = response.data.list;
-    const rows = data.map((dataRow) => createRow(dataRow['_id'], dataRow.shortName ? dataRow['shortName'] : dataRow.name,dataRow['address'], dataRow['email'], dataRow['phoneNumber']));
+    const rows = data.map((dataRow) => createRow(dataRow['_id'],
+     dataRow.customerShortName ? dataRow['customerShortName'] : dataRow.customerName,
+     dataRow['customerAddress'], 
+     dataRow.customerEmail ? dataRow['customerEmail'] : dataRow.email, 
+     dataRow.customerPhoneNumber ? dataRow['customerPhoneNumber'] : dataRow.phoneNumber));
     return rows;
-
   } catch (error) {
     console.error('Error fetching customers:', error);
     return []; 

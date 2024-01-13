@@ -3,64 +3,16 @@
 .dialog-box{
     position: relative;
 }
-
-.customer-fullname{
-    width: 90%;
-    position: absolute;
-    top: 120px;
-    left:50%;
-    height: 10%;
-    transform: translateX(-50%);
-}
-
-.customer-shortname{
-    width: 90%;
-    position: absolute;
-    top: 220px;
-    left:50%;
-    height: 10%;
-    transform: translateX(-50%);
-}
-
-.customer-address{
-    width: 90%;
-    position: absolute;
-    top: 320px;
-    left:50%;
-    height: 10%;
-    transform: translateX(-50%);
-}
-
-.customer-email{
-    width: 90%;
-    position: absolute;
-    top: 420px;
-    left:50%;
-    height: 10%;
-    transform: translateX(-50%);
-}
-
-.customer-phonenumber{
-    width: 90%;
-    position: absolute;
-    top: 520px;
-    left:50%;
-    height: 10%;
-    transform: translateX(-50%);
-}
-
 .customer-button-save{
     height: 40px;
-    width: 12%;
-    position: absolute;
-    top: 570px;
-    left: 52%;
+    width: 20%;
 }
 
 .customer-button-cancel{
     height: 40px;
-    width: 12%;
-    position: absolute;
-    top: 570px;
-    right: 52%;
+    width: 20%;
+}
+
+.dialog-customer-accordion{
+    margin-bottom: 20px
 }
