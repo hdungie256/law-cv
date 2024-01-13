@@ -35,7 +35,7 @@ export default function GCNAccordion(props) {
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#1095e6' }}><b>4. Sau khi cấp văn bằng</b></Typography>
+          <Typography style={{ color: '#1095e6' }}><b>4. Thông tin VBBH</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
                     <div id='gcn-accordion-sogcn'>
@@ -48,14 +48,6 @@ export default function GCNAccordion(props) {
                     <div id='gcn-accordion-gcndate'>
                         <DatePick initial={gcnDate} label='Ngày cấp VBBH' onChange={(value) => setGcnDate(value)} value={gcnDate}/>
                     </div>
-        <HistoryBlock initial={props.initial} type='gcnHistory'
-        options = {[
-        "Gia hạn",
-        "Sửa đổi",
-        "Cấp lại",
-        "Chuyển nhượng/ Li xăng",
-        "Huỷ bỏ"]}
-        />
         </AccordionDetails>
       </Accordion>
   );

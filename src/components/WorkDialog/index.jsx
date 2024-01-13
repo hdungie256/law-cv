@@ -45,7 +45,7 @@ const WorkDialog = (props) => {
       title={props.title} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
-      height='180px'
+      height='400px'
       overflowY='visible'
       >
         <Grid container md={12} spacing={3}>
@@ -81,12 +81,6 @@ const WorkDialog = (props) => {
     </DialogBox>
     )
 }
-const types = [
-    'Nhãn hiệu',
-    'KDCN',
-    'Sáng chế',
-    'GPHI'
-]
-
+const types = ['Thẩm định nhãn hiệu', 'Thẩm định KDCN', 'Thẩm định sáng chế', 'Thẩm định GPHI', 'Sau cấp văn bằng', 'ĐK Nhãn hiệu Quốc tế']
 
 export default WorkDialog;

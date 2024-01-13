@@ -4,14 +4,16 @@ import {Grid} from '@mui/material';
 import ButtonSubmit from '../ButtonSubmit';
 import ButtonCancel from '../ButtonCancel'
 import FormAccordion from '../FormAccordion';
-import GCNAccordion from '../GCNAccordion';
 import CustomerAccordion from '../CustomerAccordion'
 import ServiceInfoAccordion from '../ServiceInfoAccordion';
+import GCNAccordion from '../GCNAccordion';
+import createWork from '../../apis/work/createWork'
 
 const ServiceDialog = (props) => {
-  const handleSave = () => {
+  const handleSave = async () => {
     const serviceName = (document.getElementById('dialog-service-name').querySelector('input').value)
-    const serviceGroup = (document.getElementById('dialog-service-group').querySelector('input').value)
+    const serviceGroup = (document.getElementById('dialog-service-group')) ? 
+    (document.getElementById('dialog-service-group').querySelector('input').value) : null
     const paperId = (document.getElementById("dialog-form-number-group").querySelector('input').value)
                     + '-' + (document.getElementById('dialog-form-number-year').querySelector('input').value)
                     + '-' + (document.getElementById("dialog-form-number-id").querySelector('input').value)
@@ -25,14 +27,14 @@ const ServiceDialog = (props) => {
     gcnDate = parts[1] + '/' + parts[0] + '/' + parts[2];
   
     const formHistory = getHistory('form-accordion')
-    const gcnHistory = getHistory('gcn-accordion')
   
-    props.handleSave(props.workId, props.type, props.customerId, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, gcnHistory)
+    const res = await createWork(props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
+    props.afterSave(res)
   }
 
   return (
       <DialogBox className='dialog-box' 
-      title={props.title} 
+      title={'Thẩm định đơn ' + props.type} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='500px'
@@ -51,7 +53,7 @@ const ServiceDialog = (props) => {
           <FormAccordion initial={props.workValues} type='formHistory'/>
         </div>
         <div id='gcn-accordion'>
-          <GCNAccordion initial={props.workValues} type='gcnHistory'/>
+          <GCNAccordion initial={props.workValues}/>
         </div>
 
         <Grid container md={12} spacing={3}>

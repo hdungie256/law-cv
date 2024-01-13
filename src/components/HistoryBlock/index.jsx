@@ -34,7 +34,7 @@ const HistoryBlock =(props) => {
                 <DropDown label='Hành động' 
                 initial={item.action}
                 onChange={setAction}
-                options={ props.options}
+                options={props.options}
 
                 className='form-hisotry-action-dropdown'/> 
                 </div>

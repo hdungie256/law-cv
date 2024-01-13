@@ -2,14 +2,10 @@ import axios from 'axios';
 import {toast} from "react-toastify";
 import dayjs from 'dayjs';
 
-const createWork = async (id, type, customerId, workName, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate,gcnHistory) => {
+const createWork = async (customerId, type, name, group, paperId, paperSubmitDate, history, gcnId, gcnDate, country, lastAction) => {
 
-  if (formHistory){
-    formHistory = formHistory.filter(item => item.action !== "");
-  }
-
-  if (gcnHistory){
-    gcnHistory = gcnHistory.filter(item => item.action !== "");
+  if (history){
+    history = history.filter(item => item.action !== "");
   }
 
   if (paperSubmitDate === 'undefined//undefined'){
@@ -22,15 +18,16 @@ const createWork = async (id, type, customerId, workName, group, paperId, paperS
   
     const response = await axios.post(process.env.REACT_APP_API_URL + 'create-work', {
       customerId: customerId,
-      name: workName,
+      name: name,
       type: type,
       group: group,
       paperId: paperId,
       paperSubmitDate: paperSubmitDate,
-      formHistory: formHistory,
-      gcnId: gcnID,
+      history: history,
+      gcnId: gcnId,
       gcnDate: gcnDate,
-      gcnHistory: gcnHistory,
+      country: country,
+      lastAction: lastAction
     });
 
     const message = response.data.message;

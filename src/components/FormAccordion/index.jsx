@@ -28,7 +28,7 @@ export default function FormAccordion(props) {
 
     const setInitial = (values) => {
       setPaperSubmitDate(values.paperSubmitDate)
-      if (values.paperId.length > 4){
+      if (values.paperId && values.paperId.length > 4){
         setYear(values.paperId.split("-")[1])
         setServiceId(values.paperId.split("-")[2])
       }
@@ -41,7 +41,7 @@ export default function FormAccordion(props) {
     }, [])
 
   return (
-      <Accordion sx={{backgroundColor:'#FEFEFE', boxShadow: 'none', border: '0.25px solid #c4c4c4' }} style={{width: '104%', marginTop: '20px'}}>
+      <Accordion defaultExpanded sx={{backgroundColor:'#FEFEFE', boxShadow: 'none', border: '0.25px solid #c4c4c4' }} style={{width: '104%', marginTop: '20px'}}>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel1-content"
@@ -85,11 +85,9 @@ export default function FormAccordion(props) {
         "Công văn trả lời thông báo từ chối",
         "Thông báo cấp GCN",
         "Quyết định từ chối",
-        "Gia hạn",
-        "Sửa đổi",
-        "Cấp lại",
-        "Chuyển nhượng/ Li xăng",
-        "Huỷ bỏ"]}/>
+        "Sửa đổi đơn",
+        "Phản đối đơn",
+        "Công văn hối thúc thẩm định"]}/>
         </AccordionDetails>
       </Accordion>
   );
