@@ -1,4 +1,5 @@
 import './index.scss'
+import getCustomer from '../../apis/customer/getCustomer'
 import ButtonCreate from '../../components/ButtonCreate'
 import ConfirmDialog from '../../components/ConfirmDialog';
 import Title from '../../components/Title'
@@ -9,7 +10,6 @@ import WorkDialog from '../../components/WorkDialog'
 import ServiceDialog from '../../components/ServiceDialog';
 import createWork from '../../apis/work/createWork';
 import getAllWork from '../../apis/work/getAllWork'
-import getCustomer from '../../apis/customer/getCustomer'
 import getWork from '../../apis/work/getWork'
 import deleteWork from '../../apis/work/deleteWork'
 import updateWork from '../../apis/work/updateWork'
@@ -87,7 +87,7 @@ const ServiceScreen= () =>{
 
   const [nameErrorMessage, setNameErrorMessage] = useState("")
   const [typeErrorMessage, setTypeErrorMessage] = useState("")
-  const thisCustomer = useRef({name:"", address:"", email:"", phoneNumber:""})
+  const thisCustomer = useRef({})
 
   const [isLoading,setIsLoading] = useState(true)
 
@@ -112,8 +112,7 @@ const ServiceScreen= () =>{
       toggleCreate();
       setType(ntype)
 
-      const cus = await getCustomer(customer.key)
-      thisCustomer.current = cus
+      thisCustomer.current = await getCustomer(customer.key)
       customerId.current = customer.key
 
       if (type.current === 'Nhãn hiệu'){
@@ -174,13 +173,9 @@ const ServiceScreen= () =>{
                 columnName={['Chủ đơn', 'Loại', 'Tên', 'Số đơn','Ngày nộp đơn', 'Số VBBH', 'Ngày cấp VBBH']}
                 rows = {workList}
                 handleEditButton={ async (id) => {
-                  const w = await getWork(id);
-                  thisCustomer.current = {
-                    name: w.customerName,
-                    address: w.customerAddress,
-                    email: w.customerEmail,
-                    phoneNumber: w.customerPhoneNumber
-                  }
+
+                  const w = await getWork(id)
+                  thisCustomer.current = await getCustomer(w.customerId)
                   thisWork.current = w
                   if (w.type === "Nhãn hiệu"){
                     toggleEditNH()
@@ -219,7 +214,6 @@ const ServiceScreen= () =>{
             isShowing={isShowingCreateNH}
             hide={toggleCreateNH}
             customer={thisCustomer.current}
-            customerId={customerId.current}
             workId={null}
             handleSave={async (id,type, cusId, NHname, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory) => 
               {const res = await createWork(id,type="Nhãn hiệu", cusId, NHname, group, paperId, paperSubmitDate, formHistory, gcnID, gcnDate, gcnHistory);

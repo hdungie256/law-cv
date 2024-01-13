@@ -9,7 +9,7 @@ import CustomerAccordion from '../CustomerAccordion'
 import ServiceInfoAccordion from '../ServiceInfoAccordion';
 
 const ServiceDialog = (props) => {
-  const handleSave = (workId, type, customerId, nhanhieu, group, paper, paperSubmitDate, current, soGCN, gcnDate) => {
+  const handleSave = () => {
     const serviceName = (document.getElementById('dialog-service-name').querySelector('input').value)
     const serviceGroup = (document.getElementById('dialog-service-group').querySelector('input').value)
     const paperId = (document.getElementById("dialog-form-number-group").querySelector('input').value)

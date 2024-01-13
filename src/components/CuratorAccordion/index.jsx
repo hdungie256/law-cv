@@ -14,16 +14,6 @@ export default function CuratorAccordion(props) {
       setFullName(e.target.value);
     };
   
-    const [fullNameError, setFullNameError] = useState("");
-    const handleFullNameError = (currentFullName) =>{
-          if (currentFullName.length<1){
-            setFullNameError("Nhập họ và tên.")
-          }
-          else{
-            setFullNameError("")
-          }
-    }
-  
     const [email, setEmail] = useState("");
     const handleEmailChange = (e) => {
       setEmail(e.target.value);
@@ -34,9 +24,7 @@ export default function CuratorAccordion(props) {
     const handleEmailError = (currentEmail) => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
-      if (currentEmail.length < 1) {
-        setEmailError("Nhập email.");
-      } else if (!emailRegex.test(currentEmail)) {
+      if (!emailRegex.test(currentEmail)) {
         setEmailError("Email không hợp lệ.");
       } else {
         setEmailError("");
@@ -53,10 +41,7 @@ export default function CuratorAccordion(props) {
     const [shortName, setShortName] = useState("")
     const handlePhoneNumberError = (currentPhoneNumber) =>{
       const phoneNumberRegex = /^\d{10,11}$/
-      if (currentPhoneNumber.length<1){
-        setPhoneNumberError("Nhập số điện thoại.")
-      }
-      else if (!phoneNumberRegex.test(currentPhoneNumber)){
+      if (!phoneNumberRegex.test(currentPhoneNumber)){
         setPhoneNumberError('Số điện thoại không hợp lệ.')
       }
       else{
@@ -83,7 +68,7 @@ export default function CuratorAccordion(props) {
         </AccordionSummary>
         <AccordionDetails>
             <div className='curator-field dialog-customer-curator-field-fullName'>
-                <TextInput type='text'onChange = {(e) => {handleFullNameChange(e); handleFullNameError(e.target.value)}} value={fullName} errorMessage={fullNameError} padding='0px 10px' label='Tên người phụ trách' placeholder={('Tên người phụ trách')} />
+                <TextInput type='text'onChange = {(e) => {handleFullNameChange(e)}} value={fullName} errorMessage="" padding='0px 10px' label='Tên người phụ trách' placeholder={('Tên người phụ trách')} />
             </div>
             <div className='curator-field dialog-customer-curator-field-title'>
             <TextInput type='text' errorMessage="" onChange = {(e) => {setShortName(e.target.value)}} value={shortName} padding='0px 10px' label='Chức danh' placeholder={('Chức danh')} />
