@@ -8,6 +8,7 @@ import CustomerAccordion from '../CustomerAccordion'
 import ServiceInfoAccordion from '../ServiceInfoAccordion';
 import GCNAccordion from '../GCNAccordion';
 import createWork from '../../apis/work/createWork'
+import updateWork from '../../apis/work/updateWork'
 
 const ServiceDialog = (props) => {
   const handleSave = async () => {
@@ -27,9 +28,15 @@ const ServiceDialog = (props) => {
     gcnDate = parts[1] + '/' + parts[0] + '/' + parts[2];
   
     const formHistory = getHistory('form-accordion')
-  
-    const res = await createWork(props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
-    props.afterSave(res)
+
+    var res = {}
+    if (props.edit){
+      res = await updateWork(props.workId, props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
+    }
+    else{
+      res = await createWork(props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
+    }
+      props.afterSave(res)
   }
 
   return (
@@ -50,7 +57,7 @@ const ServiceDialog = (props) => {
         </div>
 
         <div id='form-accordion'>
-          <FormAccordion initial={props.workValues} type='formHistory'/>
+          <FormAccordion initial={props.workValues} type={props.type}/>
         </div>
         <div id='gcn-accordion'>
           <GCNAccordion initial={props.workValues}/>

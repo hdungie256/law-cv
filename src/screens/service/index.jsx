@@ -16,11 +16,13 @@ import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box'
 
 const ServiceScreen= () =>{
+  const [isEditting, setIsEditting] = useState(false)
 
   const [workList, setWorkList] = useState([])
   const fetchData = async () => {
     const works = await getAllWork();
     setWorkList(works);
+    console.log(workList)
     setIsLoading(false)
   };
 
@@ -55,6 +57,7 @@ const ServiceScreen= () =>{
   const [isLoading,setIsLoading] = useState(true)
 
   const handleNext = async (ntype, customer) => {
+    setIsEditting(false)
     if (customer===""){
       setNameErrorMessage("Chọn chủ đơn")
       return false
@@ -142,6 +145,7 @@ const ServiceScreen= () =>{
                   const w = await getWork(id)
                   thisCustomer.current = await getCustomer(w.customerId)
                   thisWork.current = w
+                  setIsEditting(true)
                   if (w.type.includes('Thẩm định')){
                     toggleThamDinhDialog()
                     if (w.type.includes('nhãn hiệu')){
@@ -177,6 +181,7 @@ const ServiceScreen= () =>{
             />
 
             <ThamDinhDialog
+            edit={isEditting}
             type={thamDinhType}
             id='dialog-nhanhieu-edit'
             title='Chỉnh sửa đơn nhãn hiệu'

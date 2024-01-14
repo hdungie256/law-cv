@@ -79,7 +79,7 @@ const HistoryBlock =(props) => {
 
     useEffect(()=>{
         if (props.initial){
-            setInitial(props.initial, props.type)
+            setInitial(props.initial, 'history')
         }
     }, [])
 

@@ -23,12 +23,11 @@ const getAllWork = async () => {
   try {
     const response = await axios.get(process.env.REACT_APP_API_URL + "/work");
     const data = response.data.list;
-    const rows = data.map((dataRow) => createRow(dataRow['_id'], 
-                                      dataRow.customerShortName ? dataRow['customerShortName'] : dataRow.customerName,dataRow['type'], 
-                                      dataRow['name'], dataRow['paperId'], 
-                                      dataRow['paperSubmitDate'],
-                                      dataRow['gcnId'],
-                                      dataRow['gcnDate']));
+    const rows = data.map((dataRow) => 
+      createRow(dataRow['_id'],dataRow['customerName'],dataRow['type'], 
+                                dataRow['name'], dataRow['paperId'], dataRow['paperSubmitDate'],dataRow['gcnId'],dataRow['gcnDate']
+                )
+      );
     return rows
 
   } catch (error) {

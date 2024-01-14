@@ -11,7 +11,22 @@ import './index.scss'
 import {Grid} from '@mui/material';
 import HistoryBlock from '../HistoryBlock';
 
-export default function FormAccordion(props) {
+export default function FormAccordion(props) {  
+  const getGroup = () => {
+    if (props.type === 'sáng chế'){
+      return 1
+    }
+    else if (props.type === 'GPHI'){
+      return 2
+    }
+    else if (props.type === 'KDCN'){
+      return 3
+    }
+    else if (props.type === 'nhãn hiệu'){
+      return 4
+    }
+  }
+
     const [serviceId, setServiceId] = useState("")
     const handleChangeServiceId = (e) => {
       if (e.target.value.toString().length <= 5) {
@@ -54,7 +69,7 @@ export default function FormAccordion(props) {
           <Grid container>
             <Grid item md={2}>
           <div id='dialog-form-number-group'>
-            <TextField placeholder='Nhóm sản phẩm' type="number" disabled value={4}/>
+            <TextField placeholder='Nhóm sản phẩm' type="number" disabled value={getGroup()}/>
           </div>
           </Grid>
           <Grid item md={1}>
@@ -77,7 +92,7 @@ export default function FormAccordion(props) {
         <div id='dialog-form-number-date'>
           <DatePick initial={paperSubmitDate} onChange={(value) => {setPaperSubmitDate(value); setYear(value.year());}} value={paperSubmitDate} label='Ngày nộp đơn'/>
         </div>
-        <HistoryBlock initial={props.initial} type='formHistory'
+        <HistoryBlock initial={props.initial}
         options = {["Thông báo thiếu sót", 
         "Công văn trả lời thông báo thiếu sót",
         "Quyết định chấp nhận hợp lệ",

@@ -1,13 +1,24 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 
-const updateWork = async (id, type, customerId, name, group, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, gcnHistory) => {
+const updateWork = async (id, customerId, type, name, group, paperId, paperSubmitDate, history, gcnId, gcnDate, country, lastAction) => {
   if (paperSubmitDate === 'undefined//undefined'){
     paperSubmitDate = null
   }
 
   if (gcnDate === 'undefined//undefined'){
     gcnDate = null
+  }
+
+  if (history){
+    var formattedHistory = history
+    formattedHistory.map((item) => {
+      item.action = item.action
+      if (item.date === 'undefined//undefined'){
+        item.date = null
+      }
+    })
+    history = formattedHistory
   }
 
     const response = await axios.put(process.env.REACT_APP_API_URL + 'work/' + id,{
@@ -17,10 +28,11 @@ const updateWork = async (id, type, customerId, name, group, paperId, paperSubmi
       group: group,
       paperId: paperId,
       paperSubmitDate: paperSubmitDate,
-      formHistory: formHistory,
+      history: history,
       gcnId: gcnId,
       gcnDate: gcnDate,
-      gcnHistory: gcnHistory,
+      country: country,
+      lastAction: lastAction
     })
     const message = (response.data.message);
     const statusText = (response.data.statusText)
