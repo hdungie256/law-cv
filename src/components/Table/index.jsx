@@ -33,7 +33,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const CusomizedTable = (props) => {
   const [vh, setVh] = React.useState(Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0))
-  const [numRowsPerPage, setNumRowsPerPage] = React.useState(Math.floor((vh-100-56)/73 -1))
+  const [numRowsPerPage, setNumRowsPerPage] = React.useState(Math.floor((vh-100)/68 -1))
   
   const [pg, setpg] = React.useState(0); 
 
@@ -44,22 +44,24 @@ const CusomizedTable = (props) => {
   return (
     <>
     <TableContainer>
-      <Table sx={{ maxWdith: 1000}} aria-label="customized table" options={{rowStyle: {height: 30}}}>
+      <Table sx={{ width: '100%'}} aria-label="customized table" >
         <TableHead>
           <TableRow>
-            {props.columnName.map((name) => (<StyledTableCell><b>{name}</b></StyledTableCell>))}
-            <StyledTableCell sx={{width: 80}}align='center'></StyledTableCell>
+            {props.columnName.map((name) => (<StyledTableCell sx={{paddingLeft:1, paddingRight: 1, paddingTop: 2, paddingBottom: 2}}><b>{name}</b></StyledTableCell>))}
+            <StyledTableCell sx={{width: 80}} align='center'></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {props.rows.slice(pg * numRowsPerPage, pg * numRowsPerPage + numRowsPerPage).map((row) => (
-            <StyledTableRow key={row.id}>
-              {Object.values(row).slice(1).map((cell, index) => <StyledTableCell key={index} component="th" scope="row">{cell}</StyledTableCell>)}
-              <StyledTableCell sx={{ minWidth: 200}}>
-              <IconButton aria-label="edit" onClick={() => props.handleEditButton(row.id)}><ModeEditIcon /></IconButton>
-              <IconButton aria-label="delete" onClick={() => props.handleDeleteButton(row.id, row.name)}><DeleteIcon /></IconButton>
+            <StyledTableRow key={row.id} >
+              {Object.values(row).slice(1).map((cell, index) => <StyledTableCell  sx={{minWidth: 120, paddingLeft:1, paddingRight: 1.5, paddingTop: 3, paddingBottom: 3}} key={index} component="th" scope="row">{cell}</StyledTableCell>)}
+              <StyledTableCell align='center' sx={{padding: 1, height: 2.5}}>
+                <div style={{width: '100%'}}>
+                <IconButton aria-label="edit" onClick={() => props.handleEditButton(row.id)}><ModeEditIcon /></IconButton>
+                <IconButton aria-label="delete" onClick={() => props.handleDeleteButton(row.id, row.name)}><DeleteIcon /></IconButton>
+                </div>
               </StyledTableCell>
-            </StyledTableRow>
+            </StyledTableRow> 
           ))}
         </TableBody>
       </Table>

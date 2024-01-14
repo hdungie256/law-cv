@@ -209,7 +209,7 @@ const ServiceScreen= () =>{
                   fetchData()
                 }
               }}
-              height={'130px'}
+              height={'140px'}
               type={'đơn hàng'}
               name={`${thisWork.current.name} (${thisWork.current.customerName})`}
               />

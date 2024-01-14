@@ -102,7 +102,7 @@ const CustomerScreen= (props) =>{
                     fetchData()
                   }
                 }}
-                height={'130px'}
+                height={'140px'}
                 type={'khách hàng'}
                 name={customerName.current}
                 />
