@@ -29,7 +29,7 @@ export default function FormAccordion(props) {
             options.current = getOptions('cấp lại')
             codeOptions.current = codeOptionsCL
         }
-        else if (props.type === 'Li xăng/ Chuyển nhượng'){
+        else if (props.type === 'Li xăng - Chuyển nhượng'){
             options.current = getOptions('ghi nhận hợp đồng li xăng/chuyển nhượng')
             codeOptions.current = codeOptionsLX
         }

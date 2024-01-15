@@ -115,9 +115,9 @@ const ServiceScreen= () =>{
         toggleSauCapVBDialog()
         setSauCapVBType('Cấp lại')
       }
-      else if (ntype === 'Li xăng/ Chuyển nhượng'){
+      else if (ntype === 'Li xăng - Chuyển nhượng'){
         toggleSauCapVBDialog()
-        setSauCapVBType('Li xăng/ Chuyển nhượng')
+        setSauCapVBType('Li xăng - Chuyển nhượng')
       }
     }
   }
@@ -196,9 +196,9 @@ const ServiceScreen= () =>{
                     toggleSauCapVBDialog()
                     setSauCapVBType('Cấp lại')
                   }
-                  else if (w.type === 'Li xăng/ Chuyển nhượng'){
+                  else if (w.type === 'Li xăng - Chuyển nhượng'){
                     toggleSauCapVBDialog()
-                    setSauCapVBType('Li xăng/ Chuyển nhượng')
+                    setSauCapVBType('Li xăng - Chuyển nhượng')
                   }
                 }}
                 handleDeleteButton={async (wid,wname) => {
