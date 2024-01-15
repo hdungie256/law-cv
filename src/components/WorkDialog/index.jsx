@@ -81,6 +81,6 @@ const WorkDialog = (props) => {
     </DialogBox>
     )
 }
-const types = ['Thẩm định nhãn hiệu', 'Thẩm định KDCN', 'Thẩm định sáng chế', 'Thẩm định GPHI', 'Sau cấp văn bằng', 'ĐK Nhãn hiệu Quốc tế']
+const types = ['Thẩm định nhãn hiệu', 'Thẩm định KDCN', 'Thẩm định sáng chế', 'Thẩm định GPHI', 'Gia hạn', 'Sửa đổi', 'Cấp lại', 'Li xăng - Chuyển nhượng', 'ĐK Nhãn hiệu Quốc tế']
 
 export default WorkDialog;

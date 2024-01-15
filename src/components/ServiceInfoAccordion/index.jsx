@@ -9,10 +9,9 @@ import { TextField } from '@mui/material';
 import './index.scss'
 
 export default function ServiceInfoAccordion(props) {
-  const [info, setInfo] = useState({})
+  const [info, setInfo] = useState({dtype: 'đơn hàng'})
 
   const setInitial = (values) => {
-
     if (props.type === 'nhãn hiệu'){
       setInfo({dtype: 'nhãn hiệu'})
       setNHGroup(values.group)
@@ -24,13 +23,14 @@ export default function ServiceInfoAccordion(props) {
     else if (props.type === 'sáng chế'){
       setInfo({dtype: 'sáng chế'})
     }
-    else {
+    else if (props.type === 'GPHI'){
       setInfo({dtype: 'GPHI'})
     }
       setNhanHieu(values.name)
   }
 
   useEffect(() => {
+    console.log(props.initial)
       if (props.initial){
           setInitial(props.initial)
       }
@@ -57,7 +57,7 @@ export default function ServiceInfoAccordion(props) {
         <AccordionDetails>
             <div id='dialog-service-name'>
             <div id='dialog-service-name-label-wrapper1' style={{'margin-bottom': '7px'}}> <label id='dialog-service-name-label1'> <b> Tên {info.dtype} *</b></label> </div>
-            <TextField InputProps={{ inputProps: { min: 0, max: 10 } }} style={{width: '100%'}} type='text' padding='0px 10px' onChange={(e) => {handleChangeNhanHieu(e)}} value={nhanhieu} placeholder={('Tên nhãn hiệu')} />
+            <TextField InputProps={{ inputProps: { min: 0, max: 10 } }} style={{width: '100%'}} type='text' padding='0px 10px' onChange={(e) => {handleChangeNhanHieu(e); console.log(props.type)}} value={nhanhieu} placeholder={('Tên ' + info.dtype)} />
             </div>
             {props.type === 'nhãn hiệu' &&
             <div id='dialog-service-group'>

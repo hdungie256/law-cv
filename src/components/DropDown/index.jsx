@@ -15,7 +15,7 @@ function DropDown(props) {
   
   return (
     <div className='drop-down'>
-        {props.label && <label className='label'> <b>{props.label}</b> </label>}
+        {props.label && <div style={{marginBottom: '10px'}} ><label className='label'> <b>{props.label}</b> </label></div>}
         <div id='drop-down-wrapper'>
             <Autocomplete
             disablePortal
@@ -27,6 +27,7 @@ function DropDown(props) {
             onInputhange={(e, newInputValue) => {setInputValue(newInputValue);props.onChange(newInputValue)}}
             className={props.className}
             inputValue={inputValue}
+            defaultValue={props.options.find(option => option === props.defaultValue)}
             />}
             />
         </div>

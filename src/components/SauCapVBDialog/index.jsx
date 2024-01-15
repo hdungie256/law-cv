@@ -3,21 +3,20 @@ import DialogBox from '../DialogBox'
 import {Grid} from '@mui/material';
 import ButtonSubmit from '../ButtonSubmit';
 import ButtonCancel from '../ButtonCancel'
-import FormAccordion from '../FormAccordion';
 import CustomerAccordion from '../CustomerAccordion'
-import ServiceInfoAccordion from '../ServiceInfoAccordion';
-import GCNAccordion from '../GCNAccordion';
 import createWork from '../../apis/work/createWork'
-import updateWork from '../../apis/work/updateWork'
+import updateWork from '../../apis/work/updateWork';
+import SauCapVBAccordion from '../SauCapVBAccordion'
+import GCNAccordion from '../GCNAccordion';
+import ServiceInfoAccordion from '../ServiceInfoAccordion';
 
 const ServiceDialog = (props) => {
   const handleSave = async () => {
+
     const serviceName = (document.getElementById('dialog-service-name').querySelector('input').value)
-    const serviceGroup = (document.getElementById('dialog-service-group')) ? 
-    (document.getElementById('dialog-service-group').querySelector('input').value) : null
     const paperId = (document.getElementById("dialog-form-number-group").querySelector('input').value)
-                    + '-' + (document.getElementById('dialog-form-number-year').querySelector('input').value)
-                    + '-' + (document.getElementById("dialog-form-number-id").querySelector('input').value)
+    + '-' + (document.getElementById('dialog-form-number-year').querySelector('input').value)
+    + '-' + (document.getElementById("dialog-form-number-id").querySelector('input').value)
     var paperSubmitDate = (document.getElementById('dialog-form-number-date').querySelector('input').value)
     var parts = paperSubmitDate.split('/');
     paperSubmitDate = parts[1] + '/' + parts[0] + '/' + parts[2];
@@ -31,36 +30,36 @@ const ServiceDialog = (props) => {
 
     var res = {}
     if (props.edit){
-      res = await updateWork(props.workId, props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
+      res = await updateWork(props.workId, props.customerId, props.type, serviceName, null, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
     }
     else{
-      res = await createWork(props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
+      res = await createWork(props.customerId, props.type, serviceName, null, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
     }
       props.afterSave(res)
   }
 
   return (
       <DialogBox className='dialog-box' 
-      title={'Thẩm định đơn ' + props.type} 
+      title={props.type} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='500px'
       overflowY={'auto'}
-      handleSave={props.handleSave}
       >
         <div id='customer-accordion'>
           <CustomerAccordion customer={props.customer}/>
         </div>
 
-        <div id='service-accordion'>
-          <ServiceInfoAccordion type={props.type} initial={props.workValues}/>
+        <div>
+          <ServiceInfoAccordion initial={props.workValues} type={props.type}></ServiceInfoAccordion>
         </div>
 
         <div id='form-accordion'>
-          <FormAccordion initial={props.workValues} type={props.type}/>
+          <SauCapVBAccordion initial={props.workValues} type={props.type}/>
         </div>
-        <div id='gcn-accordion'>
-          <GCNAccordion section={4} initial={props.workValues}/>
+
+        <div id='gcn-accordion' >
+          <GCNAccordion initial={props.workValues} section={3}/>
         </div>
 
         <Grid container md={12} spacing={3}>

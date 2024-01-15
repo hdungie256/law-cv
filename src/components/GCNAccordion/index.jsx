@@ -29,13 +29,13 @@ export default function GCNAccordion(props) {
     }, [])
 
   return (
-      <Accordion sx={{backgroundColor:'#FEFEFE', boxShadow: 'none', border: '0.25px solid #c4c4c4' }} style={{width: '104%', marginTop: '10px'}}>
+      <Accordion defaultExpanded sx={{backgroundColor:'#FEFEFE', boxShadow: 'none', border: '0.25px solid #c4c4c4' }} style={{width: '104%', marginTop: '10px'}}>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#1095e6' }}><b>4. Thông tin VBBH</b></Typography>
+          <Typography style={{ color: '#1095e6' }}><b>{props.section}. Thông tin VBBH</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
                     <div id='gcn-accordion-sogcn'>

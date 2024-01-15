@@ -8,6 +8,7 @@ import { useState, useRef, useEffect } from 'react'
 import { ToastContainer} from "react-toastify";
 import WorkDialog from '../../components/WorkDialog'
 import ThamDinhDialog from '../../components/ThamDinhDialog';
+import SauCapVBDialog from '../../components/SauCapVBDialog';
 import getAllWork from '../../apis/work/getAllWork'
 import getWork from '../../apis/work/getWork'
 import deleteWork from '../../apis/work/deleteWork'
@@ -45,6 +46,11 @@ const ServiceScreen= () =>{
     setIsShowingThamDinhDialog(!isShowingThamDinhDialog)
   }
 
+  const [isShowingSauCapVB, setIsShowingSauCapVB] = useState(false) 
+  const toggleSauCapVBDialog = () => {
+    setIsShowingSauCapVB(!isShowingSauCapVB)
+  }
+
   const [isShowingConfirm, setIsShowingConfirm] = useState(false)
   const toggleConfirm = () => {
     setIsShowingConfirm(!isShowingConfirm)
@@ -80,9 +86,9 @@ const ServiceScreen= () =>{
 
       thisCustomer.current = await getCustomer(customer.key)
       customerId.current = customer.key
+      thisWork.current = {}
 
       if (ntype.includes('Thẩm định')){
-        thisWork.current = {}
         toggleThamDinhDialog()
         if (ntype.includes('nhãn hiệu')){
           setThamDinhType('nhãn hiệu')
@@ -96,6 +102,22 @@ const ServiceScreen= () =>{
         else if (ntype.includes('GPHI')){
           setThamDinhType('GPHI')
         }
+      }
+      else if (ntype === 'Gia hạn'){
+        toggleSauCapVBDialog()
+        setSauCapVBType('Gia hạn')
+      }
+      else if (ntype === 'Sửa đổi'){
+        toggleSauCapVBDialog()
+        setSauCapVBType('Sửa đổi')
+      }
+      else if (ntype === 'Cấp lại'){
+        toggleSauCapVBDialog()
+        setSauCapVBType('Cấp lại')
+      }
+      else if (ntype === 'Li xăng/ Chuyển nhượng'){
+        toggleSauCapVBDialog()
+        setSauCapVBType('Li xăng/ Chuyển nhượng')
       }
     }
   }
@@ -122,6 +144,7 @@ const ServiceScreen= () =>{
   })
 
   const [thamDinhType, setThamDinhType] = useState("")
+  const [sauCapVBType, setSauCapVBType] = useState("")
 
     return(
         <div id='service-screen'>
@@ -161,6 +184,22 @@ const ServiceScreen= () =>{
                       setThamDinhType('GPHI')
                     }
                   }
+                  else if (w.type === 'Gia hạn'){
+                    toggleSauCapVBDialog()
+                    setSauCapVBType('Gia hạn')
+                  }
+                  else if (w.type === 'Sửa đổi'){
+                    toggleSauCapVBDialog()
+                    setSauCapVBType('Sửa đổi')
+                  }
+                  else if (w.type === 'Cấp lại'){
+                    toggleSauCapVBDialog()
+                    setSauCapVBType('Cấp lại')
+                  }
+                  else if (w.type === 'Li xăng/ Chuyển nhượng'){
+                    toggleSauCapVBDialog()
+                    setSauCapVBType('Li xăng/ Chuyển nhượng')
+                  }
                 }}
                 handleDeleteButton={async (wid,wname) => {
                   const w = await getWork(wid)
@@ -184,7 +223,6 @@ const ServiceScreen= () =>{
             edit={isEditting}
             type={thamDinhType}
             id='dialog-nhanhieu-edit'
-            title='Chỉnh sửa đơn nhãn hiệu'
             isShowing={isShowingThamDinhDialog}
             hide={toggleThamDinhDialog}
             customer={thisCustomer.current}
@@ -194,6 +232,24 @@ const ServiceScreen= () =>{
             afterSave={(res) => {
                 if (res) {
                   toggleThamDinhDialog();
+                  fetchData();
+                }
+              }}
+            />
+
+          <SauCapVBDialog
+            edit={isEditting}
+            type={sauCapVBType}
+            id='dialog-saucapvb'
+            isShowing={isShowingSauCapVB}
+            hide={toggleSauCapVBDialog}
+            customer={thisCustomer.current}
+            customerId={thisCustomer.current._id}
+            workValues={thisWork.current}
+            workId={thisWork.current._id}
+            afterSave={(res) => {
+                if (res) {
+                  toggleSauCapVBDialog();
                   fetchData();
                 }
               }}
