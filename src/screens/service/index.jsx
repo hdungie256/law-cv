@@ -15,6 +15,7 @@ import deleteWork from '../../apis/work/deleteWork'
 import { CircularProgress } from '@mui/material'
 import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box'
+import MadridDialog from '../../components/MadridDialog'
 
 const ServiceScreen= () =>{
   const [isEditting, setIsEditting] = useState(false)
@@ -49,6 +50,11 @@ const ServiceScreen= () =>{
   const [isShowingSauCapVB, setIsShowingSauCapVB] = useState(false) 
   const toggleSauCapVBDialog = () => {
     setIsShowingSauCapVB(!isShowingSauCapVB)
+  }
+
+  const [isShowingMadrid, setIsShowingMadrid] = useState(false) 
+  const toggleMadridDialog = () => {
+    setIsShowingMadrid(!isShowingMadrid)
   }
 
   const [isShowingConfirm, setIsShowingConfirm] = useState(false)
@@ -118,6 +124,9 @@ const ServiceScreen= () =>{
       else if (ntype === 'Li xăng - Chuyển nhượng'){
         toggleSauCapVBDialog()
         setSauCapVBType('Li xăng - Chuyển nhượng')
+      }
+      else{
+        toggleMadridDialog()
       }
     }
   }
@@ -253,6 +262,24 @@ const ServiceScreen= () =>{
                   fetchData();
                 }
               }}
+            />
+
+            <MadridDialog
+              edit={isEditting}
+              type={'Đăng ký nhãn hiệu quốc tế'}
+              id='dialog-madrid'
+              isShowing={isShowingMadrid}
+              hide={toggleMadridDialog}
+              customer={thisCustomer.current}
+              customerId={thisCustomer.current._id}
+              workValues={thisWork.current}
+              workId={thisWork.current._id}
+              afterSave={(res) => {
+                  if (res) {
+                    toggleMadridDialog();
+                    fetchData();
+                  }
+                }}
             />
 
             <ConfirmDialog

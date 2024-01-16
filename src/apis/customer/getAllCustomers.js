@@ -10,7 +10,6 @@ function createRow(id, name, address, email, phoneNumber) {
 
   name = truncateString(name, 50);
   address = truncateString(address, 20);
-  email = truncateString(email, 20);
   phoneNumber = truncateString(phoneNumber, 20);
   return {
     id, name, address, email, phoneNumber

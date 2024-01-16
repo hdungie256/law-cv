@@ -59,7 +59,7 @@ export default function ServiceInfoAccordion(props) {
             <div id='dialog-service-name-label-wrapper1' style={{'margin-bottom': '7px'}}> <label id='dialog-service-name-label1'> <b> Tên {info.dtype} *</b></label> </div>
             <TextField InputProps={{ inputProps: { min: 0, max: 10 } }} style={{width: '100%'}} type='text' padding='0px 10px' onChange={(e) => {handleChangeNhanHieu(e); console.log(props.type)}} value={nhanhieu} placeholder={('Tên ' + info.dtype)} />
             </div>
-            {props.type === 'nhãn hiệu' &&
+            {(props.type === 'nhãn hiệu' || props.type === 'Đăng ký nhãn hiệu quốc tế') &&
             <div id='dialog-service-group'>
                 <div id='dialog-serivce-group-label-wrapper1' style={{'margin-bottom': '7px'}}> <label style={{color: '#6c7a99'}} id='dialog-service-group-label1'> <b> Nhóm sản phẩm</b></label> </div>
                 <TextField placeholder={'Nhóm sản phẩm (1-45)'} style={{width: '100%'}} onChange={(e) => setNHGroup(e.target.value)} value={NHgroup}/>
