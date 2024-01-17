@@ -13,7 +13,7 @@ if (username !== "" && password !== ""){
     const statusText = (response.data.statusText)
 
     if (statusText === "OK"){
-    await toast.success(message, {
+    toast.success(message, {
     position: toast.POSITION.TOP_RIGHT,
     })
     return true
