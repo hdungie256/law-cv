@@ -33,7 +33,7 @@ function SearchBar(props) {
         <InputBase
             style={{width: '100%'}}
           sx={{ ml: 1, flex: 1, backgroundColor: '#ebecf0', boxShadow: 'none'  }}
-          placeholder="Tìm kiếm theo tên khách hàng/người phụ trách, SĐT khách hàng/ người phụ trách, email khách hàng/người phụ trách, địa chỉ"
+          placeholder={props.placeholder}
           inputProps={{ 'aria-label': 'search customers' }}
           // value={value}
           onChange={(e) => {handleChange(e)}}

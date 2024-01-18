@@ -2,7 +2,6 @@ import './index.scss'
 import getCustomer from '../../apis/customer/getCustomer'
 import ButtonCreate from '../../components/ButtonCreate'
 import ConfirmDialog from '../../components/ConfirmDialog';
-import Title from '../../components/Title'
 import Table from '../../components/Table'
 import { useState, useRef, useEffect } from 'react'
 import { ToastContainer} from "react-toastify";
@@ -16,6 +15,8 @@ import { CircularProgress } from '@mui/material'
 import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box'
 import MadridDialog from '../../components/MadridDialog'
+import {Grid} from '@mui/material';
+import SearchBar from '../../components/SearchBar';
 
 const ServiceScreen= () =>{
   const [isEditting, setIsEditting] = useState(false)
@@ -155,19 +156,40 @@ const ServiceScreen= () =>{
   const [thamDinhType, setThamDinhType] = useState("")
   const [sauCapVBType, setSauCapVBType] = useState("")
 
+  const handleSearch = async (inputValue) => {
+    setIsLoading(true);
+    const searchResult = await getAllWork(inputValue);
+    setWorkList(searchResult);
+    setIsLoading(false);
+  };
+
     return(
         <div id='service-screen'>
-          {isLoading ?   (<Box sx={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+            <div style={{height: '95px', display: 'flex', alignItems:'center'}}>
+              <Grid container spacing={1}>
+                <Grid item md={9.5}>
+                  <div style={{display: 'flex', paddingLeft: '25px', alignItems: 'left', width: '95%'}}>
+                  <SearchBar 
+                  placeholder='Tìm kiếm theo tên chủ đơn, tên đơn, số đơn, số VBBH'
+                  handleSearch={handleSearch}
+                  />
+                  </div>
+                </Grid>
+                <Grid item md={2.5}>
+                  <div style={{display: 'flex', justifyContent: 'right', paddingRight: '60px', alignItems: 'center'}}>
+                    <div id='button-add-service'>
+                      <ButtonCreate onClick={toggleCreate} text='Thêm công việc'/>
+                    </div>
+                  </div>
+                </Grid>
+
+              </Grid>
+          </div>
+          {isLoading ?   (<Box sx={{ display: 'flex', height: '80%', alignItems: 'center', justifyContent: 'center'}}>
                           <CircularProgress />
                         </Box>) : (
           <Fade in={!isLoading} timeout={100}>
             <div>
-            <div id='title-wrapper'>
-                <Title className='title' title='Quản lý công việc'/>
-            </div>
-            <div id='button-add-service'>
-                <ButtonCreate onClick={toggleCreate} text='Thêm công việc'/>
-            </div>
             <div id='work-table-wrapper'>
               <Table 
                 columnName={['Chủ đơn', 'Loại', 'Tên', 'Số đơn','Ngày nộp đơn', 'Số VBBH', 'Ngày cấp VBBH']}

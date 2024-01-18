@@ -27,12 +27,6 @@ const CustomerScreen= (props) =>{
     fetchData(); 
   }, []); 
 
-
-  // const getSearchResult = (searchResult) => {
-  //   setCustomerList(searchResult)
-  //   setIsLoading(false)
-  // } 
-
   const handleSearch = async (inputValue) => {
     setIsLoading(true);
     const searchResult = await getAllCustomers(inputValue);
@@ -88,7 +82,6 @@ const CustomerScreen= (props) =>{
                   <div style={{display: 'flex', paddingLeft: '25px', alignItems: 'left', width: '95%'}}>
                   <SearchBar 
                   placeholder='Tìm kiếm theo tên khách hàng, địa chỉ, email, SĐT khách hàng, tên người phụ trách, email người phụ trách, SĐT người phụ trách.'
-                  // getSearchResult={getSearchResult}
                   handleSearch={handleSearch}/>
                   </div>
                 </Grid>
@@ -104,7 +97,7 @@ const CustomerScreen= (props) =>{
           </div>
 
           {
-          isLoading ?   (<Box sx={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+          isLoading ?   (<Box sx={{ display: 'flex', height: '80%', alignItems: 'center', justifyContent: 'center'}}>
                           <CircularProgress />
                         </Box>) : (
           <Fade in={!isLoading} timeout={100}>

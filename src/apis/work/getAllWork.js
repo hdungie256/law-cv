@@ -19,9 +19,11 @@ import dayjs from 'dayjs';
     };
   } 
 
-const getAllWork = async () => {
+const getAllWork = async (search=null) => {
   try {
-    const response = await axios.get(process.env.REACT_APP_API_URL + "/work");
+    const response = await axios.get(process.env.REACT_APP_API_URL + "/work",{
+      params: { search }
+    });
     const data = response.data.list;
     const rows = data.map((dataRow) => 
       createRow(dataRow['_id'],dataRow['customerName'],dataRow['type'], 
