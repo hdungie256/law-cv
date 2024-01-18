@@ -16,9 +16,11 @@ function createRow(id, name, address, email, phoneNumber) {
   };
 } 
 
-const getAllCustomers = async () => {
+const getAllCustomers = async (search=null) => {
   try {
-    const response = await axios.get(process.env.REACT_APP_API_URL + "/customers");
+    const response = await axios.get(process.env.REACT_APP_API_URL + "/customers",{
+      params: { search }
+    });
     const data = response.data.list;
     const rows = data.map((dataRow) => createRow(dataRow['_id'],
      dataRow.customerShortName ? dataRow['customerShortName'] : dataRow.customerName,

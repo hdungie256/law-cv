@@ -1,6 +1,6 @@
 import './index.scss'
 import ButtonCreate from '../../components/ButtonCreate'
-import Title from '../../components/Title'
+import SearchBar from '../../components/SearchBar'
 import { useState, useEffect, useRef } from 'react'
 import CustomerDialog from '../../components/CustomerDialog'
 import { ToastContainer } from "react-toastify";
@@ -9,7 +9,7 @@ import getAllCustomers from '../../apis/customer/getAllCustomers'
 import ConfirmDialog from '../../components/ConfirmDialog'
 import getCustomer from '../../apis/customer/getCustomer'
 import deleteCustomer from '../../apis/customer/deleteCustomer'
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, Grid } from '@mui/material'
 import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box';
 
@@ -26,6 +26,19 @@ const CustomerScreen= (props) =>{
   useEffect(() => {
     fetchData(); 
   }, []); 
+
+
+  // const getSearchResult = (searchResult) => {
+  //   setCustomerList(searchResult)
+  //   setIsLoading(false)
+  // } 
+
+  const handleSearch = async (inputValue) => {
+    setIsLoading(true);
+    const searchResult = await getAllCustomers(inputValue);
+    setCustomerList(searchResult);
+    setIsLoading(false);
+  };
 
   const [isShowingCustomerDialog, setIsShowingCustomerDialog] = useState(false);
 
@@ -67,17 +80,35 @@ const CustomerScreen= (props) =>{
   const [isLoading, setIsLoading] = useState(true)
 
     return(
-        <div id='customer-screen'>{
+        <div id='customer-screen'>
+
+          <div style={{height: '95px', display: 'flex', alignItems:'center'}}>
+              <Grid container spacing={1}>
+                <Grid item md={9.5}>
+                  <div style={{display: 'flex', paddingLeft: '25px', alignItems: 'left', width: '95%'}}>
+                  <SearchBar 
+                  placeholder='Tìm kiếm theo tên khách hàng, địa chỉ, email, SĐT khách hàng, tên người phụ trách, email người phụ trách, SĐT người phụ trách.'
+                  // getSearchResult={getSearchResult}
+                  handleSearch={handleSearch}/>
+                  </div>
+                </Grid>
+                <Grid item md={2.5}>
+                  <div style={{display: 'flex', justifyContent: 'right', paddingRight: '60px', alignItems: 'center'}}>
+                    <div className='button-add-new'>
+                      <ButtonCreate onClick={() => {setDialogStatus("create");initial.current={};toggleCustomerDialog()}} text='Thêm khách hàng'/>
+                    </div>
+                  </div>
+                </Grid>
+
+              </Grid>
+          </div>
+
+          {
           isLoading ?   (<Box sx={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
                           <CircularProgress />
                         </Box>) : (
           <Fade in={!isLoading} timeout={100}>
           <div>
-              <Title id='customer-title' title='Quản lý khách hàng'/>
-
-              <div className='button-add-new'>
-                  <ButtonCreate onClick={() => {setDialogStatus("create");initial.current={};toggleCustomerDialog()}} text='Thêm khách hàng'/>
-              </div>
 
               <CustomerDialog 
                 id='customer-dialog-create'
