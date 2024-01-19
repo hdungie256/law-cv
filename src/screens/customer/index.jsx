@@ -12,8 +12,11 @@ import deleteCustomer from '../../apis/customer/deleteCustomer'
 import { CircularProgress, Grid } from '@mui/material'
 import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box';
+import LoadingDialog from '../../components/LoadingDialog'
 
 const CustomerScreen= (props) =>{
+  const [isLoadingDialog, setIsLoadingDialog] = useState(false)
+
   const [dialogStatus, setDialogStatus] = useState("")
 
   const [customerList,setCustomerList] = useState([])
@@ -76,6 +79,8 @@ const CustomerScreen= (props) =>{
     return(
         <div id='customer-screen'>
 
+          <LoadingDialog isShowing={isLoadingDialog}/>
+
           <div style={{height: '95px', display: 'flex', alignItems:'center'}}>
               <Grid container spacing={1}>
                 <Grid item md={9.5}>
@@ -120,9 +125,11 @@ const CustomerScreen= (props) =>{
                 isShowing={isShowingConfirm}
                 hide={toggleConfirm}
                 handleConfirm={async () => {
+                  toggleConfirm();
+                  setIsLoadingDialog(true)
                   const res = await deleteCustomer(customerId.current);
                   if (res){
-                    toggleConfirm();
+                    setIsLoadingDialog(false)
                     fetchData()
                   }
                 }}
@@ -135,7 +142,8 @@ const CustomerScreen= (props) =>{
                 <Table 
                   columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại']}
                   rows = {customerList}
-                  handleEditButton={ async (id) => {setDialogStatus("edit");await viewCustomerInfo(id);toggleCustomerDialog(id)}}
+                  handleEditButton={ async (id) => {
+                    setIsLoadingDialog(true);setDialogStatus("edit");await viewCustomerInfo(id);setIsLoadingDialog(false);toggleCustomerDialog(id)}}
                   handleDeleteButton={(id, name) => {toggleConfirm();setCustomerInfo(id, name)}}
                   />
                 </div>

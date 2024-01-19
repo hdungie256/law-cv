@@ -17,6 +17,8 @@ import Box from '@mui/material/Box'
 import MadridDialog from '../../components/MadridDialog'
 import {Grid} from '@mui/material';
 import SearchBar from '../../components/SearchBar';
+import InfoDialog from '../../components/InfoDialog';
+import LoadingDialog from '../../components/LoadingDialog';
 
 const ServiceScreen= () =>{
   const [isEditting, setIsEditting] = useState(false)
@@ -37,6 +39,11 @@ const ServiceScreen= () =>{
   }
 
   const customerId = useRef("")
+
+  const [isShowingInfo, setIsShowingInfo] = useState(false);
+  const toggleInformation = () => {
+    setIsShowingInfo(!isShowingInfo);
+  };
 
   const [isShowingCreate, setIsShowingCreate] = useState(false);
   const toggleCreate = () => {
@@ -70,6 +77,7 @@ const ServiceScreen= () =>{
   const [isLoading,setIsLoading] = useState(true)
 
   const handleNext = async (ntype, customer) => {
+    setIsLoadingDialog(true)
     setIsEditting(false)
     if (customer===""){
       setNameErrorMessage("Chọn chủ đơn")
@@ -94,6 +102,8 @@ const ServiceScreen= () =>{
       thisCustomer.current = await getCustomer(customer.key)
       customerId.current = customer.key
       thisWork.current = {}
+
+      setIsLoadingDialog(false)
 
       if (ntype.includes('Thẩm định')){
         toggleThamDinhDialog()
@@ -137,6 +147,8 @@ const ServiceScreen= () =>{
     setTypeErrorMessage("")
   }, [isShowingCreate])
 
+  const gcnIdForDialog = useRef('')
+
   const thisWork = useRef({
     _id: "",
     customerId: "",
@@ -162,6 +174,10 @@ const ServiceScreen= () =>{
     setWorkList(searchResult);
     setIsLoading(false);
   };
+
+  const sameVBBH = useRef([{gcnId: null}])
+
+  const [isLoadingDialog, setIsLoadingDialog] = useState(false)
 
     return(
         <div id='service-screen'>
@@ -190,16 +206,38 @@ const ServiceScreen= () =>{
                         </Box>) : (
           <Fade in={!isLoading} timeout={100}>
             <div>
+              <LoadingDialog
+              isShowing={isLoadingDialog}/>
+
             <div id='work-table-wrapper'>
               <Table 
+                onClick={async (id) => {
+                  setIsLoadingDialog(true)
+                  const w = await getWork(id)
+                  thisCustomer.current = await getCustomer(w.customerId)
+                  thisWork.current = w; 
+                  if (w.gcnId){
+                    console.log(w.gcnId)
+                  const workWithSameVBBH = await getAllWork(w.gcnId)
+                  sameVBBH.current = workWithSameVBBH;
+                  gcnIdForDialog.current = w.gcnId
+                  }
+                  else{
+                    sameVBBH.current = [w]
+                    gcnIdForDialog.current = ''
+                  }
+                  setIsLoadingDialog(false)
+                  toggleInformation();}
+                }
                 columnName={['Chủ đơn', 'Loại', 'Tên', 'Số đơn','Ngày nộp đơn', 'Số VBBH', 'Ngày cấp VBBH']}
                 rows = {workList}
                 handleEditButton={ async (id) => {
-
+                  setIsLoadingDialog(true)
                   const w = await getWork(id)
                   thisCustomer.current = await getCustomer(w.customerId)
                   thisWork.current = w
                   setIsEditting(true)
+                  setIsLoadingDialog(false)
                   if (w.type.includes('Thẩm định')){
                     toggleThamDinhDialog()
                     if (w.type.includes('nhãn hiệu')){
@@ -286,6 +324,16 @@ const ServiceScreen= () =>{
               }}
             />
 
+            { isShowingInfo && <InfoDialog
+            isShowing={isShowingInfo}
+            hide={toggleInformation}
+            customer={thisCustomer.current}
+            customerId={thisCustomer.current._id}
+            workValues={sameVBBH.current}
+            workId={thisWork.current._id}
+            gncId={gcnIdForDialog.current}
+            />}
+
             <MadridDialog
               edit={isEditting}
               type={'Đăng ký nhãn hiệu quốc tế'}
@@ -308,9 +356,11 @@ const ServiceScreen= () =>{
               isShowing={isShowingConfirm}
               hide={toggleConfirm}
               handleConfirm={async () => {
+                toggleConfirm();
+                setIsLoadingDialog(true)
                 const res = await deleteWork(thisWork.current._id);
                 if (res){
-                  toggleConfirm();
+                  setIsLoadingDialog(false)
                   fetchData()
                 }
               }}

@@ -9,6 +9,12 @@ import updateWork from '../../apis/work/updateWork';
 import SauCapVBAccordion from '../SauCapVBAccordion'
 import GCNAccordion from '../GCNAccordion';
 import ServiceInfoAccordion from '../ServiceInfoAccordion';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import MoreTimeIcon from '@mui/icons-material/MoreTime';
+import ReplayIcon from '@mui/icons-material/Replay';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import React from 'react';
 
 const ServiceDialog = (props) => {
   const handleSave = async () => {
@@ -38,9 +44,25 @@ const ServiceDialog = (props) => {
       props.afterSave(res)
   }
 
+  let titleIcon;
+  if (props.type === 'Sửa đổi') {
+    titleIcon = <ChangeCircleIcon className='dialog-info-icon' />;
+  } else if (props.type === 'Gia hạn') {
+    titleIcon = <MoreTimeIcon className='dialog-info-icon' />;
+  } else if (props.type === 'Cấp lại') {
+    titleIcon = <ReplayIcon className='dialog-info-icon' />;
+  } else if (props.type === 'Li xăng - Chuyển nhượng'){
+    titleIcon = <ManageAccountsIcon className='dialog-info-icon'/>
+  }
+
   return (
       <DialogBox className='dialog-box' 
-      title={props.type} 
+      title={
+        <React.Fragment>
+        {titleIcon}
+        {props.type}
+      </React.Fragment>
+      } 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='500px'

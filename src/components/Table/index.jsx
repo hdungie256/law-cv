@@ -44,7 +44,7 @@ const CusomizedTable = (props) => {
   return (
     <>
     <TableContainer>
-      <Table sx={{ width: '100%'}} aria-label="customized table" >
+      <Table hoverRow sx={{ width: '100%'}} aria-label="customized table" >
         <TableHead>
           <TableRow>
             {props.columnName.map((name) => (<StyledTableCell sx={{paddingLeft:1, paddingRight: 1, paddingTop: 2, paddingBottom: 2}}><b>{name}</b></StyledTableCell>))}
@@ -53,15 +53,15 @@ const CusomizedTable = (props) => {
         </TableHead>
         <TableBody>
           {props.rows.slice(pg * numRowsPerPage, pg * numRowsPerPage + numRowsPerPage).map((row) => (
-            <StyledTableRow key={row.id} >
+            <TableRow key={row.id} hover sx={{cursor: 'pointer'}} onClick={() => props.onClick(row.id)} >
               {Object.values(row).slice(1).map((cell, index) => <StyledTableCell  sx={{minWidth: 120, paddingLeft:1, paddingRight: 1.5, paddingTop: 3, paddingBottom: 3}} key={index} component="th" scope="row">{cell}</StyledTableCell>)}
               <StyledTableCell align='center' sx={{padding: 1, height: 2.5}}>
                 <div style={{width: '100%'}}>
-                <IconButton aria-label="edit" onClick={() => props.handleEditButton(row.id)}><ModeEditIcon /></IconButton>
-                <IconButton aria-label="delete" onClick={() => props.handleDeleteButton(row.id, row.name)}><DeleteIcon /></IconButton>
+                <IconButton aria-label="edit" onClick={(e) => {e.stopPropagation();props.handleEditButton(row.id)}}><ModeEditIcon /></IconButton>
+                <IconButton aria-label="delete" onClick={(e) => {e.stopPropagation();props.handleDeleteButton(row.id, row.name)}}><DeleteIcon /></IconButton>
                 </div>
               </StyledTableCell>
-            </StyledTableRow> 
+            </TableRow> 
           ))}
         </TableBody>
       </Table>
