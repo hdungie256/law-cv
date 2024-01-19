@@ -15,6 +15,8 @@ const createWork = async (customerId, type, name, group, paperId, paperSubmitDat
   if (gcnDate === 'undefined//undefined'){
     gcnDate = null
   }
+
+  try{
   
     const response = await axios.post(process.env.REACT_APP_API_URL + 'create-work', {
       customerId: customerId,
@@ -32,13 +34,14 @@ const createWork = async (customerId, type, name, group, paperId, paperSubmitDat
 
     const message = response.data.message;
 
-    if (response.data.status === 200) {
+    if (response) {
       toast.success(message, {
         position: toast.POSITION.TOP_RIGHT,
       });
       return true
-    } else {
-      toast.error(message, {
+    }}
+    catch (error) {
+      toast.error(error.response.data.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
       return false
