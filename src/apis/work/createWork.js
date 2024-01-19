@@ -33,7 +33,7 @@ const createWork = async (customerId, type, name, group, paperId, paperSubmitDat
     const message = response.data.message;
     const statusText = response.data.statusText;
 
-    if (statusText === "OK") {
+    if (response.status === 200) {
       toast.success(message, {
         position: toast.POSITION.TOP_RIGHT,
       });
