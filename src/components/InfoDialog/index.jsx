@@ -18,7 +18,7 @@ const InfoDialog = (props) => {
 
   return (
       <DialogBox className='dialog-box' 
-      title={ 'Số VBBH: ' + props.workValues[0].gcnId} 
+      title={ 'Số VBBH: ' + props.workValues[0].gcnId + ' - Ngày cấp: ' + dayjs(props.workValues[0].gcnDate).format('DD/MM/YYYY')} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='500px'
