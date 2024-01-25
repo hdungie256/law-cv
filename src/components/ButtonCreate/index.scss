@@ -3,12 +3,13 @@
 
 #button-create-wrapper{
     position: relative;
+    width: 100%;
 }
 
 .button-create{
-    background-color: $purpleblue;
+    background-color: #fbf2a1;
     border: none;
-    color: white;
+    color: black;
     padding: 15px 20px;
     text-align: right;
     text-decoration: none;
@@ -26,7 +27,7 @@
 }
 
 .button-create-icon{
-    color: white;
+    color: black;
     position: absolute;
     left: 13%;
     top: 50%;

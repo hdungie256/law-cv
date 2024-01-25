@@ -25,14 +25,14 @@ function SearchBar(props) {
         <Paper
         style={{width: '100%'}}
         component="form"
-        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, backgroundColor: '#ebecf0', boxShadow: 'none', border: '20px' }}
+        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, backgroundColor: '#dadedf', boxShadow: 'none', borderRadius: '5px'}}
       >
         <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
           <SearchIcon />
         </IconButton>
         <InputBase
             style={{width: '100%'}}
-          sx={{ ml: 1, flex: 1, backgroundColor: '#ebecf0', boxShadow: 'none'  }}
+          sx={{ ml: 1, flex: 1, backgroundColor: '#dadedf', boxShadow: 'none'  }}
           placeholder={props.placeholder}
           inputProps={{ 'aria-label': 'search customers' }}
           // value={value}

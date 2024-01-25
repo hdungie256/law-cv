@@ -2,10 +2,8 @@
 
 #customer-screen{
     height: 100%;
-    width: 84vw;
-    top: 0%;
-    left: 16vw;
-    position: absolute;
+    width: 100%;
+    background-color: $grey;
 
     .title{
         top: 30px;
@@ -28,8 +26,5 @@
 }
 
 #customer-table-wrapper{
-    position: absolute;
-    top: 90px;
-    width: 93%;
-    left: 2%;
+    width: 95%;
 }

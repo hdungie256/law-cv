@@ -182,22 +182,24 @@ const ServiceScreen= () =>{
     return(
         <div id='service-screen'>
             <div style={{height: '95px', display: 'flex', alignItems:'center'}}>
-              <Grid container spacing={1}>
-                <Grid item md={9.5}>
-                  <div style={{display: 'flex', paddingLeft: '25px', alignItems: 'left', width: '95%'}}>
+              <Grid container>
+                <Grid item md={0.3}/>
+                <Grid item md={9.9}>
+                  <div style={{display: 'flex', alignItems: 'left', width: '95%'}}>
                   <SearchBar 
                   placeholder='Tìm kiếm theo tên chủ đơn, tên đơn, số đơn, số VBBH'
                   handleSearch={handleSearch}
                   />
                   </div>
                 </Grid>
-                <Grid item md={2.5}>
-                  <div style={{display: 'flex', justifyContent: 'right', paddingRight: '60px', alignItems: 'center'}}>
+                <Grid item md={1.5}>
+                  <div style={{display: 'flex', justifyContent: 'right', alignItems: 'center'}}>
                     <div id='button-add-service'>
                       <ButtonCreate onClick={toggleCreate} text='Thêm công việc'/>
                     </div>
                   </div>
                 </Grid>
+                <Grid item md={0.3}/>
 
               </Grid>
           </div>
@@ -209,6 +211,8 @@ const ServiceScreen= () =>{
               <LoadingDialog
               isShowing={isLoadingDialog}/>
 
+
+          <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
             <div id='work-table-wrapper'>
               <Table 
                 onClick={async (id) => {
@@ -276,6 +280,7 @@ const ServiceScreen= () =>{
                   toggleConfirm();
                 }}
                 />
+            </div>
             </div>
             
             <WorkDialog

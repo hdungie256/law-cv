@@ -3,6 +3,8 @@ import NavButton from'../NavButton';
 import { faRightFromBracket, faBookOpen, faUserCheck, faChalkboard } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IconButton } from '@mui/material';
+import { Logout, SpaceDashboard, SupervisorAccount, Work } from '@mui/icons-material';
 
 const LeftNavBar = (props) => {
   let navigate = useNavigate();
@@ -30,25 +32,34 @@ const LeftNavBar = (props) => {
 
   return (
     <div id='nav-wrapper'>
-      <div id='nav-bar'>
+      <div id='nav-bar' style={{display: 'flex', alignItems: 'center'}}>
         <div id='profile-block'></div>
 
         <hr></hr>
-
-        <div className='button-wrapper' id='nav-dashboard'>
-          <NavButton clicked={navButton==="dashboard" ? 'clicked' : ""} icon={faChalkboard} text="DASHBOARD" onClick={handleClickDashboard}></NavButton>
+        <div className='nav-button-wrapper'>
+          <IconButton sx={navButton === 'dashboard' ? {background: '#caebff', color: 'black'} : {background: 'none', color: 'white'}} className='nav-button' onClick={handleClickDashboard}>
+            <SpaceDashboard></SpaceDashboard>
+          </IconButton>
         </div>
 
-        <div className='button-wrapper' id='nav-customer'>
-          <NavButton clicked={navButton==="customer" ? 'clicked' : ""} icon={faUserCheck} text="KHÁCH HÀNG" onClick={() => {handleClickCustomer()}}></NavButton>
+        <div className='nav-button-wrapper'>
+            <IconButton sx={navButton === 'customer' ? {background: '#caebff', backgroundColor: '#caebff', color: 'black'} : 
+            {backgroundColor: 'none', color: 'white'}}
+            className='nav-button' onClick={handleClickCustomer}>
+              <SupervisorAccount></SupervisorAccount>
+            </IconButton>
         </div>
 
-        <div className='button-wrapper' id='nav-service'>
-          <NavButton clicked={navButton==="service" ? 'clicked' : ""} icon={faBookOpen} text="CÔNG VIỆC" onClick={handleClickService}></NavButton>
+        <div className='nav-button-wrapper'>
+            <IconButton  sx={navButton === 'service' ? {background: '#caebff', color: 'black'} : {background: 'none', color: 'white'}} className='nav-button' onClick={handleClickService}>
+              <Work ></Work>
+            </IconButton>
         </div>
 
-        <div className='button-wrapper' id='nav-logout'>
-          <NavButton clicked={navButton==="logout" ? 'clicked' : ""} icon={faRightFromBracket} text="ĐĂNG XUẤT" onClick={handleClickLogout}></NavButton>
+        <div className='nav-button-wrapper' style={{position: 'absolute', bottom: '5px'}}>
+          <IconButton  sx={navButton === 'logout' ? {background: '#caebff', color: 'black'} : {background: 'none', color: 'white'}} color='#FFFFFFF' className='nav-button' onClick={handleClickLogout}>
+            <Logout/>
+          </IconButton>
         </div>
       
       </div>

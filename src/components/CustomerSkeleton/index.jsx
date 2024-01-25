@@ -1,71 +1,22 @@
 import Skeleton from '@mui/material/Skeleton';
-import Grid from '@mui/material/Grid';
+import { Stack, Grid } from '@mui/material';
 
-const CustomerSkeleton = (props) => {
-    const renderRows = (numRows) => {
-        const rows = [];
-        for (let i=0; i<numRows; i++){
-            rows.push(
-            <Grid item md={12}>
-            <Grid container spacing={3}>
-                <Grid item md={3}>
-                    <Skeleton animation="wave" variant="text" sx={{ fontSize: '2rem' }} width={'100%'} />
-                </Grid>
-                <Grid item md={3}>
-                    <Skeleton animation="wave" variant="text" sx={{ fontSize: '2rem' }} width={'100%'} />
-                </Grid>
-                <Grid item md={3}>
-                    <Skeleton animation="wave" variant="text" sx={{ fontSize: '2rem' }} width={'100%'} />
-                </Grid>
-                <Grid item md={3}>
-                    <Skeleton  animation="wave"variant="text" sx={{ fontSize: '2rem' }} width={'100%'} />
-                </Grid>
-            </Grid>
-        </Grid>)
-        }
-        return rows;
-    }
+const CustomerSkeleton = () => {
     return (
-        <div id='customer-skeleton' style={{height: '100%'}}>
-            <Grid container rowSpacing={-1}>
-                <Grid item md={0.3}>
-
+        <div id='dashboard-skeleton' style={{height: '100%', width: '100%'}}>
+            <Grid container spacing={1} style={{height: '100%', padding: '25px'}}>
+                <Grid item md={3} style={{padding: 0}} sx={{borderRadius: '10px', padding: 0, height: '100%'}}>
+                    <Skeleton variant='rectangular' animation="wave" sx={{height: '100%', borderRadius: '5px'}}/>
                 </Grid>
-                <Grid item md={11}>
-                    <Grid container>
-                    <Grid item md={12}>
-                    <Grid container>
-                        <Grid item md={10}>
-                            <Skeleton animation="wave" variant="text" sx={{ fontSize: '4rem' }} width={'40%'} />
-                        </Grid>
-                        <Grid item md={2}>
-                            <Skeleton animation="wave" variant="text" sx={{ fontSize: '4rem' }} width={'100%'} />
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid item md={12}>
-                    <Skeleton animation="wave" variant="text" sx={{ fontSize: '5rem' }} width={'100%'} />
-                </Grid>
-                <Grid container rowSpacing={4}>
-                    {renderRows(props.numRows)}
-                </Grid>
-                <Grid item md={12}>
-                    <Grid container spacing={1}>
-                        <Grid item md={10.4}></Grid>
-                        <Grid item md={1}>
-                            <Skeleton animation="wave" variant="text" sx={{ fontSize: '2rem' }} width={'100%'}></Skeleton>
-                        </Grid>
-                        <Grid item md={0.3}>
-                            <Skeleton animation="wave" variant="text" sx={{ fontSize: '2rem' }} width={'100%'}></Skeleton>
-                        </Grid>
-                        <Grid item md={0.3}>
-                            <Skeleton animation="wave" variant="text" sx={{ fontSize: '2rem' }} width={'100%'}></Skeleton>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
-                </Grid>
-                <Grid item md={0.7}>
+                <Grid item md={9} style={{padding: 0, paddingLeft: '20px'}}>
+                    <Stack spacing={1} alignItems='stretch' direction='column' sx={{height:'100%'}}>
+                        <div style={{height: '50%', margin: 0, background: 'white', borderRadius: '5px'}}>
+                            <Skeleton variant='rectangular' animation="wave" sx={{height: '100%', borderRadius: '5px'}}/>
+                        </div>
+                        <div style={{height: '50%', marginTop: '20px', background: 'white', borderRadius: '5px'}}>
+                            <Skeleton variant='rectangular' animation="wave" sx={{height: '100%', borderRadius: '5px'}}/>
+                        </div>
+                    </Stack>
                 </Grid>
             </Grid>
         </div>

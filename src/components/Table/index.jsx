@@ -44,17 +44,22 @@ const CusomizedTable = (props) => {
   return (
     <>
     <TableContainer>
-      <Table hoverRow sx={{ width: '100%'}} aria-label="customized table" >
+      <Table hoverRow aria-label="customized table" 
+        sx={{width: '100%',
+          // "& .MuiTableRow-root:hover": {
+          //   backgroundColor: "#f5f5f5"
+          // }
+        }}>
         <TableHead>
           <TableRow>
-            {props.columnName.map((name) => (<StyledTableCell sx={{paddingLeft:1, paddingRight: 1, paddingTop: 2, paddingBottom: 2}}><b>{name}</b></StyledTableCell>))}
-            <StyledTableCell sx={{width: 80}} align='center'></StyledTableCell>
+            {props.columnName.map((name) => (<StyledTableCell style={{backgroundColor: '#fbcca1',color:'black'}} sx={{ paddingLeft:1, paddingRight: 1, paddingTop: 2, paddingBottom: 2}}><b>{name}</b></StyledTableCell>))}
+            <StyledTableCell style={{backgroundColor: '#fbcca1',color:'black'}} sx={{width: 80}} align='center'></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {props.rows.slice(pg * numRowsPerPage, pg * numRowsPerPage + numRowsPerPage).map((row) => (
             <TableRow key={row.id} hover sx={{cursor: 'pointer'}} onClick={() => props.onClick(row.id)} >
-              {Object.values(row).slice(1).map((cell, index) => <StyledTableCell  sx={{minWidth: 120, paddingLeft:1, paddingRight: 1.5, paddingTop: 3, paddingBottom: 3}} key={index} component="th" scope="row">{cell}</StyledTableCell>)}
+              {Object.values(row).slice(1).map((cell, index) => <StyledTableCell sx={{minWidth: 120, paddingLeft:1, paddingRight: 1.5, paddingTop: 3, paddingBottom: 3}} key={index} component="th" scope="row">{cell}</StyledTableCell>)}
               <StyledTableCell align='center' sx={{padding: 1, height: 2.5}}>
                 <div style={{width: '100%'}}>
                 <IconButton aria-label="edit" onClick={(e) => {e.stopPropagation();props.handleEditButton(row.id)}}><ModeEditIcon /></IconButton>

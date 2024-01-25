@@ -82,21 +82,21 @@ const CustomerScreen= (props) =>{
           <LoadingDialog isShowing={isLoadingDialog}/>
 
           <div style={{height: '95px', display: 'flex', alignItems:'center'}}>
-              <Grid container spacing={1}>
-                <Grid item md={9.5}>
-                  <div style={{display: 'flex', paddingLeft: '25px', alignItems: 'left', width: '95%'}}>
+              <Grid container>
+                <Grid item md={0.3}/>
+                <Grid item md={9.9}>
+                  <div style={{display: 'flex', justifyContent: 'left', width: '95%', backgroundColor: 'inherit'}}>
                   <SearchBar 
                   placeholder='Tìm kiếm theo tên khách hàng, địa chỉ, email, SĐT khách hàng, tên người phụ trách, email người phụ trách, SĐT người phụ trách.'
                   handleSearch={handleSearch}/>
                   </div>
                 </Grid>
-                <Grid item md={2.5}>
-                  <div style={{display: 'flex', justifyContent: 'right', paddingRight: '60px', alignItems: 'center'}}>
-                    <div className='button-add-new'>
+                <Grid item md={1.5}>
+                    <div className='button-add-new' style={{display: 'flex', justifyContent: 'right', width: '100%'}}>
                       <ButtonCreate onClick={() => {setDialogStatus("create");initial.current={};toggleCustomerDialog()}} text='Thêm khách hàng'/>
                     </div>
-                  </div>
                 </Grid>
+                <Grid item md={0.3}/>
 
               </Grid>
           </div>
@@ -138,15 +138,18 @@ const CustomerScreen= (props) =>{
                 name={customerName.current}
                 />
 
-              <div id='customer-table-wrapper'>
-                <Table 
-                  columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại']}
-                  rows = {customerList}
-                  handleEditButton={ async (id) => {
-                    setIsLoadingDialog(true);setDialogStatus("edit");await viewCustomerInfo(id);setIsLoadingDialog(false);toggleCustomerDialog(id)}}
-                  handleDeleteButton={(id, name) => {toggleConfirm();setCustomerInfo(id, name)}}
-                  />
+              <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                <div id='customer-table-wrapper'>
+                  <Table 
+                    columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại']}
+                    rows = {customerList}
+                    handleEditButton={ async (id) => {
+                      setIsLoadingDialog(true);setDialogStatus("edit");await viewCustomerInfo(id);setIsLoadingDialog(false);toggleCustomerDialog(id)}}
+                    handleDeleteButton={(id, name) => {toggleConfirm();setCustomerInfo(id, name)}}
+                    />
+                  </div>
                 </div>
+
               <ToastContainer></ToastContainer>
               </div>
             </Fade>

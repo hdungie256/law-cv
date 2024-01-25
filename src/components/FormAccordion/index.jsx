@@ -102,7 +102,8 @@ export default function FormAccordion(props) {
         "Quyết định từ chối",
         "Sửa đổi đơn",
         "Phản đối đơn",
-        "Công văn hối thúc thẩm định"]}/>
+        "Công văn hối thúc thẩm định",
+        "Nộp phí cấp VBBH"]}/>
         </AccordionDetails>
       </Accordion>
   );
