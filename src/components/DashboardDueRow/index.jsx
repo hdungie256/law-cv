@@ -13,7 +13,7 @@ const DashboardDueRow = (props) => {
         <Grid item md={0.5}>
             {/* <ArrowRight fontSize='small'/> */}
             {/* <Divider  orientation="vertical" flexItem/> */}
-            {props.data.action.includes('Duy trì hiệu lực') ?  <ArrowRight fontSize='small' sx={{borderRadius: '50%',background: '#caebff'}}/>
+            {props.data?.action?.includes('Duy trì hiệu lực') ?  <ArrowRight fontSize='small' sx={{borderRadius: '50%',background: '#caebff'}}/>
             : <Reply fontSize="small" sx={{borderRadius: '50%',background: '#fbcca1'}}/>}
         </Grid>
         <Grid item md={2.5}>
@@ -30,10 +30,10 @@ const DashboardDueRow = (props) => {
             props.data.type === 'Gia hạn' ? "#caebff" : "#fbf2a1"}} 
             label={props.data.type}/>
         </Grid>
-        <Grid item md={2}>
+        <Grid item md={3}>
             <Typography className='dashboard-due-tab-text' variant='body2' noWrap>{props.data.customerName} </Typography>
         </Grid>
-        <Grid item md={3}>
+        <Grid item md={2}>
             <Typography className='dashboard-due-tab-text' variant='body2' noWrap>{props.data.workName} </Typography>
         </Grid>
         <Grid item md={1} sx={{display: 'flex', justifyContent:'center'}}>

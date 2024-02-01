@@ -221,9 +221,9 @@ const ServiceScreen= () =>{
                   thisCustomer.current = await getCustomer(w.customerId)
                   thisWork.current = w; 
                   if (w.gcnId){
-                    console.log(w.gcnId)
                   const workWithSameVBBH = await getAllWork(w.gcnId)
                   sameVBBH.current = workWithSameVBBH;
+                  console.log(workWithSameVBBH[0])
                   gcnIdForDialog.current = w.gcnId
                   }
                   else{

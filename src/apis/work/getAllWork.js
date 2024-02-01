@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
       return str;
     };
   
-    workName = truncateString(workName, 20);
+    workName = truncateString(workName, 30);
     customerName  = truncateString(customerName, 20);
     paperId = paperId.length > 4 ? paperId : 'Không có'
     const formattedDate = paperSubmitDate ? dayjs(paperSubmitDate).format('DD/MM/YYYY') : 'Không có'

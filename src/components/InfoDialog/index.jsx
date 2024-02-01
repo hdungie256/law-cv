@@ -18,7 +18,7 @@ const InfoDialog = (props) => {
 
   return (
       <DialogBox className='dialog-box' 
-      title={ 'Số VBBH: ' + props.workValues[0].gcnId + ' - Ngày cấp: ' + dayjs(props.workValues[0].gcnDate).format('DD/MM/YYYY')} 
+      title={ 'Số VBBH: ' + props.workValues[0].gcnId + ' - Ngày cấp: ' + props.workValues[0].formattedGcnDate} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='500px'
@@ -58,7 +58,7 @@ const InfoDialog = (props) => {
           {item.type === 'Gia hạn' && <MoreTimeIcon className='dialog-info-icon'/>}
           {item.type === 'Cấp lại' && <ReplayIcon className='dialog-info-icon'/>}
           {item.type === 'Li xăng - Chuyển nhượng' && <ManageAccountsIcon className='dialog-info-icon'/>}
-          <Typography className='dialog-info-text'> <b style={{padding: '10px'}}> {item.type} - {item.workName ? item.workName : item.name} </b> </Typography>
+          <Typography sx={{width: '100%'}} className='dialog-info-text'> <b style={{width: '100%', padding: '10px'}}> {item.type} - {item.workName ? item.workName : item.name} </b> </Typography>
         </AccordionSummary>
         <AccordionDetails className='dialog-info-accordion-details'>
           <Grid container>
