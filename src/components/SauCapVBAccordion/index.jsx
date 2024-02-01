@@ -45,7 +45,7 @@ export default function FormAccordion(props) {
 
     const [serviceId, setServiceId] = useState("")
     const handleChangeServiceId = (e) => {
-        if (e.target.value.toString().length <= 5) {
+        if ((e.target.value.toString().length <= 5) && (/^\d*$/.test(e.target.value) || e.target.value === '')) {
           setServiceId(e.target.value);
         }
       };
@@ -97,7 +97,7 @@ export default function FormAccordion(props) {
           </Grid>
           <Grid item md={4}>
           <div id='dialog-form-number-id'>
-            <TextField placeholder='Số đơn' type="number" onChange={(e) => handleChangeServiceId(e)} value={serviceId}/>
+            <TextField placeholder='Số đơn' onChange={(e) => handleChangeServiceId(e)} value={serviceId}/>
           </div>
           </Grid>
         </Grid>
