@@ -3,10 +3,10 @@
 
 .text-input {
     position: relative;
-    height: 10px;
+    height: 40px;
 
     label {
-        color: $vintageblue;
+        color: black;
         font-size: 15px;
         position: absolute;
         left: 0%;
@@ -22,6 +22,7 @@
         width: 100%;
         left: 50%;
         transform: translateX(-50%);
+        height: 70px
     }
 
     .front-icon {

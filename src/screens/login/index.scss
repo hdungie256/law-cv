@@ -4,58 +4,60 @@
     width: 100vw;
     height: 100vh;
     display: flex;
-    background: $greyblue;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
+.login-left-panel {
+    background-image: url('../../../public/login2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain; /* Adjust based on your needs */
+    height: 100%; /* Ensure the container has a height */
+}
+#login-logo{
+    background-image: url('../../../public/logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain; /* Adjust based on your needs */
+    height: 100px; /* Ensure the container has a height */
+    width: 100px
+}
 #log-in-card-wrapper{
-    height: 400px;
-    width: 460px
+    height:100%;
+    width: 100%;
+    // background-color: $orange;
 }
 
 .card {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
+    // align-items: center;
     align-items: center;
-    justify-content: space-between;
-    background-color: $white;
-    position: relative;
+    align-content: center;
+    justify-content: center;
+    background-color: #ddd7f3;
 
     #button-wrapper{
-        position: absolute;
         width: 40%;
         height: 50px;
-        left: 50%;
-        top: 80%;
-        transform: translate(-50%, -50%);
-        margin-top: 10px;
+        margin-top: 15px;
     }
 }
 
-.title {
-    margin-top: 0px;
-    margin-bottom: 30px; 
-    position: absolute;
-    top: 70px;
-    left: 50%;
-    transform: translateX(-50%)
+.title { 
+    color: brown;
 }
 
 #username-field{
-    position: absolute;
-    top: 150px;
+    height: 70px;
     width: 80%;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 #password-field{
-    position: absolute;
-    top: 240px;
+    height: 70px;
     width: 80%;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 

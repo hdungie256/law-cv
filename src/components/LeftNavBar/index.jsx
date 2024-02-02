@@ -1,6 +1,4 @@
 import './index.scss'
-import NavButton from'../NavButton';
-import { faRightFromBracket, faBookOpen, faUserCheck, faChalkboard } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@mui/material';
@@ -33,7 +31,7 @@ const LeftNavBar = (props) => {
   return (
     <div id='nav-wrapper'>
       <div id='nav-bar' style={{display: 'flex', alignItems: 'center'}}>
-        <div id='profile-block'></div>
+        <div id='profile-block' style={{width: '100%'}}></div>
 
         <hr></hr>
         <div className='nav-button-wrapper'>

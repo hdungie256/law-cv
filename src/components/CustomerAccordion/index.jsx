@@ -14,7 +14,7 @@ export default function CustomerAccordion(props) {
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#1095e6'}}><b>1. Thông tin khách hàng</b></Typography>
+          <Typography style={{ color: '#555555'}}><b>1. Thông tin khách hàng</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
             <div style={{padding: '5px',paddingLeft: '20px' , display: 'flex', alignItems:'center', justifyContent:'left', backgroundColor: '#dfe8f5',width:'96%', height:'400px', borderRadius: '5px'}}>

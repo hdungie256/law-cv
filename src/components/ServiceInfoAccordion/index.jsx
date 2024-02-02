@@ -52,7 +52,7 @@ export default function ServiceInfoAccordion(props) {
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#1095e6'}}><b>2. Thông tin {info.dtype}</b></Typography>
+          <Typography style={{ color: '#555555'}}><b>2. Thông tin {info.dtype}</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
             <div id='dialog-service-name'>

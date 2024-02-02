@@ -21,6 +21,7 @@ const updateWork = async (id, customerId, type, name, group, paperId, paperSubmi
     history = formattedHistory
   }
 
+  try{
     const response = await axios.put(process.env.REACT_APP_API_URL + 'work/' + id,{
       type: type,
       customerId: customerId,
@@ -34,19 +35,18 @@ const updateWork = async (id, customerId, type, name, group, paperId, paperSubmi
       country: country,
       lastAction: lastAction
     })
-    const message = (response.data.message);
-    const statusText = (response.data.statusText)
 
-    if (statusText === "OK"){
+    if (response) {
+      const message = (response.data.message);
       toast.success(message, {
-          position: toast.POSITION.TOP_RIGHT,
-          })
+        position: toast.POSITION.TOP_RIGHT,
+      });
       return true
-    }
-    else{
-      toast.error(message, {
-      position: toast.POSITION.TOP_RIGHT,
-      })
+    }}
+    catch (error) {
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       return false
     }
   }

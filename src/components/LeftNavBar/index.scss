@@ -18,10 +18,12 @@
     background: black;
 
     #profile-block{
-        background-color: transparent;
+        background: transparent;
         height: 100px;
-        top: 0%;
-        left: 0%;
+        background-image: url('../../../public/logo.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 55%; /* Adjust based on your needs */
     }
 
     .nav-button-wrapper{

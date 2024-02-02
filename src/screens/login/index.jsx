@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import logIn from '../../apis/account/logIn';
+import { Grid } from '@mui/material';
 
 function LogInScreen() {
   let navigate = useNavigate();
@@ -74,21 +75,30 @@ function LogInScreen() {
 
     return (
       <div id='log-in-screen'>
-        <div id='log-in-card-wrapper'>
-        <Card>
-            <Title className='title' title='Đăng nhập'/>
-            <div id='username-field' className={`${usernameError} field`}>
-              <TextInput padding='0px 40px' type='text'onChange = {(e) => {handleUsernameChange(e); handleUsernameError(e.target.value)}} errorMessage={usernameError} frontIcon={faUser} placeholder={('Tên đăng nhập')} />
-            </div>
-            <div id='password-field' className='field'>
-              <TextInput padding='0px 40px' handleBackIconOnClick={handleShowPassword} type={showPassword ? 'text' : 'password'} onChange = {(e) => {handlePasswordChange(e); handlePasswordError(e.target.value)}} errorMessage={passwordError} frontIcon={faKey} backIcon={showPassword ? faEye : faEyeSlash} placeholder={('Mật khẩu')} />
-            </div>
-            <div id='button-wrapper'>
-              <ButtonSubmit text={buttonText} onClick={handleLogin} disabled={isButtonDisabled}/>
-            </div>
-            <ToastContainer></ToastContainer>
-        </Card>
-        </div>
+        <Grid container sx={{height: '100%'}} columnSpacing={3}>
+          <Grid item md={7}>
+            <div class='login-left-panel'></div>
+          </Grid>
+          <Grid item md={5} sx={{display: 'flex', alignItems:'flex-end', padding: '0px'}}>
+            <div id='log-in-card-wrapper'>
+              <Card>
+                  <div id='login-logo'></div>
+                  <Title className='title' title='Đăng nhập'/>
+                  <div id='username-field' className={`${usernameError} field`}>
+                    <TextInput padding='0px 40px' type='text'onChange = {(e) => {handleUsernameChange(e); handleUsernameError(e.target.value)}} errorMessage={usernameError} frontIcon={faUser} placeholder={('Tên đăng nhập')} />
+                  </div>
+
+                  <div id='password-field' className='field'>
+                    <TextInput padding='0px 40px' handleBackIconOnClick={handleShowPassword} type={showPassword ? 'text' : 'password'} onChange = {(e) => {handlePasswordChange(e); handlePasswordError(e.target.value)}} errorMessage={passwordError} frontIcon={faKey} backIcon={showPassword ? faEye : faEyeSlash} placeholder={('Mật khẩu')} />
+                  </div>
+                  <div id='button-wrapper'>
+                    <ButtonSubmit text={buttonText} onClick={handleLogin} disabled={isButtonDisabled}/>
+                  </div>
+                  <ToastContainer></ToastContainer>
+              </Card>
+              </div>
+          </Grid>
+        </Grid>
       </div>
     );
   }

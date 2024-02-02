@@ -9,7 +9,6 @@ import updateWork from '../../apis/work/updateWork';
 import SauCapVBAccordion from '../SauCapVBAccordion'
 import GCNAccordion from '../GCNAccordion';
 import ServiceInfoAccordion from '../ServiceInfoAccordion';
-import RateReviewIcon from '@mui/icons-material/RateReview';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import MoreTimeIcon from '@mui/icons-material/MoreTime';
 import ReplayIcon from '@mui/icons-material/Replay';

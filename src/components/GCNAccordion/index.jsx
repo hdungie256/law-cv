@@ -35,7 +35,7 @@ export default function GCNAccordion(props) {
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#1095e6' }}><b>{props.section}. Thông tin VBBH</b></Typography>
+          <Typography style={{ color: '#555555' }}><b>{props.section}. Thông tin VBBH</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
                     <div id='gcn-accordion-sogcn'>

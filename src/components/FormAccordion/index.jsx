@@ -62,7 +62,7 @@ export default function FormAccordion(props) {
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#1095e6'}}><b>3. Thẩm định đơn</b></Typography>
+          <Typography style={{ color: '#555555'}}><b>3. Thẩm định đơn</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
           <label id='dialog-form-number-label'> <b> Số đơn</b></label>
