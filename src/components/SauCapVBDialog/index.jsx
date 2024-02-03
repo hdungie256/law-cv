@@ -55,16 +55,15 @@ const ServiceDialog = (props) => {
   }
 
   return (
-      <DialogBox className='dialog-box' 
+      <DialogBox className='dialog-box'
       title={
         <React.Fragment>
-        {titleIcon}
         {props.type}
       </React.Fragment>
       } 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
-      height='500px'
+      height='80%'
       overflowY={'auto'}
       >
         <div id='customer-accordion'>
@@ -80,7 +79,7 @@ const ServiceDialog = (props) => {
         </div>
 
         <div id='gcn-accordion' >
-          <GCNAccordion initial={props.workValues} section={3}/>
+          <GCNAccordion flexible type={props.type} initial={props.workValues} section={3}/>
         </div>
 
         <Grid container md={12} spacing={3}>

@@ -64,7 +64,7 @@ export default function CuratorAccordion(props) {
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#1095e6'}}><b>2. Thông tin người phụ trách (nếu có)</b></Typography>
+          <Typography style={{ color: '#555555'}}><b>2. Thông tin người phụ trách (nếu có)</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
             <div className='curator-field dialog-customer-curator-field-fullName'>

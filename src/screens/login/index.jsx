@@ -10,7 +10,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import logIn from '../../apis/account/logIn';
-import { Grid } from '@mui/material';
+import { Box, CardMedia, Divider, Grid, Stack, Typography } from '@mui/material';
+import logoImage from '../../../src/logo.png';
 
 function LogInScreen() {
   let navigate = useNavigate();
@@ -75,19 +76,26 @@ function LogInScreen() {
 
     return (
       <div id='log-in-screen'>
-        <Grid container sx={{height: '100%'}} columnSpacing={3}>
-          <Grid item md={7}>
-            <div class='login-left-panel'></div>
-          </Grid>
-          <Grid item md={5} sx={{display: 'flex', alignItems:'flex-end', padding: '0px'}}>
             <div id='log-in-card-wrapper'>
               <Card>
-                  <div id='login-logo'></div>
-                  <Title className='title' title='Đăng nhập'/>
-                  <div id='username-field' className={`${usernameError} field`}>
-                    <TextInput padding='0px 40px' type='text'onChange = {(e) => {handleUsernameChange(e); handleUsernameError(e.target.value)}} errorMessage={usernameError} frontIcon={faUser} placeholder={('Tên đăng nhập')} />
-                  </div>
 
+                <Grid container sx={{padding: '10px', height: '100%'}}>
+                  <Grid item md={6} style={{padding: '0px'}} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:'center', gap:'15px', padding: '0px'}}>
+                    <Stack direction="row" sx={{margin: '10px'}}>
+                      <CardMedia
+                        component="img"
+                        height="40"
+                        image={logoImage}
+                        alt="logo"
+                      />
+                      <Divider sx={{width: '10px'}} orientation="vertical" variant="middle" flexItem />
+                      <Typography style={{ marginLeft: '10px' }} variant='h4'>BACIP</Typography>
+                    </Stack>
+                    
+                    <Title className='title' title='Đăng nhập'/>
+                    <div id='username-field' className={`${usernameError} field`}>
+                      <TextInput padding='0px 40px' type='text'onChange = {(e) => {handleUsernameChange(e); handleUsernameError(e.target.value)}} errorMessage={usernameError} frontIcon={faUser} placeholder={('Tên đăng nhập')} />
+                    </div>
                   <div id='password-field' className='field'>
                     <TextInput padding='0px 40px' handleBackIconOnClick={handleShowPassword} type={showPassword ? 'text' : 'password'} onChange = {(e) => {handlePasswordChange(e); handlePasswordError(e.target.value)}} errorMessage={passwordError} frontIcon={faKey} backIcon={showPassword ? faEye : faEyeSlash} placeholder={('Mật khẩu')} />
                   </div>
@@ -95,10 +103,15 @@ function LogInScreen() {
                     <ButtonSubmit text={buttonText} onClick={handleLogin} disabled={isButtonDisabled}/>
                   </div>
                   <ToastContainer></ToastContainer>
-              </Card>
-              </div>
-          </Grid>
-        </Grid>
+                </Grid>
+
+                <Grid item md={6} style={{padding: '10px'}}>
+                    <div class='login-left-panel'></div>
+                </Grid>
+              </Grid>
+
+            </Card>
+        </div>
       </div>
     );
   }

@@ -31,7 +31,7 @@ const LeftNavBar = (props) => {
   return (
     <div id='nav-wrapper'>
       <div id='nav-bar' style={{display: 'flex', alignItems: 'center'}}>
-        <div id='profile-block' style={{width: '100%'}}></div>
+        <div id='profile-block' style={{width: '80%'}}></div>
 
         <hr></hr>
         <div className='nav-button-wrapper'>

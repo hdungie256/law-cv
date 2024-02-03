@@ -242,19 +242,25 @@ const ServiceScreen= () =>{
                   thisWork.current = w
                   setIsEditting(true)
                   setIsLoadingDialog(false)
-                  if (w.type.includes('Thẩm định')){
-                    toggleThamDinhDialog()
+                  if (w.type.includes('Thẩm định') || w.type.includes('ĐK')){
                     if (w.type.includes('nhãn hiệu')){
+                      toggleThamDinhDialog()
                       setThamDinhType('nhãn hiệu')
                     }
                     else if (w.type.includes('KDCN')){
+                      toggleThamDinhDialog()
                       setThamDinhType('KDCN')
                     }
                     else if (w.type.includes('sáng chế')){
+                      toggleThamDinhDialog()
                       setThamDinhType('sáng chế')
                     }
                     else if (w.type.includes('GPHI')){
+                      toggleThamDinhDialog()
                       setThamDinhType('GPHI')
+                    }
+                    else if (w.type.includes('ĐK Nhãn hiệu Quốc tế')){
+                      toggleMadridDialog(true)
                     }
                   }
                   else if (w.type === 'Gia hạn'){

@@ -113,23 +113,23 @@ export default function CompanyAccordion(props) {
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#1095e6'}}><b>1. Thông tin khách hàng</b></Typography>
+          <Typography style={{ color: '#555555'}}><b>1. Thông tin khách hàng</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
             <div className='company-field dialog-customer-customer-field-fullName'>
                 <TextInput type='text'onChange = {(e) => {handleFullNameChange(e); handleFullNameError(e.target.value)}} value={fullName} errorMessage={fullNameError} padding='0px 10px' label='Tên khách hàng' placeholder={('Tên khách hàng')} />
             </div>
             <div className='company-field dialog-customer-customer-field-shortName'>
-            <TextInput type='text' errorMessage="" onChange = {(e) => {setShortName(e.target.value)}} value={shortName} padding='0px 10px' label='Tên rút gọn/Tên gợi nhớ' placeholder={('Tên rút gọn/Tên gợi nhớ')} />
+              <TextInput type='text' errorMessage="" onChange = {(e) => {setShortName(e.target.value)}} value={shortName} padding='0px 10px' label='Tên rút gọn/Tên gợi nhớ' placeholder={('Tên rút gọn/Tên gợi nhớ')} />
             </div>
             <div className='company-field dialog-customer-customer-field-address'>
-            <TextInput type='text'onChange = {(e) => {handleAddressChange(e); handleAddressError(e.target.value)}} value={address} errorMessage={addressError} padding='0px 10px' label='Địa chỉ' placeholder={('Địa chỉ')} />
+              <TextInput type='text'onChange = {(e) => {handleAddressChange(e); handleAddressError(e.target.value)}} value={address} errorMessage={addressError} padding='0px 10px' label='Địa chỉ' placeholder={('Địa chỉ')} />
             </div>
             <div className='company-field dialog-customer-customer-field-email'>
-            <TextInput type='email'onChange = {(e) => {handleEmailChange(e); handleEmailError(e.target.value)}} value={email} errorMessage={emailError} padding='0px 10px' label='Email' placeholder={('Email')} />
+              <TextInput type='email'onChange = {(e) => {handleEmailChange(e); handleEmailError(e.target.value)}} value={email} errorMessage={emailError} padding='0px 10px' label='Email' placeholder={('Email')} />
             </div>
             <div className='company-field dialog-customer-customer-field-phoneNumber'>
-            <TextInput type='text'onChange = {(e) => {handlePhoneNumber(e); handlePhoneNumberError(e.target.value)}} value={phoneNumber} errorMessage={phoneNumberError} padding='0px 10px' label='Số điện thoại' placeholder={('Số điện thoại')} />
+              <TextInput type='text'onChange = {(e) => {handlePhoneNumber(e); handlePhoneNumberError(e.target.value)}} value={phoneNumber} errorMessage={phoneNumberError} padding='0px 10px' label='Số điện thoại' placeholder={('Số điện thoại')} />
             </div>
         </AccordionDetails>
       </Accordion>

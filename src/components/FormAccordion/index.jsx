@@ -11,7 +11,9 @@ import './index.scss'
 import {Grid} from '@mui/material';
 import HistoryBlock from '../HistoryBlock';
 
-export default function FormAccordion(props) {  
+export default function FormAccordion(props) {
+  const [madridGroup, setMadridGroup] = useState("")
+
   const getGroup = () => {
     if (props.type === 'sáng chế'){
       return 1
@@ -47,6 +49,9 @@ export default function FormAccordion(props) {
         setYear(values.paperId.split("-")[1])
         setServiceId(values.paperId.split("-")[2])
       }
+      if (values.type === 'ĐK Nhãn hiệu Quốc tế'){
+        setMadridGroup(values.paperId.split("-")[0])
+      }
     }
 
     useEffect(() => {
@@ -68,9 +73,14 @@ export default function FormAccordion(props) {
           <label id='dialog-form-number-label'> <b> Số đơn</b></label>
           <Grid container>
             <Grid item md={2}>
-          <div id='dialog-form-number-group'>
-            <TextField placeholder='Nhóm sản phẩm' type="number" disabled value={getGroup()}/>
-          </div>
+              { (props.type==="sáng chế" || props.type==="nhãn hiệu" || props.type==="KDCN" || props.type==="GPHI") ? 
+              (<div id='dialog-form-number-group'>
+                <TextField placeholder='Nhóm sản phẩm' type="number" disabled value={getGroup()}/>
+              </div>) :
+              (<div id='dialog-form-number-group'>
+              <TextField onChange={(e) => setMadridGroup(e.target.value)} value={madridGroup}/>
+            </div>)
+              }
           </Grid>
           <Grid item md={1}>
           <p id='slash-1'> - </p>

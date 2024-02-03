@@ -21,13 +21,13 @@ function TextInput(props) {
             />
             {
                 props.frontIcon && (
-                    <FontAwesomeIcon className="front-icon" icon={props.frontIcon} /> 
+                    <FontAwesomeIcon sx={{margin:'0px'}} className="front-icon" icon={props.frontIcon} /> 
                 )
             }
             {
                 props.backIcon && (
                   <button className="back-icon" onClick={props.handleBackIconOnClick}> 
-                  <FontAwesomeIcon className="back-icon" icon={props.backIcon} />
+                  <FontAwesomeIcon sx={{margin:'0px'}} className="back-icon" icon={props.backIcon} />
                 </button>
                 )
             }

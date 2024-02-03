@@ -44,7 +44,7 @@ const ServiceDialog = (props) => {
       title={'Thẩm định đơn ' + props.type} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
-      height='500px'
+      height='80%'
       overflowY={'auto'}
       handleSave={props.handleSave}
       >

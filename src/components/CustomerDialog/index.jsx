@@ -40,7 +40,7 @@ const CustomerDialog = (props) => {
       title={props.status === "create" ? "Tạo khách hàng mới" : "Chỉnh sửa thông tin khách hàng"} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
-      height='500px'
+      height='80%'
       overflowY='auto'
       >
         <div className='dialog-customer-accordion'>

@@ -1,6 +1,6 @@
 import './index.scss'
 import DialogBox from '../DialogBox'
-import {Grid} from '@mui/material';
+import {Grid, TextField} from '@mui/material';
 import ButtonSubmit from '../ButtonSubmit';
 import ButtonCancel from '../ButtonCancel'
 import FormAccordion from '../FormAccordion';
@@ -9,6 +9,7 @@ import ServiceInfoAccordion from '../ServiceInfoAccordion';
 import GCNAccordion from '../GCNAccordion';
 import createWork from '../../apis/work/createWork'
 import updateWork from '../../apis/work/updateWork'
+import { useState,useEffect } from 'react';
 
 const MadridDialog = (props) => {
   const handleSave = async () => {
@@ -29,22 +30,37 @@ const MadridDialog = (props) => {
   
     const formHistory = getHistory('form-accordion')
 
+    const country = (document.getElementById('dialog-service-country').querySelector('input').value)
+    const lastAction = (document.getElementById('dialog-madrid-final-decision').querySelector('input').value)
+
     var res = {}
     if (props.edit){
-      res = await updateWork(props.workId, props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
+      res = await updateWork(props.workId, props.customerId, 'ĐK Nhãn hiệu Quốc tế', serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, country, lastAction)
     }
     else{
-      res = await createWork(props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
+      res = await createWork(props.customerId, 'ĐK Nhãn hiệu Quốc tế', serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, country, lastAction)
     }
       props.afterSave(res)
   }
+
+  const [finalDecision, setFinalDecision] = useState("")
+  useEffect(()=>{
+    console.log('here', props.workValues, props.isEditing)
+    if (props.edit){
+      setFinalDecision(props.workValues.lastAction)
+    }
+    else{
+      setFinalDecision("")
+    }
+  },[])
+
 
   return (
       <DialogBox className='dialog-box' 
       title={props.type} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
-      height='500px'
+      height='80%'
       overflowY={'auto'}
       handleSave={props.handleSave}
       >
@@ -60,7 +76,14 @@ const MadridDialog = (props) => {
           <FormAccordion initial={props.workValues} type={props.type}/>
         </div>
         <div id='gcn-accordion'>
-          <GCNAccordion section={4} initial={props.workValues}/>
+          <GCNAccordion flexible type='đăng ký quốc tế' section={4} initial={props.workValues}/>
+        </div>
+
+        <div id='dialog-madrid-final-decision'>
+            <div style={{marginTop: '20px'}}> 
+                <label style={{color: '#6c7a99'}}> <b> Ghi nhận cuối cùng về việc bảo hộ của các quốc gia </b></label> 
+            </div>
+            <TextField style={{width: '100%', marginTop: '10px'}} type='text' onChange={(e) => {setFinalDecision(e.target.value)}} value={finalDecision} placeholder={('Ghi nhận cuối cùng về việc bảo hộ của các quốc gia')} />
         </div>
 
         <Grid container md={12} spacing={3}>

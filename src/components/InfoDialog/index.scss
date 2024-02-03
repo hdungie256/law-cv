@@ -2,11 +2,15 @@
 @import 'src/assets/scss/fonts';
 
 .dialog-info-icon{
-    color: $groundorange;
+    color: #563d2d;
 }
 
-.dialog-info-text{
-    color: $groundorange;
+.dialog-info-section{
+    color: #563d2d;
+}
+
+.dialog-info-title{
+    color: $darkgrey
 }
 
 .dialog-info-accordion-details{

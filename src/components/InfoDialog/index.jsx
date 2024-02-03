@@ -21,7 +21,7 @@ const InfoDialog = (props) => {
       title={ 'Số VBBH: ' + props.workValues[0].gcnId + ' - Ngày cấp: ' + props.workValues[0].formattedGcnDate} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
-      height='500px'
+      height='80%'
       overflowY={'auto'}
       handleSave={props.handleSave}
       >
@@ -32,20 +32,21 @@ const InfoDialog = (props) => {
             id="panel1-header"
         >
           <PermContactCalendarIcon className='dialog-info-icon'/>
-          <Typography className='dialog-info-text'> <b style={{padding: '10px'}}>Thông tin khách hàng</b> </Typography>
+          <Typography className='dialog-info-section'> <b style={{padding: '10px'}}>Thông tin khách hàng</b> </Typography>
         </AccordionSummary>
         <AccordionDetails className='dialog-info-accordion-details'>
-          <Typography> <b> Tên khách hàng: </b> {props.customer.customerName}</Typography>
-          <Typography> <b> Địa chỉ: </b> {props.customer.customerAddress}</Typography>
-          <Typography> <b> Số điện thoại: </b> {props.customer.customerPhoneNumber}</Typography>
-          <Typography> <b> Email: </b> {props.customer.customerEmail}</Typography>
+          <Typography> <b className='dialog-info-title'> Tên khách hàng: </b> {props.customer.customerName}</Typography>
+          <Typography> <b className='dialog-info-title'> Địa chỉ: </b> {props.customer.customerAddress}</Typography>
+          <Typography> <b className='dialog-info-title'> Số điện thoại: </b> {props.customer.customerPhoneNumber}</Typography>
+          <Typography> <b className='dialog-info-title'> Email: </b> {props.customer.customerEmail}</Typography>
           <br></br>
-          <Typography> <b> Tên người phụ trách: </b> {props.customer.curatorEmail}</Typography>
-          <Typography> <b> Chức danh của người phụ trách: </b> {props.customer.curatorTitle}</Typography>
-          <Typography> <b> Số điện thoại người phụ trách: </b> {props.customer.curatorPhoneNumber}</Typography>
-          <Typography> <b> Email người phụ trách: </b> {props.customer.curatorEmail}</Typography>
+          <Typography> <b className='dialog-info-title'> Tên người phụ trách: </b> {props.customer.curatorEmail}</Typography>
+          <Typography> <b className='dialog-info-title'> Chức danh của người phụ trách: </b> {props.customer.curatorTitle}</Typography>
+          <Typography> <b className='dialog-info-title'> Số điện thoại người phụ trách: </b> {props.customer.curatorPhoneNumber}</Typography>
+          <Typography> <b className='dialog-info-title'> Email người phụ trách: </b> {props.customer.curatorEmail}</Typography>
         </AccordionDetails>
       </Accordion>
+
       {props.workValues.map( (item) => 
       <Accordion style={{marginTop: '20px'}} defaultExpanded>
         <AccordionSummary
@@ -58,15 +59,15 @@ const InfoDialog = (props) => {
           {item.type === 'Gia hạn' && <MoreTimeIcon className='dialog-info-icon'/>}
           {item.type === 'Cấp lại' && <ReplayIcon className='dialog-info-icon'/>}
           {item.type === 'Li xăng - Chuyển nhượng' && <ManageAccountsIcon className='dialog-info-icon'/>}
-          <Typography sx={{width: '100%'}} className='dialog-info-text'> <b style={{width: '100%', padding: '10px'}}> {item.type} - {item.workName ? item.workName : item.name} </b> </Typography>
+          <Typography sx={{width: '100%'}} className='dialog-info-section'> <b style={{width: '100%', padding: '10px'}}> {item.type} - {item.workName ? item.workName : item.name} </b> </Typography>
         </AccordionSummary>
         <AccordionDetails className='dialog-info-accordion-details'>
           <Grid container>
             <Grid item md={6}>
-                <Typography> <b> Số đơn </b> {item.paperId} </Typography>
+                <Typography> <b className='dialog-info-title'> Số đơn </b> {item.paperId} </Typography>
             </Grid>
             <Grid item md={6}>
-                <Typography> <b> Ngày nộp đơn: </b> {item.formattedDate ? item.formattedDate : 
+                <Typography> <b className='dialog-info-title'> Ngày nộp đơn: </b> {item.formattedDate ? item.formattedDate : 
                 (item.paperSubmitDate ? dayjs(item.paperSubmitDate).format('DD/MM/YYYY') : 'Không có')} </Typography>
             </Grid>
           </Grid>
