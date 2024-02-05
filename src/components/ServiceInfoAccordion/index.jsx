@@ -17,6 +17,13 @@ import Box from '@mui/material/Box';
 export default function ServiceInfoAccordion(props) {
   const [country, setCountry] = React.useState([]);
 
+  const handleChangeNHGroup = (e) => {
+    const inputValue = e.target.value;
+    if (/^[1-9]$|^[1-3][0-9]$|^45$/.test(inputValue) || inputValue === '') {
+      setNHGroup(inputValue);
+    }
+  };
+
   const handleChange = (event) => {
     const {
       target: { value },
@@ -55,7 +62,6 @@ export default function ServiceInfoAccordion(props) {
       setInfo({dtype: 'GPHI'})
     }
     if (props.type === 'Đăng ký nhãn hiệu quốc tế' && values.country != undefined && values.country != 0){
-        console.log('this', values.country)
         const countryArray = values.country.split(',');
         setCountry(countryArray)
     }
@@ -95,7 +101,7 @@ export default function ServiceInfoAccordion(props) {
             {(props.type === 'nhãn hiệu' || props.type === 'Đăng ký nhãn hiệu quốc tế') &&
             <div id='dialog-service-group'>
                 <div id='dialog-serivce-group-label-wrapper1' style={{'margin-bottom': '7px'}}> <label style={{color: '#6c7a99'}} id='dialog-service-group-label1'> <b> Nhóm sản phẩm</b></label> </div>
-                <TextField placeholder={'Nhóm sản phẩm (1-45)'} style={{width: '100%'}} onChange={(e) => setNHGroup(e.target.value)} value={NHgroup}/>
+                <TextField placeholder={'Nhóm sản phẩm (1-45)'} style={{width: '100%'}} onChange={handleChangeNHGroup} value={NHgroup}/>
             </div>
             }
 
