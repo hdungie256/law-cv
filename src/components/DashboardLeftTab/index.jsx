@@ -10,27 +10,22 @@ const DashboardLeftTab = (props) => {
             <div style={{padding: '15px'}}>
                 <Grid container sx={{height: '40px'}}>
                     <Grid item md={10}>
-                        <Typography  sx={{color: '#555555'}}><b sx={{color: 'black'}}>Chưa có kết quả:</b>  (Tên đơn, loại đơn, tên khách hàng, số ngày còn lại, hạn chót) </Typography>
+                        <Typography  sx={{color: '#555555'}}><b sx={{color: 'black'}}>Chưa có kết quả:</b>  (Tên đơn, loại đơn, tên khách hàng, số ngày quá hạn, ngày nộp đơn) </Typography>
                     </Grid>
                     <Grid item md={2} sx={{display:'flex', justifyContent:'right'}}>
                         <Link>Xem tất cả</Link>
                     </Grid> 
                 </Grid>
 
-                    <DashboardLeftRow/>
-                <Divider/>
-                    <DashboardLeftRow/>
-                <Divider/>
-                    <DashboardLeftRow/>
-                <Divider/>
-                    <DashboardLeftRow/>
-                <Divider/>
-                    <DashboardLeftRow/>
-                <Divider/>
-                    <DashboardLeftRow/>
-                <Divider/>
-                    <DashboardLeftRow/>
-                <Divider/>
+                
+                {
+                    props.data.map((item) => (
+                        <>
+                            <DashboardLeftRow data={item}/>
+                            <Divider/>
+                        </>
+                    ))
+                }
             </div>
         </Box>
     )

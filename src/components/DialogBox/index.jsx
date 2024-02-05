@@ -13,7 +13,7 @@ const DialogBox = ({ hr, isShowing, hide, title, children, height, overflowY }) 
       <Fade in={isShowing} timeout={300}>
         <div className="modal" style={{ height : height, overflowY : overflowY, overflowX:'hidden'}}>
           <div className="modal-header">
-            <div className='modal-title'><p><b>{title}</b></p></div>
+            <div className='modal-title' ><p><b>{title}</b></p></div>
             <button type="button" className="modal-close-button" data-dismiss="modal" aria-label="Close" onClick={hide}>
               <FontAwesomeIcon className='dialog-close-icon' icon={faXmark}/>
             </button>

@@ -79,7 +79,7 @@ const DashBoardScreen= () =>{
                             <DashboardDueTab data={dueData} maxHeight='45vh'/> 
                         </div>
                         <div style={{height: '50%', marginTop: '20px', background: 'white', borderRadius: '5px'}}>
-                            <DashboardLeftTab maxHeight='45vh'/>
+                            <DashboardLeftTab data={pendingData} maxHeight='45vh'/>
                         </div>
                     </Stack>
                 </Grid>
