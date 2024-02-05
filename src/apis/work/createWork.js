@@ -30,7 +30,8 @@ const createWork = async (customerId, type, name, group, paperId, paperSubmitDat
       gcnDate: gcnDate,
       country: country,
       lastAction: lastAction
-    });
+    },
+    { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} });
 
     const message = response.data.message;
 

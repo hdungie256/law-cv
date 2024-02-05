@@ -26,9 +26,8 @@ const CustomerScreen= (props) =>{
     setCustomerList(customers);
     setIsLoading(false)
   };
-  useEffect(() => {
-    fetchData(); 
-  }, []); 
+  
+  useEffect(() => {fetchData()}, [])
 
   const handleSearch = async (inputValue) => {
     setIsLoading(true);

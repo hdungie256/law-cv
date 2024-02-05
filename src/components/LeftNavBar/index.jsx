@@ -25,6 +25,7 @@ const LeftNavBar = (props) => {
 
   const handleClickLogout  = () =>{
     setNavButton("logout")
+    sessionStorage.removeItem("accessToken")
     navigate('/login')
   }
 

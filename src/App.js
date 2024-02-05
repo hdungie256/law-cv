@@ -8,11 +8,12 @@ import {
 } from "react-router-dom";
 
 function App() {
+
   return (
     <>
     <HashRouter>
         <Routes>
-            <Route
+          <Route
                 exact
                 path="/"
                 element={<LogInScreen />}
@@ -34,3 +35,5 @@ function App() {
 }
 
 export default App;
+
+

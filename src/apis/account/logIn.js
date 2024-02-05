@@ -12,6 +12,9 @@ if (username !== "" && password !== ""){
     const message = (response.data.message);
     const statusText = (response.data.statusText)
 
+    const accessToken = response.data.accessToken; 
+    sessionStorage.setItem('accessToken', accessToken);
+
     if (statusText === "OK"){
     toast.success(message, {
     position: toast.POSITION.TOP_RIGHT,

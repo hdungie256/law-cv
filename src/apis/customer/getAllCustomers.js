@@ -19,7 +19,10 @@ function createRow(id, name, address, email, phoneNumber) {
 const getAllCustomers = async (search=null) => {
   try {
     const response = await axios.get(process.env.REACT_APP_API_URL + "/customers",{
-      params: { search }
+      params: { search },
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
     });
     const data = response.data.list;
     const rows = data.map((dataRow) => createRow(dataRow['_id'],

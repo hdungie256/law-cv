@@ -27,7 +27,6 @@ const ServiceScreen= () =>{
   const fetchData = async () => {
     const works = await getAllWork();
     setWorkList(works);
-    console.log(workList)
     setIsLoading(false)
   };
 

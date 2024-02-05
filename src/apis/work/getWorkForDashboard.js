@@ -8,7 +8,8 @@ const getWorkForDashboard = async () => {
     var dueCards = [];
 
     try {
-        const allWork = (await axios.get(process.env.REACT_APP_API_URL + 'work')).data.list;
+        const allWork = (await axios.get(process.env.REACT_APP_API_URL + 'work',
+        { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.list;
         
         for (let i of allWork) {
             const workNeedsReply = await needsReply(i)
@@ -42,7 +43,8 @@ const createDueWorkRow = (workId, workVBBH, action, type, workName, customerName
 const needsReply = async (work) => {
     if (work.history && work.history.length !== 0) {
         if (work.history[work.history.length-1].action==='Thông báo thiếu sót' || work.history[work.history.length-1].action==='Thông báo từ chối'){
-            const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + work.customerId)).data.data
+            const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + work.customerId,
+            { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
             const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
             const deadline = dayjs(work.history[-1].date).add(3,'month')
             const daysLeft = deadline.diff(dayjs(), 'day')
@@ -62,7 +64,8 @@ const needsDTHL = async (i) => {
                     const deadline = dayjs(i.paperSubmitDate).add(daysPast, 'year')
                     const daysLeft = deadline.diff(dayjs(), 'day');
                     if (daysLeft >= 0){
-                        const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + i.customerId)).data.data
+                        const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + i.customerId,
+                        { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
                         const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
                         const work = createDueWorkRow(i._id, 'Duy trì hiệu lực', 'Nhãn hiệu', i.name, customerName, daysLeft, deadline.format('DD/MM/YYYY'));
                         return work
@@ -74,7 +77,8 @@ const needsDTHL = async (i) => {
                         const deadline = dayjs(i.paperSubmitDate).add(daysPast, 'year')
                         const daysLeft = deadline.diff(dayjs(), 'day');
                         if (daysLeft >= 0){
-                            const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + i.customerId)).data.data
+                            const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + i.customerId,
+                            { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
                             const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
                             const work = createDueWorkRow(i._id, 'Duy trì hiệu lực', 'Nhãn hiệu', i.name, customerName, daysLeft, deadline.format('DD/MM/YYYY'));
 
@@ -91,7 +95,8 @@ const needsDTHL = async (i) => {
                         const worksWithSameVBBH = await getAllWork(i.gcnId)
                         if ((worksWithSameVBBH.filter(item => item.workName === 'Duy trì hiệu lực năm thứ ' + daysPast).length === 0)){
                             const type = (i.type === 'Thẩm định sáng chế' ? 'Sáng chế' : 'GPHI')
-                            const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + i.customerId)).data.data
+                            const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + i.customerId,
+                            { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
                             const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
                             const work = createDueWorkRow(i._id, i.gcnId, 'Duy trì hiệu lực năm thứ ' + daysPast, type, i.name, customerName, daysLeft, deadline.format('DD/MM/YYYY'));
                             return work

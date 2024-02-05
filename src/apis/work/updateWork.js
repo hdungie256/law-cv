@@ -34,7 +34,8 @@ const updateWork = async (id, customerId, type, name, group, paperId, paperSubmi
       gcnDate: gcnDate,
       country: country,
       lastAction: lastAction
-    })
+    },
+    { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })
 
     if (response) {
       const message = (response.data.message);

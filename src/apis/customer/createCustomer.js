@@ -13,7 +13,8 @@ const createCustomer = async (customerName, customerShortName, customerAddress, 
             curatorTitle,
             curatorPhoneNumber,
             curatorEmail
-      })
+      },
+      { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })
     const message = (response.data.message);
     const statusText = (response.data.statusText)
 

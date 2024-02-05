@@ -22,7 +22,10 @@ import dayjs from 'dayjs';
 const getAllWork = async (search=null) => {
   try {
     const response = await axios.get(process.env.REACT_APP_API_URL + "/work",{
-      params: { search }
+      params: { search },
+      headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
     });
     const data = response.data.list;
     const rows = data.map((dataRow) => 

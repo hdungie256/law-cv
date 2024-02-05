@@ -8,9 +8,9 @@ import { faUser,faKey, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-ico
 import React from 'react';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import logIn from '../../apis/account/logIn';
-import { Box, CardMedia, Divider, Grid, Stack, Typography } from '@mui/material';
+import { CardMedia, Divider, Grid, Stack, Typography } from '@mui/material';
 import logoImage from '../../../src/logo.png';
 
 function LogInScreen() {
@@ -56,18 +56,16 @@ function LogInScreen() {
 
       setIsButtonDisabled(true)
       setButtonText('Đang đăng nhập...')
-      console.log('true', true)
 
       if (usernameError || passwordError) {
         setIsButtonDisabled(false)
         setButtonText('Đăng nhập')
-        console.log('false', false)
         return;
       }
 
       const res = await logIn(username, password)
       if (res){
-        navigate('../main')
+        navigate("../main")
       }
     }
 
