@@ -5,16 +5,25 @@ import ServiceScreen from '../service';
 import { useState,useEffect, useRef } from 'react';
 import { Grid } from '@mui/material';
 import getWorkForDashboard from '../../apis/work/getWorkForDashboard';
+import { useNavigate } from 'react-router-dom';
 // import getAllCustomers from '../../apis/customer/getAllCustomers';
 // import getAllWork from '../../apis/work/getAllWork';
 
 function MainScreen() {
+  const navigate = useNavigate();
 
   const [subScreen, setSubScreen] = useState("dashboard");
 
   const handleSubScreenChange = (newSubScreen) => {
     setSubScreen(newSubScreen);
   };
+
+  useEffect(() => {
+    const accessToken = sessionStorage.getItem('accessToken');
+    if (!accessToken) {
+      navigate("../login")
+    }
+  }, []);
 
   // const dashboardData = useRef([])
 
