@@ -5,6 +5,7 @@ import ServiceScreen from '../service';
 import { useState,useEffect, useRef } from 'react';
 import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
 
 function MainScreen() {
   const navigate = useNavigate();
@@ -59,6 +60,7 @@ function MainScreen() {
           }
         </Grid>
       </Grid>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }
