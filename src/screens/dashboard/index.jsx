@@ -16,10 +16,16 @@ const DashBoardScreen= () =>{
     const [pendingData, setPendingData] = React.useState([])
 
     const fetchData = async () => {
-        const d = await getWorkForDashboard()
-        setDueData(d.dueRows)
-        setDueCard(d.dueCards)
-        setPendingData(d.pendingRows)
+        setIsLoading(true)
+        if (!sessionStorage.getItem("dashboardData")){
+            const data = await getWorkForDashboard();
+            sessionStorage.setItem('dashboardData', JSON.stringify(data));
+        }
+        const d = sessionStorage.getItem("dashboardData")
+        
+        setDueData(JSON.parse(d)['dueRows'])
+        setDueCard(JSON.parse(d)['dueCards'])
+        setPendingData(JSON.parse(d)['pendingRows'])
         setIsLoading(false)
       };
       useEffect(() => {

@@ -8,10 +8,11 @@ import { faUser,faKey, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-ico
 import React from 'react';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logIn from '../../apis/account/logIn';
 import { CardMedia, Divider, Grid, Stack, Typography } from '@mui/material';
 import logoImage from '../../../src/logo.png';
+import getWorkForDashboard from '../../apis/work/getWorkForDashboard';
 
 function LogInScreen() {
   let navigate = useNavigate();

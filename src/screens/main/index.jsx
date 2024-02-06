@@ -4,10 +4,7 @@ import DashBoardScreen from '../dashboard';
 import ServiceScreen from '../service';
 import { useState,useEffect, useRef } from 'react';
 import { Grid } from '@mui/material';
-import getWorkForDashboard from '../../apis/work/getWorkForDashboard';
 import { useNavigate } from 'react-router-dom';
-// import getAllCustomers from '../../apis/customer/getAllCustomers';
-// import getAllWork from '../../apis/work/getAllWork';
 
 function MainScreen() {
   const navigate = useNavigate();
@@ -19,10 +16,14 @@ function MainScreen() {
   };
 
   useEffect(() => {
-    const accessToken = sessionStorage.getItem('accessToken');
-    if (!accessToken) {
-      navigate("../login")
-    }
+    const fetchData = async () => {
+      const accessToken = sessionStorage.getItem('accessToken');
+      if (!accessToken) {
+        navigate('../login');
+      }
+    };
+
+    fetchData();
   }, []);
 
   // const dashboardData = useRef([])

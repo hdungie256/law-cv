@@ -29,7 +29,7 @@ const getAllCustomers = async (search=null, status=null) => {
     const rows = data.map((dataRow) => createRow(dataRow['_id'],
     dataRow.customerShortName ? dataRow['customerShortName'] : dataRow.customerName,
     dataRow['customerAddress'], 
-    dataRow.customerEmail ? dataRow['customerEmail'] : dataRow.email, 
+    dataRow.customerEmail ? dataRow.customerEmail : 'Không có', 
     dataRow.customerPhoneNumber ? dataRow['customerPhoneNumber'] : dataRow.phoneNumber,
     dataRow.status));
 

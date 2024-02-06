@@ -19,20 +19,34 @@ const CustomerScreen= (props) =>{
 
   const [dialogStatus, setDialogStatus] = useState("")
 
-  const [customerList,setCustomerList] = useState([])
+  const customerList = useRef([])
+  const [shouldReload, setShouldReload] = useState(false);
 
-  const fetchData = async () => {
-    const customers = await getAllCustomers();
-    setCustomerList(customers);
-    setIsLoading(false)
-  };
+  const fetchData = async (reload) => {
+    if (!sessionStorage.getItem("customerData")){
+      setIsLoading(true)
+    }
+
+    if (reload || !sessionStorage.getItem("customerData")) {
+        const data = await getAllCustomers();
+        sessionStorage.setItem('customerData', JSON.stringify(data));
+        customerList.current = JSON.parse(sessionStorage.getItem("customerData"));
+        setShouldReload(true)
+    } else {
+      const storedData = sessionStorage.getItem("customerData");
+      customerList.current = JSON.parse(storedData);
+    }
   
-  useEffect(() => {fetchData()}, [])
+    setIsLoading(false);
+  };  
+  
+  useEffect(() => {fetchData(false)}, [])
+  useEffect(() => {fetchData(true); setShouldReload(false)},[shouldReload])
 
   const handleSearch = async (inputValue) => {
     setIsLoading(true);
     const searchResult = await getAllCustomers(inputValue);
-    setCustomerList(searchResult);
+    customerList.current = (searchResult);
     setIsLoading(false);
   };
 
@@ -112,10 +126,12 @@ const CustomerScreen= (props) =>{
                 id='customer-dialog-create'
                 status={dialogStatus}
                 initial={initial.current}
-                afterSave={(res) => {
+                afterSave={async (res) => {
                   if (res) {
                     toggleCustomerDialog()
-                    fetchData()
+                    // const data = await getAllCustomers();
+                    // sessionStorage.setItem('customerData', JSON.stringify(data));
+                    fetchData(true)
                   }
                 }}
                 isShowing={isShowingCustomerDialog} 
@@ -130,7 +146,7 @@ const CustomerScreen= (props) =>{
                   const res = await changeCustomerStatus(customerId.current, newStatus);
                   if (res){
                     setIsLoadingDialog(false)
-                    fetchData()
+                    fetchData(true)
                   }
                 }}
                 height={'28%'}
@@ -143,7 +159,7 @@ const CustomerScreen= (props) =>{
                 <div id='customer-table-wrapper'>
                   <Table 
                     columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại', 'Trạng thái']}
-                    rows = {customerList}
+                    rows = {customerList.current}
                     handleEditButton={ async (id) => {
                       setIsLoadingDialog(true);
                       setDialogStatus("edit");
@@ -163,11 +179,10 @@ const CustomerScreen= (props) =>{
                     />
                   </div>
                 </div>
-
-              <ToastContainer></ToastContainer>
               </div>
             </Fade>
           )}
+          <ToastContainer></ToastContainer>
           </div>
     )
 }
