@@ -6,6 +6,7 @@ import Title from '../../components/Title';
 import ButtonSubmit from '../../components/ButtonSubmit';
 import { faUser,faKey, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import logIn from '../../apis/account/logIn';
@@ -100,6 +101,7 @@ function LogInScreen() {
                   <div id='button-wrapper'>
                     <ButtonSubmit text={buttonText} onClick={handleLogin} disabled={isButtonDisabled}/>
                   </div>
+                  <ToastContainer></ToastContainer>
                 </Grid>
 
                 <Grid item md={6} style={{padding: '10px'}}>
