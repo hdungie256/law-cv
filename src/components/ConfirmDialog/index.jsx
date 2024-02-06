@@ -12,7 +12,7 @@ const ConfirmDialog = (props) => {
       overFlowY={'hidden'}
       height={props.height}
       >
-        <p style={{lineHeight: '2.5'}}> Xác nhận xoá {props.type} <b> {props.name}. </b></p>
+        <p style={{height: '65px'}}> Xác nhận thay đổi trạng thái của {props.type} <b> {props.name} </b> thành "<b>{props.newStatus}</b>".</p>
         <Grid container md={12} spacing={2}>
           <Grid item md ={8}></Grid>
           <Grid item md={2}>

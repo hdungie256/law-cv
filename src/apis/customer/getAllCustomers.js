@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function createRow(id, name, address, email, phoneNumber) {
+function createRow(id, name, address, email, phoneNumber, status) {
   const truncateString = (str, maxLength) => {
     if (str.length > maxLength) {
       return str.substring(0, maxLength) + "...";
@@ -12,24 +12,27 @@ function createRow(id, name, address, email, phoneNumber) {
   address = truncateString(address, 20);
   phoneNumber = truncateString(phoneNumber, 20);
   return {
-    id, name, address, email, phoneNumber
+    id, name, address, email, phoneNumber, status
   };
 } 
 
-const getAllCustomers = async (search=null) => {
+const getAllCustomers = async (search=null, status=null) => {
   try {
     const response = await axios.get(process.env.REACT_APP_API_URL + "/customers",{
-      params: { search },
+      params: { search, status },
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem("accessToken")
       }
     });
     const data = response.data.list;
+
     const rows = data.map((dataRow) => createRow(dataRow['_id'],
-     dataRow.customerShortName ? dataRow['customerShortName'] : dataRow.customerName,
-     dataRow['customerAddress'], 
-     dataRow.customerEmail ? dataRow['customerEmail'] : dataRow.email, 
-     dataRow.customerPhoneNumber ? dataRow['customerPhoneNumber'] : dataRow.phoneNumber));
+    dataRow.customerShortName ? dataRow['customerShortName'] : dataRow.customerName,
+    dataRow['customerAddress'], 
+    dataRow.customerEmail ? dataRow['customerEmail'] : dataRow.email, 
+    dataRow.customerPhoneNumber ? dataRow['customerPhoneNumber'] : dataRow.phoneNumber,
+    dataRow.status));
+
     return rows;
   } catch (error) {
     console.error('Error fetching customers:', error);

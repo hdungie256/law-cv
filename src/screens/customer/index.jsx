@@ -8,7 +8,7 @@ import Table from '../../components/Table'
 import getAllCustomers from '../../apis/customer/getAllCustomers'
 import ConfirmDialog from '../../components/ConfirmDialog'
 import getCustomer from '../../apis/customer/getCustomer'
-import deleteCustomer from '../../apis/customer/deleteCustomer'
+import changeCustomerStatus from '../../apis/customer/changeCustomerStatus'
 import { CircularProgress, Grid } from '@mui/material'
 import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box';
@@ -74,6 +74,7 @@ const CustomerScreen= (props) =>{
   }
 
   const [isLoading, setIsLoading] = useState(true)
+  const [newStatus, setNewStatus] = useState(null)
 
     return(
         <div id='customer-screen'>
@@ -126,25 +127,39 @@ const CustomerScreen= (props) =>{
                 handleConfirm={async () => {
                   toggleConfirm();
                   setIsLoadingDialog(true)
-                  const res = await deleteCustomer(customerId.current);
+                  const res = await changeCustomerStatus(customerId.current, newStatus);
                   if (res){
                     setIsLoadingDialog(false)
                     fetchData()
                   }
                 }}
-                height={'140px'}
+                height={'28%'}
                 type={'khách hàng'}
                 name={customerName.current}
+                newStatus={newStatus}
                 />
 
               <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                 <div id='customer-table-wrapper'>
                   <Table 
-                    columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại']}
+                    columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại', 'Trạng thái']}
                     rows = {customerList}
                     handleEditButton={ async (id) => {
-                      setIsLoadingDialog(true);setDialogStatus("edit");await viewCustomerInfo(id);setIsLoadingDialog(false);toggleCustomerDialog(id)}}
+                      setIsLoadingDialog(true);
+                      setDialogStatus("edit");
+                      await viewCustomerInfo(id);
+                      setIsLoadingDialog(false);
+                      toggleCustomerDialog(id)
+                    }}
                     handleDeleteButton={(id, name) => {toggleConfirm();setCustomerInfo(id, name)}}
+                    getNewStatus={(oldStatus)=>{
+                      if (oldStatus === "Đã kích hoạt"){
+                        setNewStatus("Chưa kích hoạt")
+                      }
+                      else{
+                        setNewStatus("Đã kích hoạt")
+                      }
+                    }}
                     />
                   </div>
                 </div>

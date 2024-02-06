@@ -7,9 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TablePagination from '@mui/material/TablePagination';
-import { IconButton } from '@mui/material';
+import { Chip, IconButton } from '@mui/material';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -58,12 +58,27 @@ const CusomizedTable = (props) => {
         </TableHead>
         <TableBody>
           {props.rows.slice(pg * numRowsPerPage, pg * numRowsPerPage + numRowsPerPage).map((row) => (
+
             <TableRow key={row.id} hover sx={{cursor: 'pointer'}} onClick={() => props.onClick(row.id)} >
-              {Object.values(row).slice(1).map((cell, index) => <StyledTableCell sx={{minWidth: 120, paddingLeft:1, paddingRight: 1.5, paddingTop: 3, paddingBottom: 3}} key={index} component="th" scope="row">{cell}</StyledTableCell>)}
+  
+              {Object.values(row).slice(1).map((cell, index) => ( (cell === "Đã kích hoạt" || cell === "Hoàn thành" || cell === "Chưa kích hoạt" || cell === "Chưa hoàn thành") ?
+              <StyledTableCell sx={{minWidth: 120, paddingLeft:1, paddingRight: 1.5, paddingTop: 2, paddingBottom: 2}} 
+                              key={index} 
+                              component="th" 
+                              scope="row">
+                <Chip sx={(cell === "Đã kích hoạt" || cell === "Hoàn thành") ? {backgroundColor: '#defba1'} : {backgroundColor: '#c7c6ff'} } label={cell}></Chip>
+              </StyledTableCell> : 
+              <StyledTableCell sx={{minWidth: 120, paddingLeft:1, paddingRight: 1.5, paddingTop: 2, paddingBottom: 3}} 
+                            key={index} 
+                            component="th" 
+                            scope="row">{cell}
+              </StyledTableCell>)
+              )}
+
               <StyledTableCell align='center' sx={{padding: 1, height: 2.5}}>
                 <div style={{width: '100%'}}>
                 <IconButton aria-label="edit" onClick={(e) => {e.stopPropagation();props.handleEditButton(row.id)}}><ModeEditIcon /></IconButton>
-                <IconButton aria-label="delete" onClick={(e) => {e.stopPropagation();props.handleDeleteButton(row.id, row.name)}}><DeleteIcon /></IconButton>
+                <IconButton aria-label="delete" onClick={(e) => {e.stopPropagation();props.handleDeleteButton(row.id, row.name);props.getNewStatus(row.status)}}><AutorenewIcon /></IconButton>
                 </div>
               </StyledTableCell>
             </TableRow> 

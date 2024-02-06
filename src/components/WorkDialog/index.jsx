@@ -23,7 +23,8 @@ const WorkDialog = (props) => {
     const customersL = useRef([])
     useEffect(() => {
         const fetchData = async () => {
-            const customers = await getAllCustomers();
+            const customers = await getAllCustomers(null,"Đã kích hoạt");
+            console.log('cus',customers)
             customersL.current = customers.map((row) => ({
                 key: row.id, 
                 label: row.name,
@@ -45,7 +46,7 @@ const WorkDialog = (props) => {
       title={props.title} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
-      height='400px'
+      height='80%'
       overflowY='visible'
       >
         <Grid container md={12} spacing={3}>

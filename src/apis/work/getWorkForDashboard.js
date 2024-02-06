@@ -131,9 +131,10 @@ const needsResults = async (work) => {
     }
 
     const diff = Math.round(dayjs().diff(dayjs(work.paperSubmitDate), 'month', true))
+    var daysOver; 
 
     if (diff >= baseMonth && diff <= baseMonth*2){
-        const daysOver = Math.round(dayjs().diff(dayjs(work.paperSubmitDate), 'day', true))
+        daysOver = Math.round(dayjs().diff(dayjs(work.paperSubmitDate), 'day', true))
 
         if (work.history.length === 0){
             const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + work.customerId,
@@ -143,15 +144,19 @@ const needsResults = async (work) => {
             return row
         }
 
-        for (let hisItem in work.history){
-                if (!hisItem.action?.includes("thông báo") || !hisItem.action?.includes("Thông báo") || !hisItem.action?.includes("Ngày")){
-                    const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + work.customerId,
-                    { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
-                    const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
-                    const row = createDueWorkRow(work._id, work.gcnId, null, workType, work.name, customerName, daysOver, dayjs(work.paperSubmitDate).format("DD/MM/YYYY"))
-                    return row
-                }
+        for (let i=0;i<work.history.length;i++){
+            console.log(work.history[i])
+            if (work.history[i].action?.includes("Quyết định") || work.history[i].action?.includes("Ngày")){
+                return null
+            }
         }
+
+        const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + work.customerId,
+        { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
+        const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
+        const row = createDueWorkRow(work._id, work.gcnId, null, workType, work.name, customerName, daysOver, dayjs(work.paperSubmitDate).format("DD/MM/YYYY"))
+        return row
     }
-    return null
+
+    return null;
 }
