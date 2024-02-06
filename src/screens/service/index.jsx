@@ -10,7 +10,7 @@ import ThamDinhDialog from '../../components/ThamDinhDialog';
 import SauCapVBDialog from '../../components/SauCapVBDialog';
 import getAllWork from '../../apis/work/getAllWork'
 import getWork from '../../apis/work/getWork'
-import deleteWork from '../../apis/work/deleteWork'
+import changeWorkStatus from '../../apis/work/changeWorkStatus'
 import { CircularProgress } from '@mui/material'
 import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box'
@@ -177,6 +177,7 @@ const ServiceScreen= () =>{
   const sameVBBH = useRef([{gcnId: null}])
 
   const [isLoadingDialog, setIsLoadingDialog] = useState(false)
+  const [newStatus, setNewStatus] = useState(null)
 
     return(
         <div id='service-screen'>
@@ -232,7 +233,7 @@ const ServiceScreen= () =>{
                   setIsLoadingDialog(false)
                   toggleInformation();}
                 }
-                columnName={['Chủ đơn', 'Loại', 'Tên', 'Số đơn','Ngày nộp đơn', 'Số VBBH', 'Ngày cấp VBBH']}
+                columnName={['Chủ đơn', 'Loại', 'Tên', 'Số đơn','Ngày nộp đơn', 'Số VBBH', 'Ngày cấp VBBH','Trạng thái']}
                 rows = {workList}
                 handleEditButton={ async (id) => {
                   setIsLoadingDialog(true)
@@ -283,6 +284,14 @@ const ServiceScreen= () =>{
                   const w = await getWork(wid)
                   thisWork.current = w
                   toggleConfirm();
+                }}
+                getNewStatus={(oldStatus)=>{
+                  if (oldStatus === "Hoàn thành"){
+                    setNewStatus("Chưa hoàn thành")
+                  }
+                  else{
+                    setNewStatus("Hoàn thành")
+                  }
                 }}
                 />
             </div>
@@ -368,15 +377,16 @@ const ServiceScreen= () =>{
               handleConfirm={async () => {
                 toggleConfirm();
                 setIsLoadingDialog(true)
-                const res = await deleteWork(thisWork.current._id);
+                const res = await changeWorkStatus(thisWork.current._id, newStatus);
                 if (res){
                   setIsLoadingDialog(false)
                   fetchData()
                 }
               }}
-              height={'140px'}
+              height={'28%'}
               type={'đơn hàng'}
               name={`${thisWork.current.name} (${thisWork.current.customerName})`}
+              newStatus={newStatus}
               />
 
             <ToastContainer></ToastContainer>

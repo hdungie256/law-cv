@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 
-  function createRow(id, customerName, type, workName, paperId, paperSubmitDate, gcnId, gcnDate) {
+  function createRow(id, customerName, type, workName, paperId, paperSubmitDate, gcnId, gcnDate, status) {
     const truncateString = (str, maxLength) => {
       if (str.length > maxLength) {
         return str.substring(0, maxLength) + "...";
@@ -15,7 +15,7 @@ import dayjs from 'dayjs';
     const formattedDate = paperSubmitDate ? dayjs(paperSubmitDate).format('DD/MM/YYYY') : 'Không có'
     const formattedGcnDate = gcnDate ? dayjs(gcnDate).format('DD/MM/YYYY') : 'Không có'
     return {
-        id, customerName, type, workName, paperId, formattedDate, gcnId, formattedGcnDate
+        id, customerName, type, workName, paperId, formattedDate, gcnId, formattedGcnDate, status
     };
   } 
 
@@ -30,7 +30,8 @@ const getAllWork = async (search=null) => {
     const data = response.data.list;
     const rows = data.map((dataRow) => 
       createRow(dataRow['_id'],dataRow['customerName'],dataRow['type'], 
-                                dataRow['name'], dataRow['paperId'], dataRow['paperSubmitDate'],dataRow['gcnId'],dataRow['gcnDate']
+                                dataRow['name'], dataRow['paperId'], dataRow['paperSubmitDate'],dataRow['gcnId'],dataRow['gcnDate'],
+                                dataRow['status']
                 )
       );
     return rows
