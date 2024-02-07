@@ -67,6 +67,7 @@ const CustomerScreen= (props) =>{
           curatorTitle: response['curatorTitle'],
           curatorPhoneNumber: response['curatorPhoneNumber'],
           curatorEmail: response['curatorEmail'],
+          status: response['status']
       })
     }
   }

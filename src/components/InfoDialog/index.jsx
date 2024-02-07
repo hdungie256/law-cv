@@ -25,7 +25,7 @@ const InfoDialog = (props) => {
       overflowY={'auto'}
       handleSave={props.handleSave}
       >
-    <Accordion style={{marginTop: '20px'}} defaultExpanded>
+    <Accordion defaultExpanded sx={{backgroundColor:'#DAEAF1', boxShadow: 'none', border: '0.25px solid #DAEAF1', borderRadius: '5px' }} style={{width: '100%', marginTop: '20px'}} >
         <AccordionSummary
             expandIcon={<ArrowDropDownIcon />}
             aria-controls="panel1-content"
@@ -48,7 +48,7 @@ const InfoDialog = (props) => {
       </Accordion>
 
       {props.workValues.map( (item) => 
-      <Accordion style={{marginTop: '20px'}} defaultExpanded>
+      <Accordion defaultExpanded sx={{backgroundColor:'#DAEAF1', boxShadow: 'none', border: '0.25px solid #DAEAF1', borderRadius: '5px' }} style={{width: '100%', marginTop: '20px'}}>
         <AccordionSummary
         expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel2-content"
@@ -64,7 +64,7 @@ const InfoDialog = (props) => {
         <AccordionDetails className='dialog-info-accordion-details'>
           <Grid container>
             <Grid item md={6}>
-                <Typography> <b className='dialog-info-title'> Số đơn </b> {item.paperId} </Typography>
+                <Typography> <b className='dialog-info-title'> Số đơn: </b> {item.paperId} </Typography>
             </Grid>
             <Grid item md={6}>
                 <Typography> <b className='dialog-info-title'> Ngày nộp đơn: </b> {item.formattedDate ? item.formattedDate : 

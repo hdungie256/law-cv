@@ -1,3 +1,32 @@
 .App {
   text-align: center;
 }
+
+.MuiOutlinedInput-root{
+  input{
+    background-color: white;
+  }
+}
+
+.MuiTextField-root{
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+}
+
+.MuiAccordionDetails-root{
+  label{
+    color: black
+  }
+}
+
+.accordion{
+  .MuiAccordion-root{
+    background-color: #f1f2f4;
+    box-shadow: none;
+    border: none;
+    border-radius: 5px;
+  }
+}
+
+/* sx={{backgroundColor:'#DAEAF1', boxShadow: 'none', border: '0.25px solid #DAEAF1', borderRadius: '5px' }} */

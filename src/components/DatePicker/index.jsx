@@ -15,7 +15,7 @@ const DatePick = (props) => {
 
     return(
         <div className='date-picker'>
-            {props.label && <label id='label' style={{color: '#6c7a99', margin:'0px'}}> <b>{props.label}</b> </label>}
+            {props.label && <label id='label' style={{margin:'0px'}}> <b>{props.label}</b> </label>}
             <div id='input-wrapper'>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['div']}>

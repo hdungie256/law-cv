@@ -107,13 +107,14 @@ export default function CompanyAccordion(props) {
     // }, [fullNameError, addressError, emailError, phoneNumberError, fullName, address, email, phoneNumber])
 
   return (
-      <Accordion defaultExpanded sx={{backgroundColor:'#FEFEFE', boxShadow: 'none', border: '0.25px solid #c4c4c4', borderRadius: '5px' }} style={{width: '100%', marginTop: '20px'}}>
+    <div className='accordion'>
+      <Accordion defaultExpanded style={{width: '100%', marginTop: '20px'}}>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#555555'}}><b>1. Thông tin khách hàng</b></Typography>
+          <Typography style={{ color: 'black'}}><b>1. Thông tin khách hàng</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
             <div className='company-field dialog-customer-customer-field-fullName'>
@@ -133,5 +134,6 @@ export default function CompanyAccordion(props) {
             </div>
         </AccordionDetails>
       </Accordion>
+    </div>
   );
 }

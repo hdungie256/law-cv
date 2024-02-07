@@ -58,13 +58,14 @@ export default function CuratorAccordion(props) {
       }
     }, [props.status, props.initial])
   return (
-      <Accordion sx={{backgroundColor:'#FEFEFE', boxShadow: 'none', border: '0.25px solid #c4c4c4', borderRadius: '5px' }} style={{width: '100%', marginTop: '20px'}}>
+    <div className='accordion' >
+      <Accordion style={{width: '100%', marginTop: '20px'}}>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#555555'}}><b>2. Thông tin người phụ trách (nếu có)</b></Typography>
+          <Typography style={{ color: '#black'}}><b>2. Thông tin người phụ trách (nếu có)</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
             <div className='curator-field dialog-customer-curator-field-fullName'>
@@ -81,5 +82,6 @@ export default function CuratorAccordion(props) {
             </div>
         </AccordionDetails>
       </Accordion>
+      </div>
   );
 }

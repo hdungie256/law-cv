@@ -2,20 +2,36 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
   function createRow(id, customerName, type, workName, paperId, paperSubmitDate, gcnId, gcnDate, status) {
-    const truncateString = (str, maxLength) => {
-      if (str.length > maxLength) {
-        return str.substring(0, maxLength) + "...";
-      }
-      return str;
-    };
-  
-    workName = truncateString(workName, 30);
-    customerName  = truncateString(customerName, 20);
-    paperId = paperId.length > 4 ? paperId : 'Không có'
-    const formattedDate = paperSubmitDate ? dayjs(paperSubmitDate).format('DD/MM/YYYY') : 'Không có'
-    const formattedGcnDate = gcnDate ? dayjs(gcnDate).format('DD/MM/YYYY') : 'Không có'
+    console.log(id, customerName, type, workName, paperId, paperSubmitDate, gcnId, gcnDate, status)
+    var formattedPaperId=paperId
+    var formattedDate=paperSubmitDate
+    var formattedGcnId=gcnId
+    var formattedGcnDate=gcnDate
+
+    if (paperId == undefined || paperId.length<4){
+      formattedPaperId = ""
+    }
+
+    if (paperSubmitDate == undefined){
+      formattedDate = ""
+    }
+    else{
+      formattedDate = dayjs(paperSubmitDate).format("DD/MM/YYYY")
+    }
+
+    if (gcnId == undefined){
+      formattedGcnId = ""
+    }
+
+    if (gcnDate == undefined){
+      formattedGcnDate = ""
+    }
+    else{
+      formattedGcnDate = dayjs(paperSubmitDate).format("DD/MM/YYYY")
+    }
+
     return {
-        id, customerName, type, workName, paperId, formattedDate, gcnId, formattedGcnDate, status
+      id, customerName, type, workName, formattedPaperId, formattedDate, gcnId, formattedGcnDate, status
     };
   } 
 

@@ -1,6 +1,6 @@
 import './index.scss'
 import DialogBox from '../DialogBox'
-import {Grid} from '@mui/material';
+import {Chip, Grid, Typography} from '@mui/material';
 import ButtonSubmit from '../ButtonSubmit';
 import ButtonCancel from '../ButtonCancel'
 import FormAccordion from '../FormAccordion';
@@ -40,8 +40,13 @@ const ServiceDialog = (props) => {
   }
 
   return (
-      <DialogBox className='dialog-box' 
-      title={'Thẩm định đơn ' + props.type} 
+      <DialogBox className='dialog-box' id='dialog-thamdinh'
+      title={
+        <>
+        {props.edit && <Chip sx={(props.workValues.status.includes("Chưa")) ? {backgroundColor: "#ffb8b8"} : {backgroundColor: "#d2fdbb"}} 
+          style={{marginBottom: '15px'}} label={props.workValues.status}/>}
+        <p>Thẩm định đơn {props.type}</p>
+        </>} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='80%'

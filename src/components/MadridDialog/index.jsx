@@ -10,6 +10,7 @@ import GCNAccordion from '../GCNAccordion';
 import createWork from '../../apis/work/createWork'
 import updateWork from '../../apis/work/updateWork'
 import { useState,useEffect } from 'react';
+import {Chip} from '@mui/material';
 
 const MadridDialog = (props) => {
   const handleSave = async () => {
@@ -57,7 +58,12 @@ const MadridDialog = (props) => {
 
   return (
       <DialogBox className='dialog-box' 
-      title={props.type} 
+      title={
+        <>
+        {props.edit && <Chip sx={(props.workValues.status.includes("Chưa")) ? {backgroundColor: "#ffb8b8"} : {backgroundColor: "#d2fdbb"}} 
+          style={{marginBottom: '15px'}} label={props.workValues.status}/>}
+        <p>{props.type}</p>
+        </>} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='80%'
@@ -81,7 +87,7 @@ const MadridDialog = (props) => {
 
         <div id='dialog-madrid-final-decision'>
             <div style={{marginTop: '20px'}}> 
-                <label style={{color: '#6c7a99'}}> <b> Ghi nhận cuối cùng về việc bảo hộ của các quốc gia </b></label> 
+                <label> <b> Ghi nhận cuối cùng về việc bảo hộ của các quốc gia </b></label> 
             </div>
             <TextField style={{width: '100%', marginTop: '10px'}} type='text' onChange={(e) => {setFinalDecision(e.target.value)}} value={finalDecision} placeholder={('Ghi nhận cuối cùng về việc bảo hộ của các quốc gia')} />
         </div>

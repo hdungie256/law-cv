@@ -7,6 +7,7 @@ import CuratorAccordion from '../CuratorAccordion';
 import { Grid } from '@mui/material';
 import createCustomer from '../../apis/customer/createCustomer'
 import updateCustomer from '../../apis/customer/updateCustomer'
+import {Chip} from '@mui/material';
 
 const CustomerDialog = (props) => {
   const handleSave = async () => {
@@ -37,7 +38,12 @@ const CustomerDialog = (props) => {
   
   return (
       <DialogBox className='dialog-box' 
-      title={props.status === "create" ? "Tạo khách hàng mới" : "Chỉnh sửa thông tin khách hàng"} 
+      title={
+        <>
+        {!(props.status === "create") && <Chip sx={(props.initial.status?.includes("Chưa")) ? {backgroundColor: "#ffb8b8"} : {backgroundColor: "#d2fdbb"}} 
+          style={{marginBottom: '15px'}} label={props.initial.status}/>}
+        <p>{props.status === "create" ? "Tạo khách hàng mới" : "Chỉnh sửa thông tin khách hàng"} </p>
+      </>} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='80%'
@@ -53,7 +59,7 @@ const CustomerDialog = (props) => {
           <Grid item md={6}>
             <div style={{width: '100%', display: 'flex', justifyContent: 'right'}}>
               <div className='customer-button-cancel'>
-                <ButtonCancel className='customer-button' text='Huỷ' onClick={() => {props.hide()}}/>
+                <ButtonCancel className='customer-button' text='Huỷ' onClick={() => {props.hide();console.log(props.initial)}}/>
               </div>
             </div>
           </Grid>

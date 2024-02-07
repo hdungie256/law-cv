@@ -67,13 +67,13 @@ export default function FormAccordion(props) {
     }, [])
 
   return (
-      <Accordion defaultExpanded sx={{backgroundColor:'#FEFEFE', boxShadow: 'none', border: '0.25px solid #c4c4c4' }} style={{width: '104%', marginTop: '20px'}}>
+      <Accordion defaultExpanded  className='accordion' style={{width: '104%', marginTop: '20px'}}>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#555555'}}><b>2. Thông tin đơn</b></Typography>
+          <Typography style={{ color: 'black'}}><b>2. Thông tin đơn</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
         <div id='dialog-form-number'>

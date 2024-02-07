@@ -29,18 +29,19 @@ export default function GCNAccordion(props) {
     }, [])
 
   return (
-      <Accordion defaultExpanded sx={{backgroundColor:'#FEFEFE', boxShadow: 'none', border: '0.25px solid #c4c4c4' }} style={{width: '104%', marginTop: '10px'}}>
+    <div className='accordion'>
+      <Accordion defaultExpanded  style={{width: '104%', marginTop: '10px'}}>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#555555' }}><b>{props.section}. Thông tin {props.flexible ? `đối tượng cần ${props.type}` : 'VBBH'} </b></Typography>
+          <Typography style={{ color: '#black' }}><b>{props.section}. Thông tin {props.flexible ? `đối tượng cần ${props.type}` : 'VBBH'} </b></Typography>
         </AccordionSummary>
         <AccordionDetails>
                     <div id='gcn-accordion-sogcn'>
                         <div style={{'margin-bottom': '7px'}}> 
-                            <label style={{color: '#6c7a99'}}> <b> Số {props.flexible ? 'đơn/ Số VBBH' : 'VBBH'}</b></label> 
+                            <label> <b> Số {props.flexible ? 'đơn/ Số VBBH' : 'VBBH'}</b></label> 
                         </div>
                         <TextField style={{width: '100%', marginBottom: '20px'}} type='text' onChange={(e) => {handleChangeSoGCN(e)}} value={soGCN} placeholder={('Số VBBH')} />
                     </div>
@@ -50,5 +51,6 @@ export default function GCNAccordion(props) {
                     </div>
         </AccordionDetails>
       </Accordion>
+      </div>
   );
 }

@@ -59,7 +59,7 @@ const CusomizedTable = (props) => {
         <TableBody>
           {props.rows.slice(pg * numRowsPerPage, pg * numRowsPerPage + numRowsPerPage).map((row) => (
 
-            <TableRow style={{height: '68px'}} key={row.id} hover sx={{cursor: 'pointer'}} onClick={() => props.onClick(row.id)} >
+            <TableRow style={{height: '68px'}} key={row.id} hover sx={{cursor: 'pointer'}} onClick={() => {console.log(row);props.onClick(row.id)}} >
   
               {Object.values(row).slice(1).map((cell, index) => ( (cell === "Đã kích hoạt" || cell === "Hoàn thành" || cell === "Chưa kích hoạt" || cell === "Chưa hoàn thành") ?
               <StyledTableCell sx={{minWidth: 120, padding: 0, paddingRight: 2}} 

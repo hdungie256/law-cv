@@ -14,6 +14,7 @@ import MoreTimeIcon from '@mui/icons-material/MoreTime';
 import ReplayIcon from '@mui/icons-material/Replay';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import React from 'react';
+import {Chip} from '@mui/material';
 
 const ServiceDialog = (props) => {
   const handleSave = async () => {
@@ -57,10 +58,11 @@ const ServiceDialog = (props) => {
   return (
       <DialogBox className='dialog-box'
       title={
-        <React.Fragment>
-        {props.type}
-      </React.Fragment>
-      } 
+        <>
+        {props.edit && <Chip sx={(props.workValues.status.includes("Chưa")) ? {backgroundColor: "#ffb8b8"} : {backgroundColor: "#d2fdbb"}} 
+          style={{marginBottom: '15px'}} label={props.workValues.status}/>}
+        <p>{props.type}</p>
+        </>} 
       isShowing={props.isShowing} 
       hide={() => {props.hide()}} 
       height='80%'

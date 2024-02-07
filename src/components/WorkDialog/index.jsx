@@ -24,7 +24,6 @@ const WorkDialog = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             const customers = await getAllCustomers(null,"Đã kích hoạt");
-            console.log('cus',customers)
             customersL.current = customers.map((row) => ({
                 key: row.id, 
                 label: row.name,

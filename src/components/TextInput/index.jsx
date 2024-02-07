@@ -5,7 +5,7 @@ function TextInput(props) {
 
   return (
     <div className='text-input'>
-        {props.label && <label className='label'> <b>{props.label}</b> </label>}
+        {props.label && <div style={{marginBottom: '5px'}}><label className='label'> <b>{props.label}</b> </label></div>}
         <div className='input-wrapper'>
             <input 
                 className={props.errorMessage === '' ? '':"error"}

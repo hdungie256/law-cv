@@ -61,13 +61,14 @@ export default function FormAccordion(props) {
     }, [])
 
   return (
-      <Accordion defaultExpanded sx={{backgroundColor:'#FEFEFE', boxShadow: 'none', border: '0.25px solid #c4c4c4' }} style={{width: '104%', marginTop: '20px'}}>
+    <div className='accordion'>
+      <Accordion defaultExpanded style={{width: '104%', marginTop: '20px'}}>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography style={{ color: '#555555'}}><b>3. Thẩm định đơn</b></Typography>
+          <Typography style={{ color: 'black'}}><b>3. Thẩm định đơn</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
           <label id='dialog-form-number-label'> <b> Số đơn</b></label>
@@ -116,5 +117,6 @@ export default function FormAccordion(props) {
         "Nộp phí cấp VBBH"]}/>
         </AccordionDetails>
       </Accordion>
+      </div>
   );
 }
