@@ -19,7 +19,8 @@ const CustomerScreen= (props) =>{
 
   const [dialogStatus, setDialogStatus] = useState("")
 
-  const customerList = useRef([])
+  const [customerList, setCustomerList] = useState([])
+  // const customerList = useRef([])
   const [shouldReload, setShouldReload] = useState(false);
 
   const fetchData = async (reload) => {
@@ -30,23 +31,22 @@ const CustomerScreen= (props) =>{
     if (reload || !sessionStorage.getItem("customerData")) {
         const data = await getAllCustomers();
         sessionStorage.setItem('customerData', JSON.stringify(data));
-        customerList.current = JSON.parse(sessionStorage.getItem("customerData"));
+        setCustomerList(JSON.parse(sessionStorage.getItem("customerData")));
         setShouldReload(true)
     } else {
       const storedData = sessionStorage.getItem("customerData");
-      customerList.current = JSON.parse(storedData);
+      setCustomerList(JSON.parse(storedData));
     }
-  
     setIsLoading(false);
   };  
   
   useEffect(() => {fetchData(false)}, [])
-  useEffect(() => {fetchData(true); setShouldReload(false)},[shouldReload])
+  useEffect(() => {if (!shouldReload) {fetchData(true); setShouldReload(false)}},[shouldReload])
 
   const handleSearch = async (inputValue) => {
     setIsLoading(true);
     const searchResult = await getAllCustomers(inputValue);
-    customerList.current = (searchResult);
+    setCustomerList(searchResult);
     setIsLoading(false);
   };
 
@@ -159,7 +159,7 @@ const CustomerScreen= (props) =>{
                 <div id='customer-table-wrapper'>
                   <Table 
                     columnName={['Họ và tên', 'Địa chỉ', 'Email', 'Số điện thoại', 'Trạng thái']}
-                    rows = {customerList.current}
+                    rows = {customerList}
                     handleEditButton={ async (id) => {
                       setIsLoadingDialog(true);
                       setDialogStatus("edit");
