@@ -24,9 +24,12 @@ const ServiceScreen= () =>{
   const [isEditting, setIsEditting] = useState(false)
 
   const [workList, setWorkList] = useState([])
-  const fetchData = async () => {
-    setIsLoading(true)
+  const fetchData = async (reload) => {
     if (!sessionStorage.getItem("serviceData")){
+      setIsLoading(true)
+    }
+
+    if (reload || !sessionStorage.getItem("serviceData")){
         const data = await getAllWork();
         sessionStorage.setItem('serviceData', JSON.stringify(data));
     }
@@ -36,7 +39,7 @@ const ServiceScreen= () =>{
     setIsLoading(false)
   };
 
-  useEffect(() => {fetchData()}, [])
+  useEffect(() => {fetchData(false)}, [])
 
   const type = useRef("")
   const setType = (newType) =>{
@@ -326,7 +329,7 @@ const ServiceScreen= () =>{
             afterSave={(res) => {
                 if (res) {
                   toggleThamDinhDialog();
-                  fetchData();
+                  fetchData(true);
                 }
               }}
             />
@@ -344,7 +347,7 @@ const ServiceScreen= () =>{
             afterSave={(res) => {
                 if (res) {
                   toggleSauCapVBDialog();
-                  fetchData();
+                  fetchData(true);
                 }
               }}
             />
@@ -372,7 +375,7 @@ const ServiceScreen= () =>{
               afterSave={(res) => {
                   if (res) {
                     toggleMadridDialog();
-                    fetchData();
+                    fetchData(true);
                   }
                 }}
             />
@@ -386,7 +389,7 @@ const ServiceScreen= () =>{
                 const res = await changeWorkStatus(thisWork.current._id, newStatus);
                 if (res){
                   setIsLoadingDialog(false)
-                  fetchData()
+                  fetchData(true)
                 }
               }}
               height={'28%'}

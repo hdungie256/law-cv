@@ -20,8 +20,6 @@ const CustomerScreen= (props) =>{
   const [dialogStatus, setDialogStatus] = useState("")
 
   const [customerList, setCustomerList] = useState([])
-  // const customerList = useRef([])
-  const [shouldReload, setShouldReload] = useState(false);
 
   const fetchData = async (reload) => {
     if (!sessionStorage.getItem("customerData")){
@@ -32,7 +30,6 @@ const CustomerScreen= (props) =>{
         const data = await getAllCustomers();
         sessionStorage.setItem('customerData', JSON.stringify(data));
         setCustomerList(JSON.parse(sessionStorage.getItem("customerData")));
-        setShouldReload(true)
     } else {
       const storedData = sessionStorage.getItem("customerData");
       setCustomerList(JSON.parse(storedData));
@@ -41,7 +38,6 @@ const CustomerScreen= (props) =>{
   };  
   
   useEffect(() => {fetchData(false)}, [])
-  useEffect(() => {if (!shouldReload) {fetchData(true); setShouldReload(false)}},[shouldReload])
 
   const handleSearch = async (inputValue) => {
     setIsLoading(true);
@@ -129,8 +125,6 @@ const CustomerScreen= (props) =>{
                 afterSave={async (res) => {
                   if (res) {
                     toggleCustomerDialog()
-                    // const data = await getAllCustomers();
-                    // sessionStorage.setItem('customerData', JSON.stringify(data));
                     fetchData(true)
                   }
                 }}
