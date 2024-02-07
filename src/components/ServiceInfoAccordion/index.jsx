@@ -96,7 +96,7 @@ export default function ServiceInfoAccordion(props) {
         <AccordionDetails>
             <div id='dialog-service-name'>
             <div id='dialog-service-name-label-wrapper1' style={{'margin-bottom': '7px'}}> <label id='dialog-service-name-label1'> <b> Tên {info.dtype} *</b></label> </div>
-            <TextField InputProps={{ inputProps: { min: 0, max: 10 } }} style={{width: '100%'}} type='text' padding='0px 10px' onChange={(e) => {handleChangeNhanHieu(e); console.log(props.type)}} value={nhanhieu} placeholder={('Tên ' + info.dtype)} />
+            <TextField InputProps={{ inputProps: { min: 0, max: 10 } }} style={{width: '100%'}} type='text' padding='0px 10px' onChange={(e) => {handleChangeNhanHieu(e)}} value={nhanhieu} placeholder={('Tên ' + info.dtype)} />
             </div>
 
             {(props.type === 'nhãn hiệu' || props.type === 'Đăng ký nhãn hiệu quốc tế') &&

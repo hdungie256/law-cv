@@ -15,6 +15,7 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import React from 'react';
 import {Chip} from '@mui/material';
+import getWorkForDashboard from '../../apis/work/getWorkForDashboard';
 
 const ServiceDialog = (props) => {
   const handleSave = async () => {
@@ -37,9 +38,11 @@ const ServiceDialog = (props) => {
     var res = {}
     if (props.edit){
       res = await updateWork(props.workId, props.customerId, props.type, serviceName, null, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
+      await getWorkForDashboard()
     }
     else{
       res = await createWork(props.customerId, props.type, serviceName, null, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
+      await getWorkForDashboard()
     }
       props.afterSave(res)
   }

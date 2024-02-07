@@ -22,7 +22,6 @@ export default function GCNAccordion(props) {
     }
 
     useEffect(() => {
-      console.log(props.flexible)
       if (props.initial){
       setInitial(props.initial)
       }

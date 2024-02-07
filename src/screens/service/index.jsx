@@ -19,6 +19,7 @@ import {Grid} from '@mui/material';
 import SearchBar from '../../components/SearchBar';
 import InfoDialog from '../../components/InfoDialog';
 import LoadingDialog from '../../components/LoadingDialog';
+import getWorkForDashboard from '../../apis/work/getWorkForDashboard';
 
 const ServiceScreen= () =>{
   const [isEditting, setIsEditting] = useState(false)
@@ -232,7 +233,6 @@ const ServiceScreen= () =>{
                   if (w.gcnId){
                   const workWithSameVBBH = await getAllWork(w.gcnId)
                   sameVBBH.current = workWithSameVBBH;
-                  console.log(workWithSameVBBH[0])
                   gcnIdForDialog.current = w.gcnId
                   }
                   else{
@@ -390,6 +390,7 @@ const ServiceScreen= () =>{
                 if (res){
                   setIsLoadingDialog(false)
                   fetchData(true)
+                  await getWorkForDashboard()
                 }
               }}
               height={'28%'}

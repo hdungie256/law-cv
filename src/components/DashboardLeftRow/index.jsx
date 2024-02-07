@@ -29,7 +29,6 @@ const DashboardLeftRow = (props) => {
         if (w.gcnId){
             const workWithSameVBBH = await getAllWork(w.gcnId)
             sameVBBH.current = workWithSameVBBH;
-            console.log(workWithSameVBBH[0])
             gcnIdForDialog.current = w.gcnId
         }
         else{

@@ -5,11 +5,6 @@ import DashboardDueRow from "../DashboardDueRow";
 import { useRef,useEffect } from "react";
 
 const DashboardDueTab = (props) => {
-    // const data = useRef([])
-    // useEffect(() => {
-    //     data.current = props.data
-    //     console.log('data.current', data.current)
-    // }, [])
 
     return(
         <Box sx={{backgroundColor: 'none', maxHeight: props.maxHeight,borderRadius: '5px', overflow: 'auto'}}>

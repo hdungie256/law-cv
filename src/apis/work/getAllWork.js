@@ -2,7 +2,6 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
   function createRow(id, customerName, type, workName, paperId, paperSubmitDate, gcnId, gcnDate, status) {
-    console.log(id, customerName, type, workName, paperId, paperSubmitDate, gcnId, gcnDate, status)
     var formattedPaperId=paperId
     var formattedDate=paperSubmitDate
     var formattedGcnId=gcnId

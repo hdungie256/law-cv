@@ -23,12 +23,10 @@ const CustomerDialog = (props) => {
 
     var res = null
     if (props.status === "create"){
-        console.log('create')
         res = await createCustomer(customerName, customerShortName, customerAddress, customerPhoneNumber, customerEmail,
         curatorName, curatorTitle, curatorPhoneNumber, curatorEmail)
     }
     else if (props.status === "edit"){
-      console.log('edit')
         res = await updateCustomer(props.initial.id, customerName, customerShortName, customerAddress, customerPhoneNumber, 
         customerEmail,curatorName, curatorTitle, curatorPhoneNumber, curatorEmail)
     }
@@ -59,7 +57,7 @@ const CustomerDialog = (props) => {
           <Grid item md={6}>
             <div style={{width: '100%', display: 'flex', justifyContent: 'right'}}>
               <div className='customer-button-cancel'>
-                <ButtonCancel className='customer-button' text='Huỷ' onClick={() => {props.hide();console.log(props.initial)}}/>
+                <ButtonCancel className='customer-button' text='Huỷ' onClick={() => {props.hide()}}/>
               </div>
             </div>
           </Grid>

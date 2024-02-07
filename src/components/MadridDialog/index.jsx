@@ -11,6 +11,7 @@ import createWork from '../../apis/work/createWork'
 import updateWork from '../../apis/work/updateWork'
 import { useState,useEffect } from 'react';
 import {Chip} from '@mui/material';
+import getWorkForDashboard from '../../apis/work/getWorkForDashboard';
 
 const MadridDialog = (props) => {
   const handleSave = async () => {
@@ -37,16 +38,17 @@ const MadridDialog = (props) => {
     var res = {}
     if (props.edit){
       res = await updateWork(props.workId, props.customerId, 'ĐK Nhãn hiệu Quốc tế', serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, country, lastAction)
+      await getWorkForDashboard()
     }
     else{
       res = await createWork(props.customerId, 'ĐK Nhãn hiệu Quốc tế', serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, country, lastAction)
+      await getWorkForDashboard()
     }
       props.afterSave(res)
   }
 
   const [finalDecision, setFinalDecision] = useState("")
   useEffect(()=>{
-    console.log('here', props.workValues, props.isEditing)
     if (props.edit){
       setFinalDecision(props.workValues.lastAction)
     }

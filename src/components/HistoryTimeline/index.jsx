@@ -10,7 +10,6 @@ import { timelineItemClasses } from '@mui/lab';
 
 export default function HistoryTimeline(props) {
     const historyArray = props.itemArray.sort((a, b) => a.date - b.date);
-    console.log('historyArray',historyArray)
   return (
     <Timeline>
         {historyArray.map((item, index) => {
@@ -23,7 +22,7 @@ export default function HistoryTimeline(props) {
                 }}>
                   <TimelineItem style={{padding: 0}} sx={{padding: 0}}>
                     <TimelineSeparator>
-                      <TimelineDot />
+                      <TimelineDot sx={{color: 'black'}} />
                       {index < historyArray.length - 1 && <TimelineConnector />}
                     </TimelineSeparator>
                     <TimelineContent>{item.action} : {item.date ? dayjs(item.date).format('DD/MM/YYYY') : 'Không có'}</TimelineContent>

@@ -27,7 +27,8 @@ const getWorkForDashboard = async () => {
             }
         }
         dueCards = dueRows.filter(row => row.hasOwnProperty('daysLeft') && row.daysLeft <= 14);
-        return ({ dueRows: dueRows, pendingRows: pendingRows, dueCards: dueCards });
+        const data = { dueRows: dueRows, pendingRows: pendingRows, dueCards: dueCards }
+        sessionStorage.setItem('dashboardData', JSON.stringify(data));
 
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -57,6 +58,7 @@ const needsReply = async (work) => {
 }
 
 const needsDTHL = async (i) => {
+    
     if (i.gcnId && i.gcnDate){
         if (i.type === 'Thẩm định nhãn hiệu') {
         const daysPast = Math.round(dayjs().diff(dayjs(i.paperSubmitDate), 'year', true))
@@ -107,6 +109,10 @@ const needsDTHL = async (i) => {
 }
 
 const needsResults = async (work) => {
+    if (work.status === 'Hoàn thành' || (work.type.includes("Thẩm định") && work.gcnId)){
+        return null
+    }
+
     var baseMonth;
     var workType;
     if (work.type === "Thẩm định nhãn hiệu"){

@@ -18,8 +18,7 @@ const DashBoardScreen= () =>{
     const fetchData = async () => {
         setIsLoading(true)
         if (!sessionStorage.getItem("dashboardData")){
-            const data = await getWorkForDashboard();
-            sessionStorage.setItem('dashboardData', JSON.stringify(data));
+            await getWorkForDashboard();
         }
         const d = sessionStorage.getItem("dashboardData")
         
