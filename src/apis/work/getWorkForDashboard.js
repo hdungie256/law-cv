@@ -47,10 +47,10 @@ const needsReply = async (work) => {
             const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + work.customerId,
             { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
             const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
-            const deadline = dayjs(work.history[-1].date).add(3,'month')
+            const deadline = dayjs(work.history[-1]?.date).add(3,'month')
             const daysLeft = deadline.diff(dayjs(), 'day')
 
-            const row = createDueWorkRow(work._id, work.gcnId, 'Trả lời thông báo', work.type, work.name, customerName, daysLeft, deadline)
+            const row = createDueWorkRow(work._id, work.gcnId, 'Trả lời thông báo', work.type, work.name, customerName, daysLeft, deadline.format('DD/MM/YYYY'))
             return row
         }
     }

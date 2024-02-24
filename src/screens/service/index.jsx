@@ -38,6 +38,7 @@ const ServiceScreen= () =>{
     
     setWorkList(JSON.parse(d));
     setIsLoading(false)
+    console.log("fetched dashboard!")
   };
 
   useEffect(() => {fetchData(false)}, [])

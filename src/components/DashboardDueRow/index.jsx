@@ -21,7 +21,7 @@ const DashboardDueRow = (props) => {
         </Grid>
         <Grid item md={1.5}>
             <Chip sx={{background: 
-            props.data.type === 'Nhãn hiệu' ? '#a1a5fb' : 
+            props.data.type === 'Thẩm định nhãn hiệu' ? '#a1a5fb' : 
             props.data.type === 'Sáng chế' ? '#fba1a1' :
             props.data.type === 'KDCN' ? '#c7c6ff' :
             props.data.type === 'Li xăng - Chuyển nhượng' ? "#defba1" : 
