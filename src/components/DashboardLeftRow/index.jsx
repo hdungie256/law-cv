@@ -59,10 +59,10 @@ const DashboardLeftRow = (props) => {
         <Grid item md={0.5}>
             <Pause fontSize="small" sx={{borderRadius: '50%', background: '#defba1'}}/>
         </Grid>
-        <Grid item md={3.25}>
+        <Grid item md={2.5}>
             <Typography noWrap className='dashboard-left-tab-text' variant='body2'> <b> {props.data.workName} </b></Typography>
         </Grid>
-        <Grid item md={2}>
+        <Grid item md={2.5}>
             <Chip sx={{background:'#fbf2a1'}} label={props.data.type}/>
         </Grid>
         <Grid item md={2.5}>
