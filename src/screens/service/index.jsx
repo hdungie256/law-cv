@@ -40,7 +40,6 @@ const ServiceScreen= () =>{
     
     setWorkList(JSON.parse(d));
     setIsLoading(false)
-    console.log("fetched dashboard!")
   };
 
   useEffect(() => {fetchData(false)}, [])
@@ -329,10 +328,10 @@ const ServiceScreen= () =>{
             customerId={thisCustomer.current._id}
             workValues={thisWork.current}
             workId={thisWork.current._id}
-            afterSave={(res) => {
+            afterSave={async (res) => {
                 if (res) {
                   toggleThamDinhDialog();
-                  fetchData(true);
+                  await fetchData(true);
                 }
               }}
             />

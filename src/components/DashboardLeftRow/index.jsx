@@ -55,7 +55,7 @@ const DashboardLeftRow = (props) => {
 
         <div onClick={handleClick} style={{cursor: 'pointer'}}>
 
-        <Grid container sx={{background:'none',height: '50px',display:'flex', alignItems: 'center'}}>
+        <Grid spacing={1} container sx={{background:'none',height: '50px',display:'flex', alignItems: 'center'}}>
         <Grid item md={0.5}>
             <Pause fontSize="small" sx={{borderRadius: '50%', background: '#defba1'}}/>
         </Grid>
