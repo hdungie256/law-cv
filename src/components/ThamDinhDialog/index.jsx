@@ -33,11 +33,11 @@ const ServiceDialog = (props) => {
     var res = {}
     if (props.edit){
       res = await updateWork(props.workId, props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
-      await getWorkForDashboard()
+      // await getWorkForDashboard()
     }
     else{
       res = await createWork(props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
-      await getWorkForDashboard()
+      // await getWorkForDashboard()
     }
       props.afterSave(res)
   }

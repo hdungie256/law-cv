@@ -9,7 +9,7 @@ const DashboardDueRow = (props) => {
     return(
         <div onClick={handleClick} style={{cursor: 'pointer'}}>
 
-        <Grid container sx={{background:'none',height: '50px',display:'flex', alignItems: 'center'}}>
+        <Grid container spacing={1} sx={{background:'none',height: '50px',display:'flex', alignItems: 'center'}}>
         <Grid item md={0.5}>
             {/* <ArrowRight fontSize='small'/> */}
             {/* <Divider  orientation="vertical" flexItem/> */}
@@ -19,18 +19,18 @@ const DashboardDueRow = (props) => {
         <Grid item md={2.5}>
             <Typography className='dashboard-due-tab-text' variant='body2'> <b>{props.data.action}</b></Typography>
         </Grid>
-        <Grid item md={1.5}>
+        <Grid item md={2.5}>
             <Chip sx={{background: 
             props.data.type === 'Thẩm định nhãn hiệu' ? '#a1a5fb' : 
             props.data.type === 'Sáng chế' ? '#fba1a1' :
-            props.data.type === 'KDCN' ? '#c7c6ff' :
+            props.data.type === 'Thẩm định KDCN' ? '#c7c6ff' :
             props.data.type === 'Li xăng - Chuyển nhượng' ? "#defba1" : 
             props.data.type === 'Cấp lại' ? "#f9a1fb":
             props.data.type === 'Sửa đổi' ? "#737373": 
             props.data.type === 'Gia hạn' ? "#caebff" : "#fbf2a1"}} 
             label={props.data.type}/>
         </Grid>
-        <Grid item md={3}>
+        <Grid item md={2}>
             <Typography className='dashboard-due-tab-text' variant='body2' noWrap>{props.data.customerName} </Typography>
         </Grid>
         <Grid item md={2}>

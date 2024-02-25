@@ -26,13 +26,15 @@ const ServiceScreen= () =>{
 
   const [workList, setWorkList] = useState([])
   const fetchData = async (reload) => {
+    
     if (!sessionStorage.getItem("serviceData")){
       setIsLoading(true)
     }
 
     if (reload || !sessionStorage.getItem("serviceData")){
-        const data = await getAllWork();
-        sessionStorage.setItem('serviceData', JSON.stringify(data));
+      const data = await getAllWork();
+      sessionStorage.setItem('serviceData', JSON.stringify(data));
+      await getWorkForDashboard()
     }
     const d = sessionStorage.getItem("serviceData")
     

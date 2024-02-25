@@ -90,6 +90,9 @@ function LogInScreen() {
                       <Divider sx={{width: '10px'}} orientation="vertical" variant="middle" flexItem />
                       <Typography style={{ marginLeft: '10px' }} variant='h4'>BACIP</Typography>
                     </Stack>
+
+                    <Typography> <b>Username:</b> guest </Typography>
+                    <Typography> <b>Password:</b> 12345678 </Typography>
                     
                     <Title className='title' title='Đăng nhập'/>
                     <div id='username-field' className={`${usernameError} field`}>

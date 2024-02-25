@@ -27,7 +27,9 @@ const getWorkForDashboard = async () => {
             }
         }
         dueCards = dueRows.filter(row => row.hasOwnProperty('daysLeft') && row.daysLeft <= 14);
-        const data = { dueRows: dueRows, pendingRows: pendingRows, dueCards: dueCards }
+        const data = { dueRows: dueRows.sort((a, b) => {return a.daysLeft - b.daysLeft}), 
+        pendingRows: pendingRows.sort((a, b) => {return a.daysLeft - b.daysLeft;}), 
+        dueCards: dueCards.sort((a, b) => {return a.daysLeft - b.daysLeft;}) }
         sessionStorage.setItem('dashboardData', JSON.stringify(data));
 
     } catch (error) {
