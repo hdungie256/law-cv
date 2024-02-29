@@ -2,6 +2,27 @@ import axios from "axios";
 import dayjs from "dayjs";
 import getAllWork from "./getAllWork";
 
+export async function checkDashboardForThisWork (workId) {
+    const response = await axios.get(process.env.REACT_APP_API_URL + 'work/' + workId,
+    { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })
+
+    const work = response.data.data;
+
+    var result = {needReply: null, needDTHL: null, needResult: null}
+
+    if (work.status === "Hoàn thành"){
+        return result;
+    }
+
+    const workNeedsReply = await needsReply(work);
+    const workNeedsDTHL = await needsDTHL(work);
+    const workNeedsResults = await needsResults(work);
+
+    result = {needReply: workNeedsReply, needDTHL: workNeedsDTHL, needResult: workNeedsResults};
+
+    return result;
+}
+
 const getWorkForDashboard = async () => {
     var dueRows = [];
     var pendingRows = [];
@@ -12,6 +33,9 @@ const getWorkForDashboard = async () => {
         { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.list;
         
         for (let i of allWork) {
+            if (i.status === "Hoàn thành"){
+                continue;
+            }
             const workNeedsReply = await needsReply(i)
             const workNeedsDTHL = await needsDTHL(i)
             const workNeedsResults = await needsResults(i)
@@ -27,7 +51,13 @@ const getWorkForDashboard = async () => {
             }
         }
         dueCards = dueRows.filter(row => row.hasOwnProperty('daysLeft') && row.daysLeft <= 14);
-        const data = { dueRows: dueRows, pendingRows: pendingRows, dueCards: dueCards }
+
+        var data = { dueRows: dueRows, pendingRows: pendingRows, dueCards: dueCards }
+
+        data = { dueRows: dueRows.sort((a, b) => {return a.daysLeft - b.daysLeft}), 
+        pendingRows: pendingRows.sort((a, b) => {return a.daysLeft - b.daysLeft;}), 
+        dueCards: dueCards.sort((a, b) => {return a.daysLeft - b.daysLeft;}) }
+
         sessionStorage.setItem('dashboardData', JSON.stringify(data));
 
     } catch (error) {
@@ -47,10 +77,10 @@ const needsReply = async (work) => {
             const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + work.customerId,
             { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
             const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
-            const deadline = dayjs(work.history[-1].date).add(3,'month')
+            const deadline = dayjs(work.history[work.history.length-1]?.date).add(3,'month')
             const daysLeft = deadline.diff(dayjs(), 'day')
 
-            const row = createDueWorkRow(work._id, work.gcnId, 'Trả lời thông báo', work.type, work.name, customerName, daysLeft, deadline)
+            const row = createDueWorkRow(work._id, work.gcnId, 'Trả lời thông báo', work.type, work.name, customerName, daysLeft, deadline.format("DD/MM/YYYY"))
             return row
         }
     }
@@ -69,7 +99,7 @@ const needsDTHL = async (i) => {
                 const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + i.customerId,
                 { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
                 const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
-                const work = createDueWorkRow(i._id, 'Duy trì hiệu lực', 'Nhãn hiệu', i.name, customerName, daysLeft, deadline.format('DD/MM/YYYY'));
+                const work = createDueWorkRow(i._id, i.gcnId, 'Duy trì hiệu lực', i.type, i.name, customerName, daysLeft, deadline.format('DD/MM/YYYY'));
                 return work
             }
         }
@@ -82,7 +112,7 @@ const needsDTHL = async (i) => {
                     const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + i.customerId,
                     { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
                     const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
-                    const work = createDueWorkRow(i._id, 'Duy trì hiệu lực', 'Nhãn hiệu', i.name, customerName, daysLeft, deadline.format('DD/MM/YYYY'));
+                    const work = createDueWorkRow(i._id, i.gcnId, 'Duy trì hiệu lực', i.type, i.name, customerName, daysLeft, deadline.format('DD/MM/YYYY'));
 
                     return work
                 }
@@ -99,7 +129,7 @@ const needsDTHL = async (i) => {
                     const customer = (await axios.get(process.env.REACT_APP_API_URL + 'customers/' + i.customerId,
                     { headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")} })).data.data
                     const customerName = (customer.customerShortName ? customer.customerShortName : customer.customerName)
-                    const work = createDueWorkRow(i._id, i.gcnId, 'Duy trì hiệu lực năm thứ ' + daysPast, type, i.name, customerName, daysLeft, deadline.format('DD/MM/YYYY'));
+                    const work = createDueWorkRow(i._id, i.gcnId, 'Duy trì hiệu lực năm thứ ' + daysPast, i.type, i.name, customerName, daysLeft, deadline.format('DD/MM/YYYY'));
                     return work
                 }
             }

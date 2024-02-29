@@ -2,13 +2,11 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
   function createRow(id, customerName, type, workName, paperId, paperSubmitDate, gcnId, gcnDate, status) {
-    var formattedPaperId=paperId
-    var formattedDate=paperSubmitDate
-    var formattedGcnId=gcnId
-    var formattedGcnDate=gcnDate
+    var formattedDate
+    var formattedGcnDate
 
     if (paperId == undefined || paperId.length<4){
-      formattedPaperId = ""
+      paperId = ""
     }
 
     if (paperSubmitDate == undefined){
@@ -19,7 +17,7 @@ import dayjs from 'dayjs';
     }
 
     if (gcnId == undefined){
-      formattedGcnId = ""
+      gcnId = ""
     }
 
     if (gcnDate == undefined){
@@ -30,7 +28,7 @@ import dayjs from 'dayjs';
     }
 
     return {
-      id, customerName, type, workName, formattedPaperId, formattedDate, gcnId, formattedGcnDate, status
+      id, customerName, type, workName, paperId, formattedDate, gcnId, formattedGcnDate, status
     };
   } 
 

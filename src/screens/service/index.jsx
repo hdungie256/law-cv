@@ -19,12 +19,75 @@ import {Grid} from '@mui/material';
 import SearchBar from '../../components/SearchBar';
 import InfoDialog from '../../components/InfoDialog';
 import LoadingDialog from '../../components/LoadingDialog';
-import getWorkForDashboard from '../../apis/work/getWorkForDashboard';
+// import getWorkForDashboard from '../../apis/work/getWorkForDashboard';
+import {checkDashboardForThisWork} from '../../apis/work/getWorkForDashboard';
 
 const ServiceScreen= () =>{
   const [isEditting, setIsEditting] = useState(false)
 
   const [workList, setWorkList] = useState([])
+
+  const fixDashboardForThisWork = async (workId) => {
+    const result = await checkDashboardForThisWork(workId);
+
+    const dashboardData = JSON.parse(sessionStorage.getItem("dashboardData"));
+
+    var dueRows = dashboardData.dueRows;
+    var dueCards = dashboardData.dueCards;
+    var pendingRows = dashboardData.pendingRows;
+
+    for (let i=0; i<2; i++){
+      for (let i=0;i<dueCards.length;i++){
+        if (dueCards[i].workId === workId){
+          dueCards.splice(i,1);
+          break;
+        }
+      }
+    }
+
+    for (let i=0; i<2; i++){
+      for (let i=0;i<dueRows.length;i++){
+        if (dueRows[i].workId === workId){
+          dueRows.splice(i,1);
+          break;
+        }
+      }
+    }
+
+    for (let i=0; i<2; i++){
+      for (let i=0;i<pendingRows.length;i++){
+        if (pendingRows[i].workId === workId){
+          pendingRows.splice(i,1);
+          break;
+        }
+      }
+    }
+
+    if (result.needReply){
+      dueRows.push(result.needReply);
+      if (result.needReply.daysLeft <= 14){
+        dueCards.push(result.needReply);
+      }
+    }
+
+    if (result.needDTHL){
+      dueRows.push(result.needDTHL);
+      if (result.needDTHL.daysLeft <= 14){
+        dueCards.push(result.needDTHL);
+      }
+    }
+
+    if (result.needResult){
+      pendingRows.push(result.needResult);
+    }
+
+    const data = { dueRows: dueRows.sort((a, b) => {return a.daysLeft - b.daysLeft}), 
+    pendingRows: pendingRows.sort((a, b) => {return a.daysLeft - b.daysLeft;}), 
+    dueCards: dueCards.sort((a, b) => {return a.daysLeft - b.daysLeft;}) }
+
+    sessionStorage.setItem("dashboardData", JSON.stringify(data));
+  }
+
   const fetchData = async (reload) => {
     if (!sessionStorage.getItem("serviceData")){
       setIsLoading(true)
@@ -33,6 +96,7 @@ const ServiceScreen= () =>{
     if (reload || !sessionStorage.getItem("serviceData")){
         const data = await getAllWork();
         sessionStorage.setItem('serviceData', JSON.stringify(data));
+        // await getWorkForDashboard();
     }
     const d = sessionStorage.getItem("serviceData")
     
@@ -329,6 +393,7 @@ const ServiceScreen= () =>{
             afterSave={(res) => {
                 if (res) {
                   toggleThamDinhDialog();
+                  fixDashboardForThisWork(thisWork.current._id);
                   fetchData(true);
                 }
               }}
@@ -347,6 +412,7 @@ const ServiceScreen= () =>{
             afterSave={(res) => {
                 if (res) {
                   toggleSauCapVBDialog();
+                  fixDashboardForThisWork(thisWork.current._id);
                   fetchData(true);
                 }
               }}
@@ -375,6 +441,7 @@ const ServiceScreen= () =>{
               afterSave={(res) => {
                   if (res) {
                     toggleMadridDialog();
+                    fixDashboardForThisWork(thisWork.current._id);
                     fetchData(true);
                   }
                 }}
@@ -389,8 +456,9 @@ const ServiceScreen= () =>{
                 const res = await changeWorkStatus(thisWork.current._id, newStatus);
                 if (res){
                   setIsLoadingDialog(false)
+                  fixDashboardForThisWork(thisWork.current._id);
                   fetchData(true)
-                  await getWorkForDashboard()
+                  // await getWorkForDashboard()
                 }
               }}
               height={'28%'}

@@ -13,6 +13,7 @@ import { CircularProgress, Grid } from '@mui/material'
 import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box';
 import LoadingDialog from '../../components/LoadingDialog'
+import getWorkForDashboard from '../../apis/work/getWorkForDashboard'
 
 const CustomerScreen= (props) =>{
   const [isLoadingDialog, setIsLoadingDialog] = useState(false)
@@ -30,6 +31,7 @@ const CustomerScreen= (props) =>{
         const data = await getAllCustomers();
         sessionStorage.setItem('customerData', JSON.stringify(data));
         setCustomerList(JSON.parse(sessionStorage.getItem("customerData")));
+        await getWorkForDashboard();
     } else {
       const storedData = sessionStorage.getItem("customerData");
       setCustomerList(JSON.parse(storedData));

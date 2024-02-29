@@ -1,6 +1,6 @@
 import './index.scss'
 import DialogBox from '../DialogBox'
-import {Chip, Grid, Typography} from '@mui/material';
+import {Chip, Grid} from '@mui/material';
 import ButtonSubmit from '../ButtonSubmit';
 import ButtonCancel from '../ButtonCancel'
 import FormAccordion from '../FormAccordion';
@@ -33,11 +33,11 @@ const ServiceDialog = (props) => {
     var res = {}
     if (props.edit){
       res = await updateWork(props.workId, props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
-      await getWorkForDashboard()
+      // await getWorkForDashboard()
     }
     else{
       res = await createWork(props.customerId, 'Thẩm định ' + props.type, serviceName, serviceGroup, paperId, paperSubmitDate, formHistory, gcnId, gcnDate, null, null)
-      await getWorkForDashboard()
+      // await getWorkForDashboard()
     }
       props.afterSave(res)
   }

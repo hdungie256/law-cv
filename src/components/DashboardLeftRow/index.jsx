@@ -6,6 +6,9 @@ import getWork from "../../apis/work/getWork";
 import getAllWork from "../../apis/work/getAllWork";
 import getCustomer from "../../apis/customer/getCustomer";
 import LoadingDialog from "../LoadingDialog";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import { IconButton } from '@mui/material';
 
 const DashboardLeftRow = (props) => {
     const [isLoadingDialog, setIsLoadingDialog] = useState(false)
@@ -53,29 +56,41 @@ const DashboardLeftRow = (props) => {
             gncId={gcnIdForDialog.current}
         />}
 
-        <div onClick={handleClick} style={{cursor: 'pointer'}}>
-
         <Grid container sx={{background:'none',height: '50px',display:'flex', alignItems: 'center'}}>
-        <Grid item md={0.5}>
-            <Pause fontSize="small" sx={{borderRadius: '50%', background: '#defba1'}}/>
+            <Grid item md={11}>
+                <div onClick={handleClick} style={{cursor: 'pointer'}}>
+                <Grid container sx={{background:'none',height: '50px',display:'flex', alignItems: 'center'}}>
+                <Grid item md={0.5}>
+                    <Pause fontSize="small" sx={{borderRadius: '50%', background: '#defba1'}}/>
+                </Grid>
+                <Grid item md={2.5}>
+                    <Typography noWrap className='dashboard-left-tab-text' variant='body2'> <b> {props.data.workName} </b></Typography>
+                </Grid>
+                <Grid item md={2}>
+                    <Chip sx={{background:'#fbf2a1'}} label={props.data.type}/>
+                </Grid>
+                <Grid item md={2.5}>
+                    <Typography className='dashboard-left-tab-text' variant='body2' noWrap> {props.data.customerName} </Typography>
+                </Grid>
+                <Grid item md={1.5} sx={{display: 'flex', justifyContent:'center'}}>
+                    <Typography className='dashboard-left-tab-text dashboard-left-tab-text-days' variant='body2' sx={{color: 'red'}} noWrap> <b>{props.data.daysLeft} </b></Typography>
+                </Grid>
+                <Grid item md={1.5}>
+                    <Typography className='dashboard-left-tab-text' variant='body2' noWrap> {props.data.deadline} </Typography>
+                </Grid>
+                </Grid>
+                </div>
+            </Grid>
+
+            <Grid item md={1}>
+                {/* <div style={{display: 'flex', flexDirection: 'row'}}>
+                    <IconButton><ModeEditIcon /></IconButton>
+                    <IconButton><AutorenewIcon /></IconButton>
+                </div> */}
+            </Grid>
+
+
         </Grid>
-        <Grid item md={3.25}>
-            <Typography noWrap className='dashboard-left-tab-text' variant='body2'> <b> {props.data.workName} </b></Typography>
-        </Grid>
-        <Grid item md={2}>
-            <Chip sx={{background:'#fbf2a1'}} label={props.data.type}/>
-        </Grid>
-        <Grid item md={2.5}>
-            <Typography className='dashboard-left-tab-text' variant='body2' noWrap> {props.data.customerName} </Typography>
-        </Grid>
-        <Grid item md={2.25} sx={{display: 'flex', justifyContent:'center'}}>
-            <Typography className='dashboard-left-tab-text dashboard-left-tab-text-days' variant='body2' sx={{color: 'red'}} noWrap> <b>{props.data.daysLeft} </b></Typography>
-        </Grid>
-        <Grid item md={1.5}>
-            <Typography className='dashboard-left-tab-text' variant='body2' noWrap> {props.data.deadline} </Typography>
-        </Grid>
-        </Grid>
-        </div>
         </>
     )
 }
