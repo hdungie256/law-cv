@@ -55,7 +55,7 @@ const getWorkForDashboard = async () => {
         var data = { dueRows: dueRows, pendingRows: pendingRows, dueCards: dueCards }
 
         data = { dueRows: dueRows.sort((a, b) => {return a.daysLeft - b.daysLeft}), 
-        pendingRows: pendingRows.sort((a, b) => {return a.daysLeft - b.daysLeft;}), 
+        pendingRows: pendingRows.sort((a, b) => {return  b.daysLeft - a.daysLeft;}), 
         dueCards: dueCards.sort((a, b) => {return a.daysLeft - b.daysLeft;}) }
 
         sessionStorage.setItem('dashboardData', JSON.stringify(data));
@@ -169,7 +169,7 @@ const needsResults = async (work) => {
     const diff = Math.round(dayjs().diff(dayjs(work.paperSubmitDate), 'month', true))
     var daysOver; 
 
-    if (diff >= baseMonth && diff <= baseMonth*2){
+    if (diff >= baseMonth){
         daysOver = Math.round(dayjs().diff(dayjs(work.paperSubmitDate), 'day', true))
 
         if (work.history.length === 0){
