@@ -1,7 +1,6 @@
 import { Box, Typography, Grid, Divider } from "@mui/material"
 import Link from '@mui/material/Link';
 import './index.scss'
-import DashboardDueRow from "../DashboardDueRow";
 import DashboardLeftRow from "../DashboardLeftRow";
 
 const DashboardLeftTab = (props) => {
@@ -21,7 +20,7 @@ const DashboardLeftTab = (props) => {
                 {
                     props.data.map((item) => (
                         <>
-                            <DashboardLeftRow data={item}/>
+                            <DashboardLeftRow reloadData={props.reloadData} data={item}/>
                             <Divider/>
                         </>
                     ))

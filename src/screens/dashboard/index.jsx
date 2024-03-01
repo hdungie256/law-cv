@@ -81,10 +81,14 @@ const DashBoardScreen= () =>{
                 <Grid item md={9} style={{padding: 0, paddingLeft: '20px'}}>
                     <Stack spacing={1} alignItems='stretch' direction='column' sx={{height:'100%'}}>
                         <div style={{height: '50%', margin: 0, background: 'white', borderRadius: '5px'}}>
-                            <DashboardDueTab data={dueData} maxHeight='45vh'/> 
+                            <DashboardDueTab reloadData={() =>  
+                            {setDueData(JSON.parse(sessionStorage.getItem('dashboardData'))['dueRows']);
+                            setDueCard(JSON.parse(sessionStorage.getItem('dashboardData'))['dueCards'])}} 
+                            data={dueData} maxHeight='45vh'/> 
                         </div>
                         <div style={{height: '50%', marginTop: '20px', background: 'white', borderRadius: '5px'}}>
-                            <DashboardLeftTab data={pendingData} maxHeight='45vh'/>
+                            <DashboardLeftTab reloadData={() => {setPendingData(JSON.parse(sessionStorage.getItem('dashboardData'))['pendingRows'])}}
+                            data={pendingData} maxHeight='45vh'/>
                         </div>
                     </Stack>
                 </Grid>

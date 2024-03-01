@@ -2,7 +2,6 @@ import { Box, Typography, Grid, Divider } from "@mui/material"
 import Link from '@mui/material/Link';
 import './index.scss'
 import DashboardDueRow from "../DashboardDueRow";
-import { useRef,useEffect } from "react";
 
 const DashboardDueTab = (props) => {
 
@@ -21,7 +20,7 @@ const DashboardDueTab = (props) => {
                 {
                     props.data.map((item) => (
                         <>
-                            <DashboardDueRow data={item}/>
+                            <DashboardDueRow reloadData={props.reloadData}  data={item}/>
                             <Divider/>
                         </>
                     ))
