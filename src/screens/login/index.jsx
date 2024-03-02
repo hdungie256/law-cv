@@ -12,9 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import logIn from '../../apis/account/logIn';
 import { CardMedia, Divider, Grid, Stack, Typography } from '@mui/material';
 import logoImage from '../../../src/logo.png';
-import getWorkForDashboard from '../../apis/work/getWorkForDashboard';
 
-function LogInScreen() {
+function LogInScreen(props) {
   let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const handleUsernameChange = (e) => {
@@ -66,7 +65,8 @@ function LogInScreen() {
 
       const res = await logIn(username, password)
       if (res){
-        navigate("../main")
+        props.setLogIn();
+        navigate("../dashboard")
       }
     }
 

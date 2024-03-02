@@ -9,23 +9,24 @@ const LeftNavBar = (props) => {
 
   const [navButton, setNavButton] = useState("dashboard")
   const handleClickDashboard  = () =>{
-    setNavButton("dashboard")
-    props.onSubScreenChange("dashboard");
+    setNavButton("dashboard");
+    navigate("../dashboard");
   }
 
   const handleClickCustomer  = () =>{
-    setNavButton("customer")
-    props.onSubScreenChange("customer");
+    setNavButton("customer");
+    navigate("../customers");
   }
 
   const handleClickService  = () =>{
     setNavButton("service")
-    props.onSubScreenChange("service");
+    navigate("../service");
   }
 
   const handleClickLogout  = () =>{
     setNavButton("logout")
     sessionStorage.clear()
+    props.logOut();
     navigate('/login')
   }
 

@@ -117,8 +117,6 @@ const DashboardDueRow = (props) => {
 
                 <Grid container spacing={1} sx={{background:'none',height: '50px',display:'flex', alignItems: 'center'}}>
                 <Grid item md={0.5}>
-                    {/* <ArrowRight fontSize='small'/> */}
-                    {/* <Divider  orientation="vertical" flexItem/> */}
                     {props.data?.action?.includes('Duy trì hiệu lực') ?  <ArrowRight fontSize='small' sx={{borderRadius: '50%',background: '#caebff'}}/>
                     : <Reply fontSize="small" sx={{borderRadius: '50%',background: '#fbcca1'}}/>}
                 </Grid>
