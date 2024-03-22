@@ -89,6 +89,7 @@ const ServiceScreen= () =>{
   }
 
   const fetchData = async (reload) => {
+    
     if (!sessionStorage.getItem("serviceData")){
       setIsLoading(true)
     }
@@ -390,7 +391,7 @@ const ServiceScreen= () =>{
             customerId={thisCustomer.current._id}
             workValues={thisWork.current}
             workId={thisWork.current._id}
-            afterSave={(res) => {
+            afterSave={async (res) => {
                 if (res) {
                   toggleThamDinhDialog();
                   fixDashboardForThisWork(thisWork.current._id);

@@ -64,7 +64,7 @@ const InfoDialog = (props) => {
         <AccordionDetails className='dialog-info-accordion-details'>
           <Grid container>
             <Grid item md={6}>
-                <Typography> <b className='dialog-info-title'> Số đơn: </b> {item.paperId} </Typography>
+                <Typography> <b className='dialog-info-title'> Số đơn: </b> {item.formattedPaperId} </Typography>
             </Grid>
             <Grid item md={6}>
                 <Typography> <b className='dialog-info-title'> Ngày nộp đơn: </b> {item.formattedDate ? item.formattedDate : 

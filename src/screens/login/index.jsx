@@ -80,6 +80,9 @@ function LogInScreen(props) {
 
                 <Grid container sx={{padding: '10px', height: '100%'}}>
                   <Grid item md={6} style={{padding: '0px'}} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:'center', gap:'15px', padding: '0px'}}>
+                    <Typography variant="caption" sx={{justifyContent: "center", display: 'flex', textAlign: 'center'}}>
+                          This serves as a duplicate of the authentic website. All user interface elements and functionalities remain identical, with the exception of the data, implemented to safeguard customer information.
+                    </Typography>
                     <Stack direction="row" sx={{margin: '10px'}}>
                       <CardMedia
                         component="img"
@@ -90,8 +93,11 @@ function LogInScreen(props) {
                       <Divider sx={{width: '10px'}} orientation="vertical" variant="middle" flexItem />
                       <Typography style={{ marginLeft: '10px' }} variant='h4'>BACIP</Typography>
                     </Stack>
+
+                    <Typography> <b>Username:</b> guest </Typography>
+                    <Typography> <b>Password:</b> 12345678 </Typography>
                     
-                    <Title className='title' title='Đăng nhập'/>
+                    {/* <Title className='title' title='Đăng nhập'/> */}
                     <div id='username-field' className={`${usernameError} field`}>
                       <TextInput padding='0px 40px' type='text'onChange = {(e) => {handleUsernameChange(e); handleUsernameError(e.target.value)}} errorMessage={usernameError} frontIcon={faUser} placeholder={('Tên đăng nhập')} />
                     </div>

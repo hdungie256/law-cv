@@ -1,6 +1,7 @@
 import './index.scss'
 import DialogBox from '../DialogBox'
 import {Chip, Grid} from '@mui/material';
+import {Chip, Grid} from '@mui/material';
 import ButtonSubmit from '../ButtonSubmit';
 import ButtonCancel from '../ButtonCancel'
 import FormAccordion from '../FormAccordion';
@@ -9,7 +10,6 @@ import ServiceInfoAccordion from '../ServiceInfoAccordion';
 import GCNAccordion from '../GCNAccordion';
 import createWork from '../../apis/work/createWork'
 import updateWork from '../../apis/work/updateWork'
-import getWorkForDashboard from '../../apis/work/getWorkForDashboard';
 
 const ServiceDialog = (props) => {
   const handleSave = async () => {
